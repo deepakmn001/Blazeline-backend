@@ -1,0 +1,744 @@
+[
+  {
+    "sku": "VVN-25015(A)",
+    "product_name": "Single Lever Sink Mixer (W.M)",
+    "gd_price": 11500,
+    "rgd_price": 11500,
+    "mb_price": 10300
+  },
+  {
+    "sku": "VVN-25021",
+    "product_name": "Exposed Parts Kit for S/L Wall Mounted Basin Mixer",
+    "gd_price": 7400,
+    "rgd_price": 7400,
+    "mb_price": 6400
+  },
+  {
+    "sku": "VVN-25017",
+    "product_name": "Single Lever Exposed Parts Kit for 2 Inlet Hi-Flow 46mm Divertor",
+    "gd_price": 5950,
+    "rgd_price": 5950,
+    "mb_price": 4900
+  },
+  {
+    "sku": "VVN-25017(A)",
+    "product_name": "Single Lever Exposed Parts Kit for 2 Inlet Hi-Flow 40mm Divertor",
+    "gd_price": 5750,
+    "rgd_price": 5750,
+    "mb_price": 4700
+  },
+  {
+    "sku": "VVN-25018",
+    "product_name": "Single Lever Exposed Parts Kit for 3 Inlet Divertor",
+    "gd_price": 5950,
+    "rgd_price": 5950,
+    "mb_price": 4900
+  },
+  {
+    "sku": "VVN-25010",
+    "product_name": "Wall Mixer Non Telephonic",
+    "gd_price": 10500,
+    "rgd_price": 10500,
+    "mb_price": 8700
+  },
+  {
+    "sku": "VVN-25015",
+    "product_name": "Sink Mixer (Q.T.)",
+    "gd_price": 10500,
+    "rgd_price": 10500,
+    "mb_price": 7100
+  },
+  {
+    "sku": "VVN-25019",
+    "product_name": "Bath Tub Spout (Plain)",
+    "gd_price": 4400,
+    "rgd_price": 4400,
+    "mb_price": 3800
+  },
+  {
+    "sku": "VVN-25020",
+    "product_name": "Bath Tub Button Spout",
+    "gd_price": 5600,
+    "rgd_price": 5600,
+    "mb_price": 4900
+  },
+  {
+    "sku": "VVN-25016",
+    "product_name": "Swan Neck",
+    "gd_price": 4750,
+    "rgd_price": 4750,
+    "mb_price": 4100
+  },
+  {
+    "sku": "VVN-25022",
+    "product_name": "Single Lever Sink Mixer Table Mounted",
+    "gd_price": 9500,
+    "rgd_price": 9500,
+    "mb_price": 8400
+  },
+  {
+    "sku": "VVN-25025",
+    "product_name": "Tall Pillar Cock",
+    "gd_price": 6300,
+    "rgd_price": 6300,
+    "mb_price": 5650
+  },
+  {
+    "sku": "VVN-25023",
+    "product_name": "Exposed Part Kit of Con. Stop Cock",
+    "gd_price": 1850,
+    "rgd_price": 1850,
+    "mb_price": 1000
+  },
+  {
+    "sku": "VVN-25008",
+    "product_name": "Angular Stop Cock 2 Way",
+    "gd_price": 4550,
+    "rgd_price": 4550,
+    "mb_price": 3750
+  },
+  {
+    "sku": "VVN-25009",
+    "product_name": "Single Lever Basin Mixer",
+    "gd_price": 7500,
+    "rgd_price": 7500,
+    "mb_price": 7200
+  },
+  {
+    "sku": "VCP-32001",
+    "product_name": "Pillar Cock",
+    "gd_price": 4750,
+    "rgd_price": 4750,
+    "mb_price": 4100
+  },
+  {
+    "sku": "VCP-32003",
+    "product_name": "Bib Cock Long Body",
+    "gd_price": 3800,
+    "rgd_price": 3800,
+    "mb_price": 2850
+  },
+  {
+    "sku": "VCP-32004",
+    "product_name": "Angular Stop Cock",
+    "gd_price": 2800,
+    "rgd_price": 2800,
+    "mb_price": 2150
+  },
+  {
+    "sku": "VCP-32005",
+    "product_name": "Concealed Stop Cock 15mm",
+    "gd_price": 3050,
+    "rgd_price": 3050,
+    "mb_price": 2700
+  },
+  {
+    "sku": "VCP-32006",
+    "product_name": "Concealed Stop Cock 20mm",
+    "gd_price": 3100,
+    "rgd_price": 3100,
+    "mb_price": 2750
+  },
+  {
+    "sku": "VCP-32007",
+    "product_name": "Bib Cock 2 Way",
+    "gd_price": 4850,
+    "rgd_price": 4850,
+    "mb_price": 4300
+  },
+  {
+    "sku": "VCP-32009",
+    "product_name": "Single Lever Basin Mixer",
+    "gd_price": 8250,
+    "rgd_price": 8250,
+    "mb_price": 8000
+  },
+  {
+    "sku": "VCP-32009A",
+    "product_name": "Single Lever Extended Basin Mixer 12\"",
+    "gd_price": 12900,
+    "rgd_price": 12900,
+    "mb_price": 12000
+  },
+  {
+    "sku": "VCP-32014",
+    "product_name": "Sink Cock",
+    "gd_price": 5700,
+    "rgd_price": 5700,
+    "mb_price": 4900
+  },
+  {
+    "sku": "VCP-32016",
+    "product_name": "Swan Neck",
+    "gd_price": 5750,
+    "rgd_price": 5750,
+    "mb_price": 5500
+  },
+  {
+    "sku": "VCP-32017",
+    "product_name": "Single Lever Exposed Parts Kit for 2 Inlet Hi Flow 46mm Divertor",
+    "gd_price": 6300,
+    "rgd_price": 6300,
+    "mb_price": 5400
+  },
+  {
+    "sku": "VCP-32017(A)",
+    "product_name": "Single Lever Exposed Parts Kit for 2 Inlet Hi Flow 40mm Divertor",
+    "gd_price": 6100,
+    "rgd_price": 6100,
+    "mb_price": 5200
+  },
+  {
+    "sku": "VCP-32019",
+    "product_name": "Bath Tub Spout (Plain)",
+    "gd_price": 4450,
+    "rgd_price": 4450,
+    "mb_price": 3950
+  },
+  {
+    "sku": "VCP-32020",
+    "product_name": "Bath Tub Button Spout",
+    "gd_price": 5550,
+    "rgd_price": 5550,
+    "mb_price": 4900
+  },
+  {
+    "sku": "VCP-32021",
+    "product_name": "Exposed Part Kit for Single Lever Wall Mounted Basin Mixer",
+    "gd_price": 7850,
+    "rgd_price": 7850,
+    "mb_price": 6400
+  },
+  {
+    "sku": "VCP-32023",
+    "product_name": "Exposed Part Kit of Con. Stop Cock",
+    "gd_price": 1950,
+    "rgd_price": 1950,
+    "mb_price": 1200
+  },
+  {
+    "sku": "VCP-32018",
+    "product_name": "Single Lever Exposed Parts Kit for 3 Inlet Divertor",
+    "gd_price": 6300,
+    "rgd_price": 6300,
+    "mb_price": 5400
+  },
+  {
+    "sku": "VCP-32025",
+    "product_name": "Tall Pillar Cock",
+    "gd_price": 7700,
+    "rgd_price": 7700,
+    "mb_price": 7550
+  },
+  {
+    "sku": "VAU-14001",
+    "product_name": "Pillar Cock",
+    "gd_price": 4500,
+    "rgd_price": 4500,
+    "mb_price": 3800
+  },
+  {
+    "sku": "VAU-14002",
+    "product_name": "Bib Cock",
+    "gd_price": 3600,
+    "rgd_price": 3600,
+    "mb_price": 2850
+  },
+  {
+    "sku": "VAU-14003",
+    "product_name": "Bib Cock Long Nose",
+    "gd_price": 3950,
+    "rgd_price": 3950,
+    "mb_price": 3000
+  },
+  {
+    "sku": "VAU-14004",
+    "product_name": "Angular Stop Cock",
+    "gd_price": 2950,
+    "rgd_price": 2950,
+    "mb_price": 2350
+  },
+  {
+    "sku": "VAU-14005",
+    "product_name": "Concealed Stop Cock 15mm",
+    "gd_price": 3700,
+    "rgd_price": 3700,
+    "mb_price": 3600
+  },
+  {
+    "sku": "VAU-14006",
+    "product_name": "Concealed Stop Cock 20mm",
+    "gd_price": 3750,
+    "rgd_price": 3750,
+    "mb_price": 3650
+  },
+  {
+    "sku": "VAU-14007",
+    "product_name": "Bib Cock 2-Way",
+    "gd_price": 5300,
+    "rgd_price": 5300,
+    "mb_price": 4900
+  },
+  {
+    "sku": "VAU-14009(A)",
+    "product_name": "Single Lever Basin Mixer Ext. 600mm with Long Braided Pipe with Brass Nuts",
+    "gd_price": 9500,
+    "rgd_price": 9500,
+    "mb_price": 9000
+  },
+  {
+    "sku": "VAU-14011",
+    "product_name": "Wall Mixer with Tel. Shower Arr. only with Tel. Shower Crutch",
+    "gd_price": 14650,
+    "rgd_price": 14650,
+    "mb_price": 11500
+  },
+  {
+    "sku": "VAU-14012",
+    "product_name": "Wall Mixer with Provision for O/S with 115mm Long Bend Pipe",
+    "gd_price": 14500,
+    "rgd_price": 14500,
+    "mb_price": 11250
+  },
+  {
+    "sku": "VAU-14013",
+    "product_name": "Wall Mixer 3 in 1 System with Provision for Both Tel. & O/S with Bend Pipe",
+    "gd_price": 16000,
+    "rgd_price": 16000,
+    "mb_price": 12250
+  },
+  {
+    "sku": "VAU-14014",
+    "product_name": "Sink Cock",
+    "gd_price": 4650,
+    "rgd_price": 4650,
+    "mb_price": 3500
+  },
+  {
+    "sku": "VAU-14015(A)",
+    "product_name": "Single Lever Sink Mixer & Wall Mounted Basin Mixer",
+    "gd_price": 11500,
+    "rgd_price": 11500,
+    "mb_price": 10300
+  },
+  {
+    "sku": "VAU-14021",
+    "product_name": "Exposed Parts Kit for Single Lever Basin Mixer Wall Mounted",
+    "gd_price": 6700,
+    "rgd_price": 6700,
+    "mb_price": 4900
+  },
+  {
+    "sku": "VAU-14017",
+    "product_name": "Single Lever Exposed Parts Kit for 2 Inlet Hi Flow 46mm Divertor",
+    "gd_price": 6100,
+    "rgd_price": 6100,
+    "mb_price": 5050
+  },
+  {
+    "sku": "VAU-14017(A)",
+    "product_name": "Single Lever Exposed Parts Kit for 2 Inlet Hi Flow 40mm Divertor",
+    "gd_price": 5900,
+    "rgd_price": 5900,
+    "mb_price": 4850
+  },
+  {
+    "sku": "VAU-14018",
+    "product_name": "Single Lever Exposed Parts Kit for 3 Inlet Divertor",
+    "gd_price": 6100,
+    "rgd_price": 6100,
+    "mb_price": 5050
+  },
+  {
+    "sku": "VAU-14019",
+    "product_name": "Bath Tub Spout (Plain)",
+    "gd_price": 3650,
+    "rgd_price": 3650,
+    "mb_price": 2850
+  },
+  {
+    "sku": "VAU-14020",
+    "product_name": "Bath Tub Button Spout",
+    "gd_price": 4850,
+    "rgd_price": 4850,
+    "mb_price": 3950
+  },
+  {
+    "sku": "VAU-14015",
+    "product_name": "Sink Mixer Q.T.",
+    "gd_price": 10000,
+    "rgd_price": 10000,
+    "mb_price": 7600
+  },
+  {
+    "sku": "VAU-14010",
+    "product_name": "Wall Mixer Non Tele. Q.T.",
+    "gd_price": 11650,
+    "rgd_price": 11650,
+    "mb_price": 9900
+  },
+  {
+    "sku": "VAU-14025",
+    "product_name": "Tall Pillar Cock",
+    "gd_price": 6500,
+    "rgd_price": 6500,
+    "mb_price": 5900
+  },
+  {
+    "sku": "VAU-14009",
+    "product_name": "Single Lever Basin Mixer with 600mm Long Braided Pipe with Brass Nuts",
+    "gd_price": 7700,
+    "rgd_price": 7700,
+    "mb_price": 7000
+  },
+  {
+    "sku": "VAU-14016",
+    "product_name": "Swan Neck",
+    "gd_price": 4900,
+    "rgd_price": 4900,
+    "mb_price": 4350
+  },
+  {
+    "sku": "VAU-14023",
+    "product_name": "Exposed Part Kit of Con. Stop Cock",
+    "gd_price": 2100,
+    "rgd_price": 2100,
+    "mb_price": 1350
+  },
+  {
+    "sku": "VOP-30001",
+    "product_name": "Pillar Cock",
+    "gd_price": 3600,
+    "rgd_price": 3600,
+    "mb_price": 2500
+  },
+  {
+    "sku": "VOP-30002",
+    "product_name": "Bib Cock",
+    "gd_price": 3150,
+    "rgd_price": 3150,
+    "mb_price": 2300
+  },
+  {
+    "sku": "VOP-30003",
+    "product_name": "Bib Cock Long Nose",
+    "gd_price": 3500,
+    "rgd_price": 3500,
+    "mb_price": 2400
+  },
+  {
+    "sku": "VOP-30004",
+    "product_name": "Angular Stop Cock",
+    "gd_price": 2250,
+    "rgd_price": 2250,
+    "mb_price": 1400
+  },
+  {
+    "sku": "VOP-30005",
+    "product_name": "Concealed Stop Cock 15mm",
+    "gd_price": 2800,
+    "rgd_price": 2800,
+    "mb_price": 2350
+  },
+  {
+    "sku": "VOP-30006",
+    "product_name": "Concealed Stop Cock 20mm",
+    "gd_price": 2850,
+    "rgd_price": 2850,
+    "mb_price": 2400
+  },
+  {
+    "sku": "VOP-30007",
+    "product_name": "Bib Cock 2-Way (D.H)",
+    "gd_price": 3900,
+    "rgd_price": 3900,
+    "mb_price": 3000
+  },
+  {
+    "sku": "VOP-30008",
+    "product_name": "Angular Stop Cock 2 Way",
+    "gd_price": 4100,
+    "rgd_price": 4100,
+    "mb_price": 3000
+  },
+  {
+    "sku": "VOP-30015",
+    "product_name": "Sink Mixer Q.T.",
+    "gd_price": 8600,
+    "rgd_price": 8600,
+    "mb_price": 5700
+  },
+  {
+    "sku": "VOP-30011",
+    "product_name": "Wall Mixer with Tel. Shower Arr. only with Tel. Shower Crutch",
+    "gd_price": 12750,
+    "rgd_price": 12750,
+    "mb_price": 8900
+  },
+  {
+    "sku": "VOP-30012",
+    "product_name": "Wall Mixer L-Bend with Provision for O/S with 115mm Long Band Pipe",
+    "gd_price": 12600,
+    "rgd_price": 12600,
+    "mb_price": 8700
+  },
+  {
+    "sku": "VOP-30013",
+    "product_name": "Wall Mixer 3 in 1 with Provision for O/S with 115mm Long Band Pipe",
+    "gd_price": 14100,
+    "rgd_price": 14100,
+    "mb_price": 9700
+  },
+  {
+    "sku": "VOP-30014",
+    "product_name": "Sink Cock",
+    "gd_price": 4050,
+    "rgd_price": 4050,
+    "mb_price": 2850
+  },
+  {
+    "sku": "VOP-30015(A)",
+    "product_name": "Single Lever Sink Mixer with Swivel Spout Wall Mounted",
+    "gd_price": 11500,
+    "rgd_price": 11500,
+    "mb_price": 10300
+  },
+  {
+    "sku": "VOP-30016",
+    "product_name": "Swan Neck",
+    "gd_price": 4050,
+    "rgd_price": 4050,
+    "mb_price": 3200
+  },
+  {
+    "sku": "VOP-30017",
+    "product_name": "Single Lever Exposed Parts Kit for 2 Inlet Hi-Flow 46mm Divertor",
+    "gd_price": 6000,
+    "rgd_price": 6000,
+    "mb_price": 4950
+  },
+  {
+    "sku": "VOP-30017(A)",
+    "product_name": "Single Lever Exposed Parts Kit for 2 Inlet Hi-Flow 40mm Divertor",
+    "gd_price": 5800,
+    "rgd_price": 5800,
+    "mb_price": 4750
+  },
+  {
+    "sku": "VOP-30018",
+    "product_name": "Single Lever Exposed Parts Kit for 3 Inlet Divertor",
+    "gd_price": 6000,
+    "rgd_price": 6000,
+    "mb_price": 4950
+  },
+  {
+    "sku": "VOP-30019",
+    "product_name": "Bath Tub Spout (Plain)",
+    "gd_price": 3800,
+    "rgd_price": 3800,
+    "mb_price": 3000
+  },
+  {
+    "sku": "VOP-30020",
+    "product_name": "Bath Tub Button Spout",
+    "gd_price": 5000,
+    "rgd_price": 5000,
+    "mb_price": 4100
+  },
+  {
+    "sku": "VOP-30022",
+    "product_name": "Single Lever Sink Mixer Table Mounted",
+    "gd_price": 9500,
+    "rgd_price": 9500,
+    "mb_price": 8400
+  },
+  {
+    "sku": "VOP-30023",
+    "product_name": "Exposed Parts Kit of Con. Stop Cock",
+    "gd_price": 1850,
+    "rgd_price": 1850,
+    "mb_price": 1000
+  },
+  {
+    "sku": "VOP-30021",
+    "product_name": "Exposed Parts Kit for Single Lever Wall Mounted Basin Mixer",
+    "gd_price": 7750,
+    "rgd_price": 7750,
+    "mb_price": 6400
+  },
+  {
+    "sku": "VOP-30009(A)",
+    "product_name": "Single Lever Extended Basin Mixer 12\"",
+    "gd_price": 9500,
+    "rgd_price": 9500,
+    "mb_price": 9000
+  },
+  {
+    "sku": "VOP-30025",
+    "product_name": "Tall Pillar Cock",
+    "gd_price": 5900,
+    "rgd_price": 5900,
+    "mb_price": 5000
+  },
+  {
+    "sku": "VOP-30009",
+    "product_name": "Single Lever Basin Mixer",
+    "gd_price": 7600,
+    "rgd_price": 7600,
+    "mb_price": 7000
+  },
+  {
+    "sku": "VTN-40025",
+    "product_name": "TITAN Tall Pillar Cock",
+    "gd_price": 11500,
+    "rgd_price": 11500,
+    "mb_price": 11500
+  },
+  {
+    "sku": "VTN-41025",
+    "product_name": "DEJA VU Tall Pillar Cock",
+    "gd_price": 12500,
+    "rgd_price": 12500,
+    "mb_price": 12500
+  },
+  {
+    "sku": "VCM-35025",
+    "product_name": "COSMIC Tall Pillar Cock",
+    "gd_price": 6800,
+    "rgd_price": 6800,
+    "mb_price": 5300
+  },
+  {
+    "sku": "VOV-26025",
+    "product_name": "ORBRIX Tall Pillar Cock",
+    "gd_price": 5900,
+    "rgd_price": 5900,
+    "mb_price": 5050
+  },
+  {
+    "sku": "VSM-3066 (AAMB)",
+    "product_name": "Single Lever Sink Mixer 3 in 1 with R.O. Out Let",
+    "gd_price": null,
+    "rgd_price": null,
+    "mb_price": 12750
+  },
+  {
+    "sku": "VSM-3037 (AMB)",
+    "product_name": "Single Lever Sink Mixer Pull Out Dual Flow (S.S.304)",
+    "gd_price": null,
+    "rgd_price": null,
+    "mb_price": 16500
+  },
+  {
+    "sku": "VSM-3050 (AMB)",
+    "product_name": "Single Lever Sink Mixer Pull Out Dual Flow (Matt Black)",
+    "gd_price": null,
+    "rgd_price": null,
+    "mb_price": 12750
+  },
+  {
+    "sku": "VSM-3051 (AMB)",
+    "product_name": "Single Lever Sink Mixer Pull Out Dual Flow (Matt Black)",
+    "gd_price": null,
+    "rgd_price": null,
+    "mb_price": 13250
+  },
+  {
+    "sku": "VSM-3052 (AMB)",
+    "product_name": "Single Lever Sink Mixer Pull Out Dual Flow (Matt Black)",
+    "gd_price": null,
+    "rgd_price": null,
+    "mb_price": 12750
+  },
+  {
+    "sku": "VQB-20001",
+    "product_name": "Soap Dish (Brass)",
+    "gd_price": 3000,
+    "rgd_price": 3000,
+    "mb_price": 2600
+  },
+  {
+    "sku": "VQB-20001(A)",
+    "product_name": "Soap Dish (Glass)",
+    "gd_price": 2100,
+    "rgd_price": 2100,
+    "mb_price": 2000
+  },
+  {
+    "sku": "VQB-20001(A)",
+    "product_name": "Tumbler Holder (Brass)",
+    "gd_price": 3000,
+    "rgd_price": 3000,
+    "mb_price": 2600
+  },
+  {
+    "sku": "VQB-20002(A)",
+    "product_name": "Tumbler Holder (Glass)",
+    "gd_price": 2100,
+    "rgd_price": 2100,
+    "mb_price": 2000
+  },
+  {
+    "sku": "VQB-20003",
+    "product_name": "Towel Ring",
+    "gd_price": 3000,
+    "rgd_price": 3000,
+    "mb_price": 2450
+  },
+  {
+    "sku": "VQB-20004",
+    "product_name": "Robe Hook",
+    "gd_price": 1480,
+    "rgd_price": 1480,
+    "mb_price": 1350
+  },
+  {
+    "sku": "VQB-20005",
+    "product_name": "Towel Rail Size : 600mm",
+    "gd_price": 4150,
+    "rgd_price": 4150,
+    "mb_price": 3600
+  },
+  {
+    "sku": "VQB-20005(A)",
+    "product_name": "Towel Rail Size : 450mm",
+    "gd_price": 4000,
+    "rgd_price": 4000,
+    "mb_price": 3550
+  },
+  {
+    "sku": "VQB-20006",
+    "product_name": "Toilet Paper Holder without Flap",
+    "gd_price": 2400,
+    "rgd_price": 2400,
+    "mb_price": 2300
+  },
+  {
+    "sku": "VQB-20007",
+    "product_name": "Towel Rack Size : 600mm",
+    "gd_price": 12750,
+    "rgd_price": 12750,
+    "mb_price": 10700
+  },
+  {
+    "sku": "VQB-20007(A)",
+    "product_name": "Towel Rack Size : 450mm",
+    "gd_price": 12650,
+    "rgd_price": 12650,
+    "mb_price": 10600
+  },
+  {
+    "sku": "VQB-20009",
+    "product_name": "Liquid Soap Dispenser",
+    "gd_price": 3700,
+    "rgd_price": 3700,
+    "mb_price": 3650
+  },
+  {
+    "sku": "VQB-20011",
+    "product_name": "Toilet Brush Holder Wall Mounted (Glass)",
+    "gd_price": 4300,
+    "rgd_price": 4300,
+    "mb_price": 3900
+  }
+]
