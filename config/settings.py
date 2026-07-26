@@ -54,7 +54,7 @@ INSTALLED_APPS = [
 
     # Local
     "catalog",
-    "catalog_import",
+    #"catalog_import",
 ]
 
 
