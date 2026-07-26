@@ -1,0 +1,3144 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Building Materials",
+      "slug": "building-materials",
+      "group": "Structure",
+      "description": "Cement, steel, bricks and aggregate.",
+      "image": "",
+      "featured": true,
+      "active": true,
+      "created_at": "2026-07-22T09:34:18.420Z",
+      "updated_at": "2026-07-22T09:34:18.420Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Plywood & Boards",
+      "slug": "plywood-boards",
+      "group": "Structure",
+      "description": "Commercial, marine and decorative boards.",
+      "image": "",
+      "featured": true,
+      "active": true,
+      "created_at": "2026-07-22T09:34:18.438Z",
+      "updated_at": "2026-07-22T09:34:18.438Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Paints & Finishes",
+      "slug": "paints-finishes",
+      "group": "Finishes",
+      "description": "Interior, exterior paints and waterproofing.",
+      "image": "",
+      "featured": true,
+      "active": true,
+      "created_at": "2026-07-22T09:34:18.456Z",
+      "updated_at": "2026-07-22T09:34:18.456Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "name": "Electricals",
+      "slug": "electricals",
+      "group": "Electrical",
+      "description": "Wires, switches, MCBs and accessories.",
+      "image": "",
+      "featured": true,
+      "active": true,
+      "created_at": "2026-07-22T09:34:18.468Z",
+      "updated_at": "2026-07-22T09:34:18.468Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+      "name": "Lighting",
+      "slug": "lighting",
+      "group": "Lighting",
+      "description": "Indoor and outdoor lighting solutions.",
+      "image": "",
+      "featured": true,
+      "active": true,
+      "created_at": "2026-07-22T09:34:18.479Z",
+      "updated_at": "2026-07-22T09:34:18.479Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 6,
+    "fields": {
+      "name": "Plumbing",
+      "slug": "plumbing",
+      "group": "Plumbing",
+      "description": "CPVC pipes, fittings and drainage.",
+      "image": "",
+      "featured": true,
+      "active": true,
+      "created_at": "2026-07-22T09:34:18.492Z",
+      "updated_at": "2026-07-22T09:34:18.492Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 7,
+    "fields": {
+      "name": "Sanitary & Bath Fittings",
+      "slug": "sanitary-bath-fittings",
+      "group": "Bathroom",
+      "description": "Basins, faucets, showers and toilets.",
+      "image": "",
+      "featured": true,
+      "active": true,
+      "created_at": "2026-07-22T09:34:18.507Z",
+      "updated_at": "2026-07-22T09:34:18.507Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 8,
+    "fields": {
+      "name": "Hardware & Fittings",
+      "slug": "hardware-fittings",
+      "group": "Hardware",
+      "description": "Locks, hinges, handles and fasteners.",
+      "image": "",
+      "featured": true,
+      "active": true,
+      "created_at": "2026-07-22T09:34:18.518Z",
+      "updated_at": "2026-07-22T09:34:18.518Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 9,
+    "fields": {
+      "name": "Adhesives & Chemicals",
+      "slug": "adhesives-chemicals",
+      "group": "Finishes",
+      "description": "Tile adhesives, epoxy and sealants.",
+      "image": "",
+      "featured": true,
+      "active": true,
+      "created_at": "2026-07-22T09:34:18.535Z",
+      "updated_at": "2026-07-22T09:34:18.535Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 10,
+    "fields": {
+      "name": "Ceiling & Roofing",
+      "slug": "ceiling-roofing",
+      "group": "Ceiling",
+      "description": "False ceiling and roofing materials.",
+      "image": "",
+      "featured": true,
+      "active": true,
+      "created_at": "2026-07-22T09:34:18.552Z",
+      "updated_at": "2026-07-22T09:34:18.552Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "name": "PPC Cement",
+      "slug": "ppc-cement",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.651Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 2,
+    "fields": {
+      "category": 1,
+      "name": "TMT Steel Bar",
+      "slug": "tmt-steel-bar",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.666Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 3,
+    "fields": {
+      "category": 1,
+      "name": "Bricks & Blocks",
+      "slug": "bricks-blocks",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.676Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 4,
+    "fields": {
+      "category": 1,
+      "name": "Sands & Aggregate",
+      "slug": "sands-aggregate",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.688Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 5,
+    "fields": {
+      "category": 1,
+      "name": "GI Sheets",
+      "slug": "gi-sheets",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.700Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 6,
+    "fields": {
+      "category": 1,
+      "name": "GI Coils",
+      "slug": "gi-coils",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.710Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 7,
+    "fields": {
+      "category": 2,
+      "name": "Plywood & Boards",
+      "slug": "plywood-boards",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.723Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 8,
+    "fields": {
+      "category": 3,
+      "name": "Interior Emulsions",
+      "slug": "interior-emulsions",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.734Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 9,
+    "fields": {
+      "category": 3,
+      "name": "Exterior Emulsions",
+      "slug": "exterior-emulsions",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.745Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 10,
+    "fields": {
+      "category": 3,
+      "name": "Coatings & Varnish",
+      "slug": "coatings-varnish",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.756Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 11,
+    "fields": {
+      "category": 3,
+      "name": "Wood & Metal Polish Paints",
+      "slug": "wood-metal-polish-paints",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.766Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 12,
+    "fields": {
+      "category": 3,
+      "name": "Painting Accessories & Supplies",
+      "slug": "painting-accessories-supplies",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.776Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 13,
+    "fields": {
+      "category": 3,
+      "name": "Waterproofing & Crack Fillers",
+      "slug": "waterproofing-crack-fillers",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.787Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 14,
+    "fields": {
+      "category": 4,
+      "name": "Wires & Cables",
+      "slug": "wires-cables",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.799Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 15,
+    "fields": {
+      "category": 4,
+      "name": "Switches & Sockets",
+      "slug": "switches-sockets",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.810Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 16,
+    "fields": {
+      "category": 4,
+      "name": "MCBs & DBs",
+      "slug": "mcbs-dbs",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.822Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 17,
+    "fields": {
+      "category": 4,
+      "name": "Electrical Conduits & Fittings",
+      "slug": "electrical-conduits-fittings",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.834Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 18,
+    "fields": {
+      "category": 4,
+      "name": "Electrical Accessories",
+      "slug": "electrical-accessories",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.846Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 19,
+    "fields": {
+      "category": 4,
+      "name": "Motors, Fans & Pumps",
+      "slug": "motors-fans-pumps",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.858Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 20,
+    "fields": {
+      "category": 5,
+      "name": "LED Strips & Profile Lights",
+      "slug": "led-strips-profile-lights",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.869Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 21,
+    "fields": {
+      "category": 5,
+      "name": "Outdoor Lighting",
+      "slug": "outdoor-lighting",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.882Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 22,
+    "fields": {
+      "category": 5,
+      "name": "Light Accessories",
+      "slug": "light-accessories",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.894Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 23,
+    "fields": {
+      "category": 6,
+      "name": "CPVC Pipes & Fittings",
+      "slug": "cpvc-pipes-fittings",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.908Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 24,
+    "fields": {
+      "category": 6,
+      "name": "Drainage & Plumbing Accessories",
+      "slug": "drainage-plumbing-accessories",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.919Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 25,
+    "fields": {
+      "category": 7,
+      "name": "Wash Basins & Faucets",
+      "slug": "wash-basins-faucets",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.932Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 26,
+    "fields": {
+      "category": 7,
+      "name": "Showers & Bath Fixtures",
+      "slug": "showers-bath-fixtures",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.944Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 27,
+    "fields": {
+      "category": 7,
+      "name": "WC & Toilet Fixtures",
+      "slug": "wc-toilet-fixtures",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.954Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 28,
+    "fields": {
+      "category": 7,
+      "name": "Kitchen Sinks",
+      "slug": "kitchen-sinks",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.965Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 29,
+    "fields": {
+      "category": 8,
+      "name": "Cabinet & Drawer Hinges",
+      "slug": "cabinet-drawer-hinges",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.977Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 30,
+    "fields": {
+      "category": 8,
+      "name": "Door Handle & Locks",
+      "slug": "door-handle-locks",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:06.989Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 31,
+    "fields": {
+      "category": 8,
+      "name": "Screws & Fasteners",
+      "slug": "screws-fasteners",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.000Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 32,
+    "fields": {
+      "category": 8,
+      "name": "Kitchen Hardware",
+      "slug": "kitchen-hardware",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.011Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 33,
+    "fields": {
+      "category": 8,
+      "name": "Tools & Blades",
+      "slug": "tools-blades",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.024Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 34,
+    "fields": {
+      "category": 9,
+      "name": "Epoxy Adhesive",
+      "slug": "epoxy-adhesive",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.035Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 35,
+    "fields": {
+      "category": 9,
+      "name": "Tile Adhesives",
+      "slug": "tile-adhesives",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.070Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 36,
+    "fields": {
+      "category": 9,
+      "name": "Wood Adhesives",
+      "slug": "wood-adhesives",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.093Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 37,
+    "fields": {
+      "category": 9,
+      "name": "Sealants",
+      "slug": "sealants",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.121Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 38,
+    "fields": {
+      "category": 10,
+      "name": "Gypsum & POP",
+      "slug": "gypsum-pop",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.153Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 39,
+    "fields": {
+      "category": 10,
+      "name": "Gypsum & POP False Ceilings",
+      "slug": "gypsum-pop-false-ceilings",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.190Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 40,
+    "fields": {
+      "category": 10,
+      "name": "Ceiling Tiles & Decorative Panels",
+      "slug": "ceiling-tiles-decorative-panels",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.211Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 41,
+    "fields": {
+      "category": 10,
+      "name": "False Ceiling Channels",
+      "slug": "false-ceiling-channels",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.245Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 42,
+    "fields": {
+      "category": 10,
+      "name": "GI Channel & Accessories",
+      "slug": "gi-channel-accessories",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.255Z"
+    }
+  },
+  {
+    "model": "catalog.subcategory",
+    "pk": 43,
+    "fields": {
+      "category": 10,
+      "name": "Roofing Sheets",
+      "slug": "roofing-sheets",
+      "description": "",
+      "image": "",
+      "active": true,
+      "created_at": "2026-07-22T09:53:07.266Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 57,
+    "fields": {
+      "category": 7,
+      "subcategory": 28,
+      "name": "Pillar Cock",
+      "slug": "pillar-cock",
+      "short_description": "",
+      "description": "",
+      "featured": false,
+      "active": true,
+      "status": "published",
+      "created_at": "2026-07-26T10:45:42.357Z",
+      "updated_at": "2026-07-26T12:45:46.019Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 58,
+    "fields": {
+      "category": 7,
+      "subcategory": 28,
+      "name": "Bib Cock",
+      "slug": "bib-cock",
+      "short_description": "",
+      "description": "",
+      "featured": false,
+      "active": true,
+      "status": "published",
+      "created_at": "2026-07-26T10:45:42.405Z",
+      "updated_at": "2026-07-26T12:46:03.501Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 59,
+    "fields": {
+      "category": 7,
+      "subcategory": 28,
+      "name": "Bib Cock Long Nose",
+      "slug": "bib-cock-long-nose",
+      "short_description": "",
+      "description": "",
+      "featured": false,
+      "active": true,
+      "status": "published",
+      "created_at": "2026-07-26T10:45:42.451Z",
+      "updated_at": "2026-07-26T12:46:35.192Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 60,
+    "fields": {
+      "category": 7,
+      "subcategory": 28,
+      "name": "Angular Stop Cock",
+      "slug": "angular-stop-cock",
+      "short_description": "",
+      "description": "",
+      "featured": false,
+      "active": true,
+      "status": "published",
+      "created_at": "2026-07-26T10:45:42.491Z",
+      "updated_at": "2026-07-26T12:47:04.226Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 61,
+    "fields": {
+      "category": 7,
+      "subcategory": 28,
+      "name": "Concealed Stop Cock",
+      "slug": "concealed-stop-cock",
+      "short_description": "",
+      "description": "",
+      "featured": false,
+      "active": true,
+      "status": "published",
+      "created_at": "2026-07-26T10:45:42.542Z",
+      "updated_at": "2026-07-26T12:07:09.578Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 62,
+    "fields": {
+      "category": 7,
+      "subcategory": 28,
+      "name": "Bib Cock 2-Way",
+      "slug": "bib-cock-2-way",
+      "short_description": "",
+      "description": "",
+      "featured": false,
+      "active": true,
+      "status": "published",
+      "created_at": "2026-07-26T10:45:42.623Z",
+      "updated_at": "2026-07-26T12:52:34.366Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 63,
+    "fields": {
+      "category": 7,
+      "subcategory": 28,
+      "name": "Single Lever Extended Basin Mixer 12\"",
+      "slug": "single-lever-extended-basin-mixer-12",
+      "short_description": "",
+      "description": "",
+      "featured": false,
+      "active": true,
+      "status": "published",
+      "created_at": "2026-07-26T10:45:42.672Z",
+      "updated_at": "2026-07-26T12:52:25.526Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 64,
+    "fields": {
+      "category": 7,
+      "subcategory": 28,
+      "name": "Wall Mixer Telephonic",
+      "slug": "wall-mixer-telephonic",
+      "short_description": "",
+      "description": "",
+      "featured": false,
+      "active": true,
+      "status": "published",
+      "created_at": "2026-07-26T10:45:42.710Z",
+      "updated_at": "2026-07-26T12:52:11.334Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 65,
+    "fields": {
+      "category": 7,
+      "subcategory": 28,
+      "name": "Wall Mixer L-Bend",
+      "slug": "wall-mixer-l-bend",
+      "short_description": "",
+      "description": "",
+      "featured": false,
+      "active": true,
+      "status": "published",
+      "created_at": "2026-07-26T10:45:42.741Z",
+      "updated_at": "2026-07-26T12:46:51.836Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 66,
+    "fields": {
+      "category": 7,
+      "subcategory": 28,
+      "name": "Wall Mixer 3 in 1",
+      "slug": "wall-mixer-3-in-1",
+      "short_description": "",
+      "description": "",
+      "featured": false,
+      "active": true,
+      "status": "published",
+      "created_at": "2026-07-26T10:45:42.771Z",
+      "updated_at": "2026-07-26T12:51:55.853Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 67,
+    "fields": {
+      "category": 7,
+      "subcategory": 28,
+      "name": "Sink Cock",
+      "slug": "sink-cock",
+      "short_description": "aaaaaaaaaaaaaaa",
+      "description": "aaaaaaaaaaaaaaa",
+      "featured": false,
+      "active": true,
+      "status": "published",
+      "created_at": "2026-07-26T10:45:42.822Z",
+      "updated_at": "2026-07-26T12:51:45.929Z"
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 57,
+    "fields": {
+      "product": 57,
+      "name": "Finish",
+      "display_type": "dropdown",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 58,
+    "fields": {
+      "product": 58,
+      "name": "Finish",
+      "display_type": "dropdown",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 59,
+    "fields": {
+      "product": 59,
+      "name": "Finish",
+      "display_type": "dropdown",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 60,
+    "fields": {
+      "product": 60,
+      "name": "Finish",
+      "display_type": "dropdown",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 61,
+    "fields": {
+      "product": 61,
+      "name": "Size",
+      "display_type": "dropdown",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 62,
+    "fields": {
+      "product": 61,
+      "name": "Finish",
+      "display_type": "dropdown",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 63,
+    "fields": {
+      "product": 62,
+      "name": "Finish",
+      "display_type": "dropdown",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 64,
+    "fields": {
+      "product": 63,
+      "name": "Finish",
+      "display_type": "dropdown",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 65,
+    "fields": {
+      "product": 64,
+      "name": "Finish",
+      "display_type": "dropdown",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 66,
+    "fields": {
+      "product": 65,
+      "name": "Finish",
+      "display_type": "dropdown",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 67,
+    "fields": {
+      "product": 66,
+      "name": "Finish",
+      "display_type": "dropdown",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoption",
+    "pk": 68,
+    "fields": {
+      "product": 67,
+      "name": "Finish",
+      "display_type": "dropdown",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 169,
+    "fields": {
+      "option": 57,
+      "value": "GD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 170,
+    "fields": {
+      "option": 57,
+      "value": "RGD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 171,
+    "fields": {
+      "option": 57,
+      "value": "MB",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 172,
+    "fields": {
+      "option": 58,
+      "value": "GD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 173,
+    "fields": {
+      "option": 58,
+      "value": "RGD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 174,
+    "fields": {
+      "option": 58,
+      "value": "MB",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 175,
+    "fields": {
+      "option": 59,
+      "value": "GD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 176,
+    "fields": {
+      "option": 59,
+      "value": "RGD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 177,
+    "fields": {
+      "option": 59,
+      "value": "MB",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 178,
+    "fields": {
+      "option": 60,
+      "value": "GD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 179,
+    "fields": {
+      "option": 60,
+      "value": "RGD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 180,
+    "fields": {
+      "option": 60,
+      "value": "MB",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 181,
+    "fields": {
+      "option": 61,
+      "value": "15mm",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 182,
+    "fields": {
+      "option": 62,
+      "value": "GD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 183,
+    "fields": {
+      "option": 62,
+      "value": "RGD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 184,
+    "fields": {
+      "option": 62,
+      "value": "MB",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 185,
+    "fields": {
+      "option": 61,
+      "value": "20mm",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 186,
+    "fields": {
+      "option": 63,
+      "value": "GD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 187,
+    "fields": {
+      "option": 63,
+      "value": "RGD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 188,
+    "fields": {
+      "option": 63,
+      "value": "MB",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 189,
+    "fields": {
+      "option": 64,
+      "value": "GD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 190,
+    "fields": {
+      "option": 64,
+      "value": "RGD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 191,
+    "fields": {
+      "option": 64,
+      "value": "MB",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 192,
+    "fields": {
+      "option": 65,
+      "value": "GD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 193,
+    "fields": {
+      "option": 65,
+      "value": "RGD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 194,
+    "fields": {
+      "option": 65,
+      "value": "MB",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 195,
+    "fields": {
+      "option": 66,
+      "value": "GD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 196,
+    "fields": {
+      "option": 66,
+      "value": "RGD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 197,
+    "fields": {
+      "option": 66,
+      "value": "MB",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 198,
+    "fields": {
+      "option": 67,
+      "value": "GD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 199,
+    "fields": {
+      "option": 67,
+      "value": "RGD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 200,
+    "fields": {
+      "option": 67,
+      "value": "MB",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 201,
+    "fields": {
+      "option": 68,
+      "value": "GD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 202,
+    "fields": {
+      "option": 68,
+      "value": "RGD",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "catalog.productoptionvalue",
+    "pk": 203,
+    "fields": {
+      "option": 68,
+      "value": "MB",
+      "hex_color": "",
+      "image": "",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 167,
+    "fields": {
+      "product": 57,
+      "sku": "VVN-25001-GD",
+      "barcode": "",
+      "mrp": "4800.00",
+      "selling_price": "4800.00",
+      "stock": 1000,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.380Z",
+      "updated_at": "2026-07-26T12:45:46.040Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 168,
+    "fields": {
+      "product": 57,
+      "sku": "VVN-25001-RGD",
+      "barcode": "",
+      "mrp": "4800.00",
+      "selling_price": "4800.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.380Z",
+      "updated_at": "2026-07-26T12:45:46.043Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 169,
+    "fields": {
+      "product": 57,
+      "sku": "VVN-25001-MB",
+      "barcode": "",
+      "mrp": "4200.00",
+      "selling_price": "4200.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.380Z",
+      "updated_at": "2026-07-26T12:45:46.044Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 170,
+    "fields": {
+      "product": 58,
+      "sku": "VVN-25002-GD",
+      "barcode": "",
+      "mrp": "3400.00",
+      "selling_price": "3400.00",
+      "stock": 1000,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.430Z",
+      "updated_at": "2026-07-26T12:46:03.507Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 171,
+    "fields": {
+      "product": 58,
+      "sku": "VVN-25002-RGD",
+      "barcode": "",
+      "mrp": "3400.00",
+      "selling_price": "3400.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.430Z",
+      "updated_at": "2026-07-26T12:46:03.508Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 172,
+    "fields": {
+      "product": 58,
+      "sku": "VVN-25002-MB",
+      "barcode": "",
+      "mrp": "2600.00",
+      "selling_price": "2600.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.430Z",
+      "updated_at": "2026-07-26T12:46:03.509Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 173,
+    "fields": {
+      "product": 59,
+      "sku": "VVN-25003-GD",
+      "barcode": "",
+      "mrp": "3750.00",
+      "selling_price": "3750.00",
+      "stock": 1000,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.472Z",
+      "updated_at": "2026-07-26T12:46:35.199Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 174,
+    "fields": {
+      "product": 59,
+      "sku": "VVN-25003-RGD",
+      "barcode": "",
+      "mrp": "3750.00",
+      "selling_price": "3750.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.472Z",
+      "updated_at": "2026-07-26T12:46:35.200Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 175,
+    "fields": {
+      "product": 59,
+      "sku": "VVN-25003-MB",
+      "barcode": "",
+      "mrp": "2750.00",
+      "selling_price": "2750.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.472Z",
+      "updated_at": "2026-07-26T12:46:35.201Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 176,
+    "fields": {
+      "product": 60,
+      "sku": "VVN-25004-GD",
+      "barcode": "",
+      "mrp": "2750.00",
+      "selling_price": "2750.00",
+      "stock": 1000,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.516Z",
+      "updated_at": "2026-07-26T12:47:04.241Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 177,
+    "fields": {
+      "product": 60,
+      "sku": "VVN-25004-RGD",
+      "barcode": "",
+      "mrp": "2750.00",
+      "selling_price": "2750.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.516Z",
+      "updated_at": "2026-07-26T12:47:04.242Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 178,
+    "fields": {
+      "product": 60,
+      "sku": "VVN-25004-MB",
+      "barcode": "",
+      "mrp": "2050.00",
+      "selling_price": "2050.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.516Z",
+      "updated_at": "2026-07-26T12:47:04.243Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 179,
+    "fields": {
+      "product": 61,
+      "sku": "VVN-25005-GD",
+      "barcode": "",
+      "mrp": "3300.00",
+      "selling_price": "3300.00",
+      "stock": 1200,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.570Z",
+      "updated_at": "2026-07-26T12:07:09.595Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 180,
+    "fields": {
+      "product": 61,
+      "sku": "VVN-25005-RGD",
+      "barcode": "",
+      "mrp": "3060.00",
+      "selling_price": "3060.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.570Z",
+      "updated_at": "2026-07-26T12:07:09.598Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 181,
+    "fields": {
+      "product": 61,
+      "sku": "VVN-25005-MB",
+      "barcode": "",
+      "mrp": "2600.00",
+      "selling_price": "2600.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.570Z",
+      "updated_at": "2026-07-26T12:07:09.599Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 182,
+    "fields": {
+      "product": 61,
+      "sku": "VVN-25006-GD",
+      "barcode": "",
+      "mrp": "3060.00",
+      "selling_price": "3060.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.602Z",
+      "updated_at": "2026-07-26T12:07:09.600Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 183,
+    "fields": {
+      "product": 61,
+      "sku": "VVN-25006-RGD",
+      "barcode": "",
+      "mrp": "3060.00",
+      "selling_price": "3060.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.602Z",
+      "updated_at": "2026-07-26T12:07:09.601Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 184,
+    "fields": {
+      "product": 61,
+      "sku": "VVN-25006-MB",
+      "barcode": "",
+      "mrp": "2700.00",
+      "selling_price": "2700.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.602Z",
+      "updated_at": "2026-07-26T12:07:09.602Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 185,
+    "fields": {
+      "product": 62,
+      "sku": "VVN-25007-GD",
+      "barcode": "",
+      "mrp": "4650.00",
+      "selling_price": "4650.00",
+      "stock": 1200,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.641Z",
+      "updated_at": "2026-07-26T12:52:34.386Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 186,
+    "fields": {
+      "product": 62,
+      "sku": "VVN-25007-RGD",
+      "barcode": "",
+      "mrp": "4650.00",
+      "selling_price": "4650.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.641Z",
+      "updated_at": "2026-07-26T12:52:34.387Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 187,
+    "fields": {
+      "product": 62,
+      "sku": "VVN-25007-MB",
+      "barcode": "",
+      "mrp": "3900.00",
+      "selling_price": "3900.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.641Z",
+      "updated_at": "2026-07-26T12:52:34.388Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 188,
+    "fields": {
+      "product": 63,
+      "sku": "VVN-25009(A)-GD",
+      "barcode": "",
+      "mrp": "9400.00",
+      "selling_price": "9400.00",
+      "stock": 1000,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.690Z",
+      "updated_at": "2026-07-26T12:52:25.544Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 189,
+    "fields": {
+      "product": 63,
+      "sku": "VVN-25009(A)-RGD",
+      "barcode": "",
+      "mrp": "9400.00",
+      "selling_price": "9400.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.690Z",
+      "updated_at": "2026-07-26T12:52:25.549Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 190,
+    "fields": {
+      "product": 63,
+      "sku": "VVN-25009(A)-MB",
+      "barcode": "",
+      "mrp": "9200.00",
+      "selling_price": "9200.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.690Z",
+      "updated_at": "2026-07-26T12:52:25.550Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 191,
+    "fields": {
+      "product": 64,
+      "sku": "VVN-25011-GD",
+      "barcode": "",
+      "mrp": "14350.00",
+      "selling_price": "14350.00",
+      "stock": 1000,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.724Z",
+      "updated_at": "2026-07-26T12:52:11.359Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 192,
+    "fields": {
+      "product": 64,
+      "sku": "VVN-25011-RGD",
+      "barcode": "",
+      "mrp": "14350.00",
+      "selling_price": "14350.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.724Z",
+      "updated_at": "2026-07-26T12:52:11.360Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 193,
+    "fields": {
+      "product": 64,
+      "sku": "VVN-25011-MB",
+      "barcode": "",
+      "mrp": "11100.00",
+      "selling_price": "11100.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.724Z",
+      "updated_at": "2026-07-26T12:52:11.361Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 194,
+    "fields": {
+      "product": 65,
+      "sku": "VVN-25012-GD",
+      "barcode": "",
+      "mrp": "14200.00",
+      "selling_price": "14200.00",
+      "stock": 1000,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.755Z",
+      "updated_at": "2026-07-26T12:46:51.857Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 195,
+    "fields": {
+      "product": 65,
+      "sku": "VVN-25012-RGD",
+      "barcode": "",
+      "mrp": "14200.00",
+      "selling_price": "14200.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.755Z",
+      "updated_at": "2026-07-26T12:46:51.859Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 196,
+    "fields": {
+      "product": 65,
+      "sku": "VVN-25012-MB",
+      "barcode": "",
+      "mrp": "10500.00",
+      "selling_price": "10500.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.755Z",
+      "updated_at": "2026-07-26T12:46:51.860Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 197,
+    "fields": {
+      "product": 66,
+      "sku": "VVN-25013-GD",
+      "barcode": "",
+      "mrp": "15700.00",
+      "selling_price": "15700.00",
+      "stock": 1000,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.788Z",
+      "updated_at": "2026-07-26T12:51:55.877Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 198,
+    "fields": {
+      "product": 66,
+      "sku": "VVN-25013-RGD",
+      "barcode": "",
+      "mrp": "15700.00",
+      "selling_price": "15700.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.788Z",
+      "updated_at": "2026-07-26T12:51:55.878Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 199,
+    "fields": {
+      "product": 66,
+      "sku": "VVN-25013-MB",
+      "barcode": "",
+      "mrp": "11850.00",
+      "selling_price": "11850.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.788Z",
+      "updated_at": "2026-07-26T12:51:55.879Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 200,
+    "fields": {
+      "product": 67,
+      "sku": "VVN-25014-GD",
+      "barcode": "",
+      "mrp": "4600.00",
+      "selling_price": "4600.00",
+      "stock": 1000,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.837Z",
+      "updated_at": "2026-07-26T12:51:45.938Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 201,
+    "fields": {
+      "product": 67,
+      "sku": "VVN-25014-RGD",
+      "barcode": "",
+      "mrp": "4600.00",
+      "selling_price": "4600.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.837Z",
+      "updated_at": "2026-07-26T12:51:45.940Z"
+    }
+  },
+  {
+    "model": "catalog.productvariant",
+    "pk": 202,
+    "fields": {
+      "product": 67,
+      "sku": "VVN-25014-MB",
+      "barcode": "",
+      "mrp": "3400.00",
+      "selling_price": "3400.00",
+      "stock": 0,
+      "weight": "0.00",
+      "minimum_order_quantity": 1,
+      "lead_time_days": 1,
+      "is_default": false,
+      "active": true,
+      "created_at": "2026-07-26T10:45:42.837Z",
+      "updated_at": "2026-07-26T12:51:45.941Z"
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 167,
+    "fields": {
+      "variant": 167,
+      "option_value": 169
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 168,
+    "fields": {
+      "variant": 168,
+      "option_value": 170
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 169,
+    "fields": {
+      "variant": 169,
+      "option_value": 171
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 170,
+    "fields": {
+      "variant": 170,
+      "option_value": 172
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 171,
+    "fields": {
+      "variant": 171,
+      "option_value": 173
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 172,
+    "fields": {
+      "variant": 172,
+      "option_value": 174
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 173,
+    "fields": {
+      "variant": 173,
+      "option_value": 175
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 174,
+    "fields": {
+      "variant": 174,
+      "option_value": 176
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 175,
+    "fields": {
+      "variant": 175,
+      "option_value": 177
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 176,
+    "fields": {
+      "variant": 176,
+      "option_value": 178
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 177,
+    "fields": {
+      "variant": 177,
+      "option_value": 179
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 178,
+    "fields": {
+      "variant": 178,
+      "option_value": 180
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 179,
+    "fields": {
+      "variant": 179,
+      "option_value": 181
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 180,
+    "fields": {
+      "variant": 179,
+      "option_value": 182
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 181,
+    "fields": {
+      "variant": 180,
+      "option_value": 181
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 182,
+    "fields": {
+      "variant": 180,
+      "option_value": 183
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 183,
+    "fields": {
+      "variant": 181,
+      "option_value": 181
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 184,
+    "fields": {
+      "variant": 181,
+      "option_value": 184
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 185,
+    "fields": {
+      "variant": 182,
+      "option_value": 185
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 186,
+    "fields": {
+      "variant": 182,
+      "option_value": 182
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 187,
+    "fields": {
+      "variant": 183,
+      "option_value": 185
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 188,
+    "fields": {
+      "variant": 183,
+      "option_value": 183
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 189,
+    "fields": {
+      "variant": 184,
+      "option_value": 185
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 190,
+    "fields": {
+      "variant": 184,
+      "option_value": 184
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 191,
+    "fields": {
+      "variant": 185,
+      "option_value": 186
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 192,
+    "fields": {
+      "variant": 186,
+      "option_value": 187
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 193,
+    "fields": {
+      "variant": 187,
+      "option_value": 188
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 194,
+    "fields": {
+      "variant": 188,
+      "option_value": 189
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 195,
+    "fields": {
+      "variant": 189,
+      "option_value": 190
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 196,
+    "fields": {
+      "variant": 190,
+      "option_value": 191
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 197,
+    "fields": {
+      "variant": 191,
+      "option_value": 192
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 198,
+    "fields": {
+      "variant": 192,
+      "option_value": 193
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 199,
+    "fields": {
+      "variant": 193,
+      "option_value": 194
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 200,
+    "fields": {
+      "variant": 194,
+      "option_value": 195
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 201,
+    "fields": {
+      "variant": 195,
+      "option_value": 196
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 202,
+    "fields": {
+      "variant": 196,
+      "option_value": 197
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 203,
+    "fields": {
+      "variant": 197,
+      "option_value": 198
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 204,
+    "fields": {
+      "variant": 198,
+      "option_value": 199
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 205,
+    "fields": {
+      "variant": 199,
+      "option_value": 200
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 206,
+    "fields": {
+      "variant": 200,
+      "option_value": 201
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 207,
+    "fields": {
+      "variant": 201,
+      "option_value": 202
+    }
+  },
+  {
+    "model": "catalog.productvariantoption",
+    "pk": 208,
+    "fields": {
+      "variant": 202,
+      "option_value": 203
+    }
+  },
+  {
+    "model": "catalog.productimage",
+    "pk": 9,
+    "fields": {
+      "variant": 167,
+      "image": "products/ChatGPT_Image_Jul_26_2026_04_50_44_PM.png",
+      "featured": true,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productimage",
+    "pk": 10,
+    "fields": {
+      "variant": 170,
+      "image": "products/ChatGPT_Image_Jul_26_2026_04_44_06_PM.png",
+      "featured": true,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productimage",
+    "pk": 11,
+    "fields": {
+      "variant": 173,
+      "image": "products/ChatGPT_Image_Jul_26_2026_04_46_35_PM.png",
+      "featured": true,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productimage",
+    "pk": 12,
+    "fields": {
+      "variant": 176,
+      "image": "products/ChatGPT_Image_Jul_26_2026_04_48_42_PM.png",
+      "featured": true,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productimage",
+    "pk": 13,
+    "fields": {
+      "variant": 179,
+      "image": "products/ChatGPT_Image_Jul_26_2026_05_00_25_PM.png",
+      "featured": true,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productimage",
+    "pk": 14,
+    "fields": {
+      "variant": 185,
+      "image": "products/ChatGPT_Image_Jul_26_2026_05_23_59_PM.png",
+      "featured": true,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productimage",
+    "pk": 15,
+    "fields": {
+      "variant": 188,
+      "image": "products/ChatGPT_Image_Jul_26_2026_05_25_45_PM.png",
+      "featured": true,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productimage",
+    "pk": 16,
+    "fields": {
+      "variant": 191,
+      "image": "products/ChatGPT_Image_Jul_26_2026_05_27_23_PM.png",
+      "featured": true,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productimage",
+    "pk": 17,
+    "fields": {
+      "variant": 194,
+      "image": "products/ChatGPT_Image_Jul_26_2026_05_28_37_PM.png",
+      "featured": true,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productimage",
+    "pk": 18,
+    "fields": {
+      "variant": 197,
+      "image": "products/ChatGPT_Image_Jul_26_2026_05_30_38_PM.png",
+      "featured": true,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog.productimage",
+    "pk": 19,
+    "fields": {
+      "variant": 200,
+      "image": "products/ChatGPT_Image_Jul_26_2026_05_32_14_PM.png",
+      "featured": true,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "catalog_import.catalogimport",
+    "pk": 1,
+    "fields": {
+      "pdf": "catalogs/page10_p6ZmmZC.json",
+      "brand": "Vintage",
+      "category": 7,
+      "source_type": "json",
+      "status": "imported",
+      "created_at": "2026-07-22T10:01:32.775Z",
+      "updated_at": "2026-07-22T10:01:32.776Z"
+    }
+  },
+  {
+    "model": "catalog_import.catalogimport",
+    "pk": 2,
+    "fields": {
+      "pdf": "catalogs/page10_EDQ4Ckx.json",
+      "brand": "Vintage",
+      "category": 7,
+      "source_type": "json",
+      "status": "imported",
+      "created_at": "2026-07-23T16:27:38.392Z",
+      "updated_at": "2026-07-23T16:27:38.395Z"
+    }
+  },
+  {
+    "model": "catalog_import.catalogimport",
+    "pk": 3,
+    "fields": {
+      "pdf": "catalogs/vantage_page11-20_1_6QWYSxq.json",
+      "brand": "Vintage",
+      "category": 1,
+      "source_type": "json",
+      "status": "parsed",
+      "created_at": "2026-07-23T17:04:00.711Z",
+      "updated_at": "2026-07-23T17:04:00.715Z"
+    }
+  },
+  {
+    "model": "catalog_import.catalogimport",
+    "pk": 4,
+    "fields": {
+      "pdf": "catalogs/page10_2yaQv9y.json",
+      "brand": "Vintage",
+      "category": 7,
+      "source_type": "json",
+      "status": "imported",
+      "created_at": "2026-07-23T17:26:24.988Z",
+      "updated_at": "2026-07-23T17:26:24.988Z"
+    }
+  },
+  {
+    "model": "catalog_import.catalogimport",
+    "pk": 5,
+    "fields": {
+      "pdf": "catalogs/page10_iqmEUAA.json",
+      "brand": "Vintage",
+      "category": 7,
+      "source_type": "json",
+      "status": "imported",
+      "created_at": "2026-07-26T08:27:32.183Z",
+      "updated_at": "2026-07-26T08:27:32.183Z"
+    }
+  },
+  {
+    "model": "catalog_import.catalogimport",
+    "pk": 6,
+    "fields": {
+      "pdf": "catalogs/page10_updated.json",
+      "brand": "Vintage",
+      "category": 7,
+      "source_type": "json",
+      "status": "parsed",
+      "created_at": "2026-07-26T10:01:48.015Z",
+      "updated_at": "2026-07-26T10:01:48.018Z"
+    }
+  },
+  {
+    "model": "catalog_import.catalogimport",
+    "pk": 7,
+    "fields": {
+      "pdf": "catalogs/page10_updated_uPpvfNr.json",
+      "brand": "Vintage",
+      "category": 7,
+      "source_type": "json",
+      "status": "imported",
+      "created_at": "2026-07-26T10:45:34.824Z",
+      "updated_at": "2026-07-26T10:45:34.824Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 167,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25001",
+      "product_name": "Pillar Cock",
+      "price": null,
+      "gd_price": "4800.00",
+      "rgd_price": "4800.00",
+      "mb_price": "4200.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {},
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "4800",
+        "RGD": "4800",
+        "MB": "4200"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 168,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25002",
+      "product_name": "Bib Cock",
+      "price": null,
+      "gd_price": "3400.00",
+      "rgd_price": "3400.00",
+      "mb_price": "2600.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {},
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "3400",
+        "RGD": "3400",
+        "MB": "2600"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 169,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25003",
+      "product_name": "Bib Cock Long Nose",
+      "price": null,
+      "gd_price": "3750.00",
+      "rgd_price": "3750.00",
+      "mb_price": "2750.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {},
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "3750",
+        "RGD": "3750",
+        "MB": "2750"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 170,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25004",
+      "product_name": "Angular Stop Cock",
+      "price": null,
+      "gd_price": "2750.00",
+      "rgd_price": "2750.00",
+      "mb_price": "2050.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {},
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "2750",
+        "RGD": "2750",
+        "MB": "2050"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 171,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25005",
+      "product_name": "Concealed Stop Cock",
+      "price": null,
+      "gd_price": "3300.00",
+      "rgd_price": "3060.00",
+      "mb_price": "2600.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {
+        "Size": "15mm"
+      },
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "3300",
+        "RGD": "3060",
+        "MB": "2600"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 172,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25006",
+      "product_name": "Concealed Stop Cock",
+      "price": null,
+      "gd_price": "3060.00",
+      "rgd_price": "3060.00",
+      "mb_price": "2700.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {
+        "Size": "20mm"
+      },
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "3060",
+        "RGD": "3060",
+        "MB": "2700"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 173,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25007",
+      "product_name": "Bib Cock 2-Way",
+      "price": null,
+      "gd_price": "4650.00",
+      "rgd_price": "4650.00",
+      "mb_price": "3900.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {},
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "4650",
+        "RGD": "4650",
+        "MB": "3900"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 174,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25009(A)",
+      "product_name": "Single Lever Extended Basin Mixer 12\"",
+      "price": null,
+      "gd_price": "9400.00",
+      "rgd_price": "9400.00",
+      "mb_price": "9200.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {},
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "9400",
+        "RGD": "9400",
+        "MB": "9200"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 175,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25011",
+      "product_name": "Wall Mixer Telephonic",
+      "price": null,
+      "gd_price": "14350.00",
+      "rgd_price": "14350.00",
+      "mb_price": "11100.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {},
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "14350",
+        "RGD": "14350",
+        "MB": "11100"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 176,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25012",
+      "product_name": "Wall Mixer L-Bend",
+      "price": null,
+      "gd_price": "14200.00",
+      "rgd_price": "14200.00",
+      "mb_price": "10500.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {},
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "14200",
+        "RGD": "14200",
+        "MB": "10500"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 177,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25013",
+      "product_name": "Wall Mixer 3 in 1",
+      "price": null,
+      "gd_price": "15700.00",
+      "rgd_price": "15700.00",
+      "mb_price": "11850.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {},
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "15700",
+        "RGD": "15700",
+        "MB": "11850"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  },
+  {
+    "model": "catalog_import.parsedproduct",
+    "pk": 178,
+    "fields": {
+      "catalog": 7,
+      "page_number": 1,
+      "sku": "VVN-25014",
+      "product_name": "Sink Cock",
+      "price": null,
+      "gd_price": "4600.00",
+      "rgd_price": "4600.00",
+      "mb_price": "3400.00",
+      "standard_price": null,
+      "finish": "",
+      "finishes": [],
+      "category": "Sanitary & Bath Fittings",
+      "subcategory": "Kitchen Sinks",
+      "variant": "",
+      "collection": "",
+      "series": "",
+      "raw_text": "",
+      "image": "",
+      "is_imported": true,
+      "status": "valid",
+      "error_message": "",
+      "ocr_confidence": 1.0,
+      "ai_confidence": 1.0,
+      "sku_confidence": 1.0,
+      "name_confidence": 1.0,
+      "price_confidence": 1.0,
+      "layout_confidence": 1.0,
+      "flagged_for_review": false,
+      "review_reasons": [],
+      "attributes": {},
+      "variant_axis_name": "Finish",
+      "variant_prices": {
+        "GD": "4600",
+        "RGD": "4600",
+        "MB": "3400"
+      },
+      "created_at": "2026-07-26T10:45:34.845Z"
+    }
+  }
+]
