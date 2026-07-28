@@ -16,6 +16,7 @@ from .models import (
     ProductImage,
     ProductVariant,
     ProductSpecification,
+     ServiceablePincode,
 )
 
 from .serializers import (
@@ -25,6 +26,7 @@ from .serializers import (
     ProductImageSerializer,
     ProductVariantSerializer,
     ProductSpecificationSerializer,
+    DeliveryCheckSerializer,
 )
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -392,5 +394,52 @@ class DashboardAPIView(APIView):
             "category_distribution": category_distribution,
 
             "product_growth": product_growth,
+
+        })
+
+    # ==========================================================
+# DELIVERY CHECK API
+# ==========================================================
+
+class DeliveryCheckAPIView(APIView):
+
+    def post(self, request):
+
+        serializer = DeliveryCheckSerializer(
+            data=request.data
+        )
+
+        serializer.is_valid(
+            raise_exception=True
+        )
+
+        pincode = serializer.validated_data["pincode"]
+
+        location = ServiceablePincode.objects.filter(
+            pincode=pincode,
+            is_active=True
+        ).first()
+
+        if location:
+
+            return Response({
+
+                "deliverable": True,
+
+                "pincode": location.pincode,
+
+                "area": location.area_name,
+
+                "city": location.city,
+
+                "message": "Delivery Available"
+
+            })
+
+        return Response({
+
+            "deliverable": False,
+
+            "message": "Currently we deliver only within Kolkata."
 
         })

@@ -9,6 +9,7 @@ from .views import (
     ProductVariantViewSet,
     ProductSpecificationViewSet,
     DashboardAPIView,
+    DeliveryCheckAPIView,
 )
 
 router = DefaultRouter()
@@ -67,6 +68,7 @@ router.register(
     ProductSpecificationViewSet,
 )
 
+
 # ==========================================================
 # DASHBOARD API
 # ==========================================================
@@ -77,6 +79,11 @@ urlpatterns = [
         DashboardAPIView.as_view(),
         name="dashboard",
     ),
+    path(
+    "delivery/check/",
+    DeliveryCheckAPIView.as_view(),
+    name="delivery-check",
+),
 ]
 
 # ==========================================================

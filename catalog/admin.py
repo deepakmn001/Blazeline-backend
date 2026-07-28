@@ -14,7 +14,7 @@ from .models import (
     ProductSpecification,
 )
 
-
+from .models import ServiceablePincode
 # ==========================================================
 # CATEGORY / SUBCATEGORY
 # ==========================================================
@@ -449,3 +449,31 @@ class ProductSpecificationAdmin(admin.ModelAdmin):
     autocomplete_fields = ("product",)
     list_select_related = ("product",)
     list_per_page = 50
+
+
+
+
+
+
+
+
+@admin.register(ServiceablePincode)
+class ServiceablePincodeAdmin(admin.ModelAdmin):
+    list_display = (
+        "pincode",
+        "area_name",
+        "city",
+        "is_active",
+    )
+
+    search_fields = (
+        "pincode",
+        "area_name",
+    )
+
+    list_filter = (
+        "city",
+        "is_active",
+    )
+
+    ordering = ("pincode",)

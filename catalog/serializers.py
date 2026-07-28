@@ -809,3 +809,10 @@ class ProductSerializer(serializers.ModelSerializer):
         for old_value_id, old_ov in existing.items():
             if old_value_id not in desired_ids:
                 old_ov.delete()
+
+
+class DeliveryCheckSerializer(serializers.Serializer):
+
+    pincode = serializers.RegexField(
+        regex=r"^\d{6}$"
+    )

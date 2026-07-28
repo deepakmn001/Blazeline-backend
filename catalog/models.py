@@ -447,3 +447,20 @@ class ProductSpecification(models.Model):
 
     def __str__(self):
         return f"{self.key}: {self.value}"
+
+
+
+class ServiceablePincode(models.Model):
+    pincode = models.CharField(max_length=6, unique=True)
+    area_name = models.CharField(max_length=100)
+    city = models.CharField(max_length=100, default="Kolkata")
+    state = models.CharField(max_length=100, default="West Bengal")
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["pincode"]
+        verbose_name = "Serviceable Pincode"
+        verbose_name_plural = "Serviceable Pincodes"
+
+    def __str__(self):
+        return f"{self.pincode} - {self.area_name}"
