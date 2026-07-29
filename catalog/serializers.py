@@ -16,6 +16,8 @@ from .models import (
     ProductVariantOption,
     ProductImage,
     ProductSpecification,
+    QuoteRequest,
+    QuoteAttachment,
 )
 
 
@@ -816,3 +818,72 @@ class DeliveryCheckSerializer(serializers.Serializer):
     pincode = serializers.RegexField(
         regex=r"^\d{6}$"
     )
+
+
+
+
+    # ==========================================================
+# REQUEST A QUOTE
+# ==========================================================
+
+class QuoteAttachmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuoteAttachment
+        fields = (
+            "id",
+            "file",
+            "uploaded_at",
+        )
+        read_only_fields = (
+            "id",
+            "uploaded_at",
+        )
+
+
+class QuoteRequestSerializer(serializers.ModelSerializer):
+
+    attachments = serializers.ListField(
+        child=serializers.FileField(),
+        write_only=True,
+        required=False,
+    )
+
+    class Meta:
+        model = QuoteRequest
+        fields = (
+            "id",
+            "quote_id",
+            "full_name",
+            "phone",
+            "email",
+            "company",
+            "project_location",
+            "delivery_pincode",
+            "project_type",
+            "materials",
+            "requirements",
+            "status",
+            "attachments",
+            "created_at",
+        )
+
+        read_only_fields = (
+            "id",
+            "quote_id",
+            "status",
+            "created_at",
+        )
+
+    @transaction.atomic
+    def create(self, validated_data):
+        files = validated_data.pop("attachments", [])
+
+        quote = QuoteRequest.objects.create(**validated_data)
+
+        for file in files:
+            QuoteAttachment.objects.create(
+                quote=quote,
+                file=file,
+            )
+
+        return quote

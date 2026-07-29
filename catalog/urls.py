@@ -10,6 +10,7 @@ from .views import (
     ProductSpecificationViewSet,
     DashboardAPIView,
     DeliveryCheckAPIView,
+     QuoteRequestAPIView,
 )
 
 router = DefaultRouter()
@@ -83,6 +84,11 @@ urlpatterns = [
     "delivery/check/",
     DeliveryCheckAPIView.as_view(),
     name="delivery-check",
+),
+path(
+    "quote-requests/",
+    QuoteRequestAPIView.as_view(),
+    name="quote-requests",
 ),
 ]
 

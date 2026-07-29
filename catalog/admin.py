@@ -12,6 +12,8 @@ from .models import (
     ProductVariantOption,
     ProductImage,
     ProductSpecification,
+    QuoteRequest,
+    QuoteAttachment,
 )
 
 from .models import ServiceablePincode
@@ -477,3 +479,103 @@ class ServiceablePincodeAdmin(admin.ModelAdmin):
     )
 
     ordering = ("pincode",)
+
+
+
+
+
+
+
+
+    # ==========================================================
+# REQUEST A QUOTE
+# ==========================================================
+
+class QuoteAttachmentInline(admin.TabularInline):
+    model = QuoteAttachment
+    extra = 0
+
+
+@admin.register(QuoteRequest)
+class QuoteRequestAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "quote_id",
+        "full_name",
+        "phone",
+        "project_type",
+        "status",
+        "created_at",
+    )
+
+    list_filter = (
+        "status",
+        "project_type",
+        "created_at",
+    )
+
+    search_fields = (
+        "quote_id",
+        "full_name",
+        "phone",
+        "email",
+    )
+
+    readonly_fields = (
+        "quote_id",
+        "created_at",
+        "updated_at",
+    )
+
+    ordering = ("-created_at",)
+
+    list_per_page = 30
+
+    inlines = [
+        QuoteAttachmentInline,
+    ]
+
+    fieldsets = (
+        (
+            "Customer",
+            {
+                "fields": (
+                    "quote_id",
+                    "full_name",
+                    "phone",
+                    "email",
+                    "company",
+                )
+            },
+        ),
+        (
+            "Project",
+            {
+                "fields": (
+                    "project_location",
+                    "delivery_pincode",
+                    "project_type",
+                    "materials",
+                    "requirements",
+                )
+            },
+        ),
+        (
+            "Status",
+            {
+                "fields": (
+                    "status",
+                )
+            },
+        ),
+        (
+            "Timestamps",
+            {
+                "fields": (
+                    "created_at",
+                    "updated_at",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+    )

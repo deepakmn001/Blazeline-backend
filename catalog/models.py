@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.core.exceptions import ValidationError
 
@@ -464,3 +465,101 @@ class ServiceablePincode(models.Model):
 
     def __str__(self):
         return f"{self.pincode} - {self.area_name}"
+
+
+
+    # ==========================================================
+# REQUEST A QUOTE
+# ==========================================================
+
+
+
+
+class QuoteRequest(models.Model):
+
+    STATUS_CHOICES = [
+        ("pending", "Pending"),
+        ("reviewing", "Reviewing"),
+        ("quoted", "Quoted"),
+        ("approved", "Approved"),
+        ("rejected", "Rejected"),
+    ]
+
+    quote_id = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        unique=True,
+    )
+
+    full_name = models.CharField(max_length=150)
+
+    phone = models.CharField(max_length=20)
+
+    email = models.EmailField()
+
+    company = models.CharField(
+        max_length=200,
+        blank=True,
+    )
+
+    project_location = models.CharField(max_length=255)
+
+    delivery_pincode = models.CharField(max_length=6)
+
+    project_type = models.CharField(max_length=80)
+
+    materials = models.JSONField(default=list)
+
+    requirements = models.TextField(blank=True)
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="pending",
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+    )
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Quote Request"
+        verbose_name_plural = "Quote Requests"
+
+    def __str__(self):
+        return f"{self.full_name} ({self.quote_id})"
+
+
+# ==========================================================
+# QUOTE ATTACHMENTS
+# ==========================================================
+
+
+class QuoteAttachment(models.Model):
+
+    quote = models.ForeignKey(
+        QuoteRequest,
+        on_delete=models.CASCADE,
+        related_name="attachments",
+    )
+
+    file = models.FileField(
+        upload_to="quote_requests/",
+    )
+
+    uploaded_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = "Quote Attachment"
+        verbose_name_plural = "Quote Attachments"
+
+    def __str__(self):
+        return f"{self.quote.full_name} - Attachment"

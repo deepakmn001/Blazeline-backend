@@ -17,6 +17,7 @@ from .models import (
     ProductVariant,
     ProductSpecification,
      ServiceablePincode,
+     QuoteRequest,
 )
 
 from .serializers import (
@@ -27,6 +28,7 @@ from .serializers import (
     ProductVariantSerializer,
     ProductSpecificationSerializer,
     DeliveryCheckSerializer,
+    QuoteRequestSerializer,
 )
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -443,3 +445,41 @@ class DeliveryCheckAPIView(APIView):
             "message": "Currently we deliver only within Kolkata."
 
         })
+
+
+
+
+
+
+
+    # ==========================================================
+# REQUEST A QUOTE API
+# ==========================================================
+
+class QuoteRequestAPIView(APIView):
+
+    parser_classes = [
+        parsers.MultiPartParser,
+        parsers.FormParser,
+    ]
+
+    def post(self, request):
+
+        serializer = QuoteRequestSerializer(
+            data=request.data
+        )
+
+        serializer.is_valid(
+            raise_exception=True
+        )
+
+        quote = serializer.save()
+
+        return Response(
+            {
+                "success": True,
+                "message": "Quote request submitted successfully.",
+                "quote_id": str(quote.quote_id),
+            },
+            status=201,
+        )
