@@ -1,7 +1,7 @@
 # ==========================================================
 # catalog/serializers.py
 # ==========================================================
-
+from cloudinary.utils import cloudinary_url
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
 from rest_framework import serializers
@@ -222,14 +222,19 @@ class ProductImageSerializer(serializers.ModelSerializer):
         ]
 
     def get_image_url(self, obj):
-        request = self.context.get("request")
+        if not obj.image:
+            return None
 
-        if obj.image:
-            if request:
-                return request.build_absolute_uri(obj.image.url)
+        try:
+            url, _ = cloudinary_url(
+                obj.image.name,
+                width=600,
+                quality="auto",
+                fetch_format="auto",
+            )
+            return url
+        except Exception:
             return obj.image.url
-
-        return None
 
 
 # ==========================================================
