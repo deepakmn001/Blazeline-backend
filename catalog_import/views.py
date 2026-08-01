@@ -2,6 +2,7 @@ import csv
 import traceback
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -36,6 +37,8 @@ from .pagination import StandardResultsPagination
 # ==========================================================
 
 class CatalogImportViewSet(viewsets.ModelViewSet):
+
+    permission_classes = [IsAuthenticated]
 
     queryset = CatalogImport.objects.all().order_by("-created_at")
 
@@ -74,6 +77,8 @@ class ParsedProductViewSet(viewsets.ModelViewSet):
                                               or the current filtered queryset if `ids` omitted
     """
 
+    permission_classes = [IsAuthenticated]
+
     serializer_class = ParsedProductSerializer
     pagination_class = StandardResultsPagination
 
@@ -82,7 +87,6 @@ class ParsedProductViewSet(viewsets.ModelViewSet):
         .select_related("catalog", "catalog__category")
         .all()
     )
-
     filter_backends = [
         DjangoFilterBackend,
         SearchFilter,
@@ -421,6 +425,8 @@ class ParsedProductViewSet(viewsets.ModelViewSet):
 
 class CatalogUploadAPIView(APIView):
 
+    permission_classes = [IsAuthenticated]
+
     def post(self, request):
         pdf = request.FILES.get("pdf")
         brand = request.data.get("brand", "").strip()
@@ -503,6 +509,8 @@ class CatalogUploadAPIView(APIView):
 # ==========================================================
 
 class JsonCatalogImportAPIView(APIView):
+
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
 

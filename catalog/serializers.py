@@ -1,7 +1,7 @@
 # ==========================================================
 # catalog/serializers.py
 # ==========================================================
-import time
+
 from cloudinary.utils import cloudinary_url
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
@@ -665,9 +665,15 @@ class ProductSerializer(serializers.ModelSerializer):
         variants_data = validated_data.pop("variants", None)
         specifications_data = validated_data.pop("specifications", None)
 
+        changed_fields = []
+
         for field, value in validated_data.items():
-            setattr(instance, field, value)
-        instance.save()
+            if getattr(instance, field) != value:
+                setattr(instance, field, value)
+                changed_fields.append(field)
+
+        if changed_fields:
+            instance.save(update_fields=changed_fields)
 
         if options_data is not None:
             option_value_lookup = self._sync_options(instance, options_data)
@@ -706,9 +712,16 @@ class ProductSerializer(serializers.ModelSerializer):
 
             if child_id and child_id in existing:
                 obj = existing[child_id]
+
+                changed_fields = []
+
                 for field, value in child_data.items():
-                    setattr(obj, field, value)
-                obj.save()
+                    if getattr(obj, field) != value:
+                        setattr(obj, field, value)
+                        changed_fields.append(field)
+
+                if changed_fields:
+                    obj.save(update_fields=changed_fields)
             else:
                 obj = model.objects.create(
                     **{parent_field_name: parent_obj}, **child_data
@@ -751,9 +764,16 @@ class ProductSerializer(serializers.ModelSerializer):
 
             if option_id and option_id in existing_options:
                 option_obj = existing_options[option_id]
+
+                changed_fields = []
+
                 for field, value in option_data.items():
-                    setattr(option_obj, field, value)
-                option_obj.save()
+                    if getattr(option_obj, field) != value:
+                        setattr(option_obj, field, value)
+                        changed_fields.append(field)
+
+                if changed_fields:
+                    option_obj.save(update_fields=changed_fields)
             else:
                 option_obj = ProductOption.objects.create(
                     product=product, **option_data
@@ -770,9 +790,16 @@ class ProductSerializer(serializers.ModelSerializer):
 
                 if value_id and value_id in existing_values:
                     value_obj = existing_values[value_id]
+
+                    changed_fields = []
+
                     for field, value in value_data.items():
-                        setattr(value_obj, field, value)
-                    value_obj.save()
+                        if getattr(value_obj, field) != value:
+                            setattr(value_obj, field, value)
+                            changed_fields.append(field)
+
+                    if changed_fields:
+                        value_obj.save(update_fields=changed_fields)
                 else:
                     value_obj = ProductOptionValue.objects.create(
                         option=option_obj, **value_data
@@ -803,9 +830,16 @@ class ProductSerializer(serializers.ModelSerializer):
 
             if variant_id and variant_id in existing_variants:
                 variant_obj = existing_variants[variant_id]
+
+                changed_fields = []
+
                 for field, value in variant_data.items():
-                    setattr(variant_obj, field, value)
-                variant_obj.save()
+                    if getattr(variant_obj, field) != value:
+                        setattr(variant_obj, field, value)
+                        changed_fields.append(field)
+
+                if changed_fields:
+                    variant_obj.save(update_fields=changed_fields)
             else:
                 variant_obj = ProductVariant.objects.create(
                     product=product, **variant_data

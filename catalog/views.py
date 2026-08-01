@@ -5,9 +5,12 @@
 #  variants/variants__images, and
 #  variants__variant_options__option_value__option)
 # ==========================================================
+from .pagination import StandardResultsPagination 
+from .filters import ProductFilter
 from .services import LocationService
 from django.core.exceptions import ValidationError
 from rest_framework import viewsets, filters, parsers
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import status
@@ -50,6 +53,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
     serializer_class = CategorySerializer
 
+    def get_permissions(self):
+        if self.action in ["list", "retrieve"]:
+            return [AllowAny()]
+        return [IsAuthenticated()]
+
     filter_backends = [
         filters.SearchFilter,
         filters.OrderingFilter,
@@ -83,6 +91,11 @@ class SubCategoryViewSet(viewsets.ModelViewSet):
 
     serializer_class = SubCategorySerializer
 
+    def get_permissions(self):
+        if self.action in ["list", "retrieve"]:
+            return [AllowAny()]
+        return [IsAuthenticated()]
+
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter,
@@ -115,6 +128,7 @@ class SubCategoryViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     lookup_field = "slug"
     lookup_url_kwarg = "slug"
+    pagination_class = StandardResultsPagination 
     queryset = (
         Product.objects
         .select_related(
@@ -142,6 +156,11 @@ class ProductViewSet(viewsets.ModelViewSet):
 
         return ProductSerializer
 
+    def get_permissions(self):
+        if self.action in ["list", "retrieve"]:
+            return [AllowAny()]
+        return [IsAuthenticated()]
+
     parser_classes = [
         parsers.MultiPartParser,
         parsers.FormParser,
@@ -154,13 +173,7 @@ class ProductViewSet(viewsets.ModelViewSet):
         filters.OrderingFilter,
     ]
 
-    filterset_fields = [
-        "category",
-        "subcategory",
-        "featured",
-        "active",
-        "status",
-    ]
+    filterset_class = ProductFilter
 
     search_fields = [
         "name",
@@ -194,6 +207,8 @@ class ProductImageViewSet(viewsets.ModelViewSet):
 
     serializer_class = ProductImageSerializer
 
+    permission_classes = [IsAuthenticated]
+
     parser_classes = [
         parsers.MultiPartParser,
         parsers.FormParser,
@@ -225,6 +240,8 @@ class ProductImageViewSet(viewsets.ModelViewSet):
 # ==========================================================
 
 class ProductVariantViewSet(viewsets.ModelViewSet):
+
+    permission_classes = [IsAuthenticated]
 
     queryset = (
         ProductVariant.objects
@@ -271,6 +288,8 @@ class ProductVariantViewSet(viewsets.ModelViewSet):
 
 class ProductSpecificationViewSet(viewsets.ModelViewSet):
 
+    permission_classes = [IsAuthenticated]
+
     queryset = (
         ProductSpecification.objects
         .select_related("product")
@@ -308,6 +327,8 @@ class ProductSpecificationViewSet(viewsets.ModelViewSet):
 # ==========================================================
 
 class DashboardAPIView(APIView):
+
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
 

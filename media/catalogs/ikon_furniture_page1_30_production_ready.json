@@ -1,0 +1,404 @@
+{
+  "brand": "IKON",
+  "catalog_name": "IKON Imported Home & Office Furniture",
+  "source_pdf": "furniture page1-30.pdf",
+  "page_count": 30,
+  "price_policy": {
+    "gst_included": false,
+    "gst_percent": 18,
+    "transportation_charges": "Extra as actual"
+  },
+  "products": [
+    {
+      "sku": "1685",
+      "product_name": "1685 Bedroom Set",
+      "category": "Furniture",
+      "subcategory": "Bedroom Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "King Bedroom Set with Sliding Wardrobe": 62000,
+        "Queen Bedroom Set with Sliding Wardrobe": 60500,
+        "King Bed": 26000,
+        "Queen Bed": 24500,
+        "King Bedroom Set with 4 Door Wardrobe": 61000,
+        "Queen Bedroom Set with 4 Door Wardrobe": 59500
+      },
+      "attributes": {
+        "Hydraulic": "Full Hydraulic"
+      },
+      "page_number": 2,
+      "page_numbers": [
+        2,
+        3
+      ]
+    },
+    {
+      "sku": "1686",
+      "product_name": "1686 Bedroom Set",
+      "category": "Furniture",
+      "subcategory": "Bedroom Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "King Bedroom Set with 4 Door Wardrobe": 57000,
+        "Queen Bedroom Set with 4 Door Wardrobe": 55500,
+        "King Bedroom Set with 5 Door (3+2) Wardrobe": 64000,
+        "Queen Bedroom Set with 5 Door (3+2) Wardrobe": 62500,
+        "King Bed": 24000,
+        "Queen Bed": 22500
+      },
+      "attributes": {
+        "Hydraulic": "Full Hydraulic"
+      },
+      "page_number": 4,
+      "page_numbers": [
+        4,
+        5
+      ]
+    },
+    {
+      "sku": "1687",
+      "product_name": "1687 Bedroom Set",
+      "category": "Furniture",
+      "subcategory": "Bedroom Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "King Bedroom Set with 4 Door Wardrobe": 61000,
+        "King Bed": 26000
+      },
+      "attributes": {
+        "Hydraulic": "Full Hydraulic"
+      },
+      "page_number": 6
+    },
+    {
+      "sku": "E-1041",
+      "product_name": "E-1041 Bedroom Set",
+      "category": "Furniture",
+      "subcategory": "Bedroom Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "With King Bed (Full Hydraulic) 4 Door Wardrobe, Dresser, 1 Side Table": 62000,
+        "King Bed (Full Hydraulic)": 28350
+      },
+      "attributes": {
+        "Hydraulic": "Full Hydraulic"
+      },
+      "page_number": 7,
+      "page_numbers": [
+        7,
+        8
+      ]
+    },
+    {
+      "sku": "E-1042",
+      "product_name": "E-1042 Bedroom Set",
+      "category": "Furniture",
+      "subcategory": "Bedroom Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "With King Bed (Full Hydraulic) 4 Door Wardrobe, Dresser, 1 Side Table": 56100,
+        "King Bed (Full Hydraulic)": 22500
+      },
+      "attributes": {
+        "Hydraulic": "Full Hydraulic"
+      },
+      "page_number": 9,
+      "page_numbers": [
+        9,
+        10
+      ]
+    },
+    {
+      "sku": "BS-6611",
+      "product_name": "BS-6611 Bedroom Set",
+      "category": "Furniture",
+      "subcategory": "Bedroom Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "Bedroom Set (King Bed, 1 Side Table, 4 Door Wardrobe, Dresser)": 58000,
+        "King Bed Only": 26000,
+        "Queen Bed Only": 25000
+      },
+      "attributes": {
+        "Color": "Walnut Grey",
+        "Headboard": "Light In Head Board"
+      },
+      "page_number": 11,
+      "page_numbers": [
+        11,
+        12
+      ]
+    },
+    {
+      "sku": "BS-1331",
+      "product_name": "BS-1331 Bedroom Set",
+      "category": "Furniture",
+      "subcategory": "Bedroom Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "Queen Bedroom Set with 4 Door Wardrobe": 49500,
+        "Queen Bed": 20000
+      },
+      "attributes": {
+        "Bed Type": "Queen"
+      },
+      "page_number": 13
+    },
+    {
+      "sku": "K-42",
+      "product_name": "K-42 Dining Table",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "Only Dining Table 4 Seater": 3100
+      },
+      "attributes": {
+        "Color": "Maple, Black",
+        "Seater": "4 Seater"
+      },
+      "page_number": 14
+    },
+    {
+      "sku": "A-31",
+      "product_name": "A-31 Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+4 Dining Set": 6300
+      },
+      "attributes": {
+        "Seater": "1+4"
+      },
+      "page_number": 15
+    },
+    {
+      "sku": "C70/IK-642",
+      "product_name": "C70/IK-642 Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Seating Configuration",
+      "variant_prices": {
+        "4 Seater": 10200,
+        "6 Seater": 13650
+      },
+      "attributes": {
+        "Color": "Black"
+      },
+      "page_number": 16
+    },
+    {
+      "sku": "C93",
+      "product_name": "C93 Glass Top Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+4 (Yellow, Green Chair)": 10300
+      },
+      "attributes": {
+        "Top": "Glass Top",
+        "Chair Colors": "Yellow, Green"
+      },
+      "page_number": 17
+    },
+    {
+      "sku": "C-121/IK-624",
+      "product_name": "C-121/IK-624 Glass Top Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+4 Dining Set (1300*800)": 16100,
+        "Only Dining Table 4 Seater": 8500,
+        "1+6 Dining Set (1500*900)": 21600,
+        "Only Dining Table 6 Seater": 10000
+      },
+      "attributes": {
+        "Color": "Brown",
+        "Top": "Glass Top"
+      },
+      "page_number": 18
+    },
+    {
+      "sku": "5D",
+      "product_name": "5D Marble Top Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+4 Dining Set (900*900)": 11500
+      },
+      "attributes": {
+        "Color": "Brown & Cream",
+        "Top": "Marble Top"
+      },
+      "page_number": 19
+    },
+    {
+      "sku": "T-0012/IK-642",
+      "product_name": "T-0012/IK-642 Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "4 Seater Ceramic Top": 6800,
+        "Only Dining Table 4 Seater": 2500
+      },
+      "attributes": {
+        "Top": "Ceramic Top"
+      },
+      "page_number": 20
+    },
+    {
+      "sku": "1901-3/601",
+      "product_name": "1901-3/601 Marble Top Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+4 Dining Set": 11500
+      },
+      "attributes": {
+        "Top": "Marble Top"
+      },
+      "page_number": 21
+    },
+    {
+      "sku": "1901/2",
+      "product_name": "1901/2 Marble Top Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+4 Dining Set (1300*800)": 11950
+      },
+      "attributes": {
+        "Top": "Marble Top"
+      },
+      "page_number": 22
+    },
+    {
+      "sku": "1901-6/601",
+      "product_name": "1901-6/601 Marble Top Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+4 Dining Set": 11500
+      },
+      "attributes": {
+        "Top": "Marble Top"
+      },
+      "page_number": 23
+    },
+    {
+      "sku": "813",
+      "product_name": "813 Marble Top Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Seater",
+      "variant_prices": {
+        "4 Seater": 19500,
+        "6 Seater": 25200
+      },
+      "attributes": {
+        "Top": "Marble Top"
+      },
+      "page_number": 24
+    },
+    {
+      "sku": "C-1/IK-624",
+      "product_name": "C-1/IK-624 Marble Top Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+4 Dining Set": 17500
+      },
+      "attributes": {
+        "Top": "Marble Top"
+      },
+      "page_number": 25
+    },
+    {
+      "sku": "#9/IK-624",
+      "product_name": "#9/IK-624 Marble Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+4 Dining Set (1300*800)": 18500,
+        "Only Marble Dining Table 4 Seater": 11500,
+        "1+6 Dining Set (1500*900)": 24500,
+        "Only Marble Dining Table 6 Seater": 12500
+      },
+      "attributes": {
+        "Color": "Brown",
+        "Top": "Marble Top"
+      },
+      "page_number": 26
+    },
+    {
+      "sku": "K-68/IK-624",
+      "product_name": "K-68/IK-624 Marble Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+6 Dining Set": 23400,
+        "Marble Dining Table 6 Seater": 12000
+      },
+      "attributes": {
+        "Color": "Black",
+        "Top": "Marble Top"
+      },
+      "page_number": 27
+    },
+    {
+      "sku": "#3",
+      "product_name": "#3 Marble Top Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+4 Dining Set": 17600,
+        "1+6 Dining Set": 22500
+      },
+      "attributes": {
+        "Top": "Marble Top"
+      },
+      "page_number": 28
+    },
+    {
+      "sku": "8976/IK-624",
+      "product_name": "8976/IK-624 Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+6 Dining Set (1500*900)": 21200,
+        "Only Table 6 Seater": 9500
+      },
+      "attributes": {
+        "Color": "Black"
+      },
+      "page_number": 29
+    },
+    {
+      "sku": "830/A30",
+      "product_name": "830/A30 5D Marble Dining Set",
+      "category": "Furniture",
+      "subcategory": "Dining Tables & Sets",
+      "variant_axis_name": "Configuration",
+      "variant_prices": {
+        "1+4 Dining Set (1300*800)": 23100
+      },
+      "attributes": {
+        "Top": "Marble Top"
+      },
+      "page_number": 30
+    }
+  ]
+}

@@ -9,6 +9,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 from django.urls import include, path
+from catalog.auth_views import AdminLoginView, AdminTokenRefreshView
 
 urlpatterns = [
      path("silk/", include("silk.urls")),
@@ -24,12 +25,24 @@ urlpatterns = [
         "api/",
         include("catalog.urls"),
     ),
+    
+    # Admin Auth (JWT)
+    path(
+        "api/auth/login/",
+        AdminLoginView.as_view(),
+        name="admin-login",
+    ),
+    path(
+        "api/auth/refresh/",
+        AdminTokenRefreshView.as_view(),
+        name="admin-refresh",
+    ),
 
  #Catalog Import APIs
-path(
-    "api/",
-    include("catalog_import.urls"),
-),
+#path(
+ #   "api/",
+  #  include("catalog_import.urls"),
+#),
     # OpenAPI Schema
     path(
         "api/schema/",
