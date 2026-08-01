@@ -12,7 +12,7 @@ from django.urls import include, path
 from catalog.auth_views import AdminLoginView, AdminTokenRefreshView
 
 urlpatterns = [
-     path("silk/", include("silk.urls")),
+     #path("silk/", include("silk.urls")),
 
     # Django Admin
     path(
