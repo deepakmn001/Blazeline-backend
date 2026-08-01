@@ -405,6 +405,7 @@ class ProductListSerializer(serializers.ModelSerializer):
 
     image = serializers.SerializerMethodField()
     price = serializers.SerializerMethodField()
+    in_stock = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -416,6 +417,7 @@ class ProductListSerializer(serializers.ModelSerializer):
             "subcategory",
             "image",
             "price",
+            "in_stock",
             "featured",
             "status",
         ]
@@ -449,6 +451,12 @@ class ProductListSerializer(serializers.ModelSerializer):
             return None
 
         return variant.selling_price
+
+    def get_in_stock(self, obj):
+        variant = self._get_default_variant(obj)
+        if not variant:
+            return False
+        return (variant.stock or 0) > 0
 
 # ==========================================================
 # PRODUCT
