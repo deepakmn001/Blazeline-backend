@@ -5,9 +5,12 @@
 #  variants/variants__images, and
 #  variants__variant_options__option_value__option)
 # ==========================================================
-
+from .services import LocationService
+from django.core.exceptions import ValidationError
 from rest_framework import viewsets, filters, parsers
 from django_filters.rest_framework import DjangoFilterBackend
+
+from rest_framework import status
 
 from .models import (
     Category,
@@ -24,6 +27,7 @@ from .serializers import (
     CategorySerializer,
     SubCategorySerializer,
     ProductSerializer,
+     ProductListSerializer,
     ProductImageSerializer,
     ProductVariantSerializer,
     ProductSpecificationSerializer,
@@ -132,7 +136,11 @@ class ProductViewSet(viewsets.ModelViewSet):
         )
     )
 
-    serializer_class = ProductSerializer
+    def get_serializer_class(self):
+        if self.action == "list":
+            return ProductListSerializer
+
+        return ProductSerializer
 
     parser_classes = [
         parsers.MultiPartParser,
@@ -399,6 +407,70 @@ class DashboardAPIView(APIView):
 
         })
 
+
+class ReverseLocationAPIView(APIView):
+
+    def post(self, request):
+
+        latitude = request.data.get("latitude")
+        longitude = request.data.get("longitude")
+
+        if latitude is None or longitude is None:
+            return Response(
+                {
+                    "message": "Latitude and longitude are required."
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+
+            location = LocationService.reverse_geocode(
+                float(latitude),
+                float(longitude),
+            )
+
+            if not location:
+                return Response(
+                    {
+                        "message": "Unable to determine your location."
+                    },
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+
+            serviceable = ServiceablePincode.objects.filter(
+                pincode=location["postcode"],
+                is_active=True,
+            ).first()
+
+            return Response({
+
+                "postcode": location["postcode"],
+
+                "city": location["city"],
+
+                "area": location["area"],
+
+                "deliverable": bool(serviceable),
+
+                "message": (
+                    "Delivery Available"
+                    if serviceable
+                    else "Currently we deliver only within Kolkata."
+                ),
+            })
+
+        except Exception as e:
+            import traceback
+
+            traceback.print_exc()
+
+            return Response(
+                {
+                    "message": str(e),
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
     # ==========================================================
 # DELIVERY CHECK API
 # ==========================================================

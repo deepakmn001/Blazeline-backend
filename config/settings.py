@@ -25,6 +25,7 @@ SECRET_KEY = os.getenv(
 )
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
+GEOAPIFY_API_KEY = os.getenv("GEOAPIFY_API_KEY")
 
 ALLOWED_HOSTS = [
     host.strip()
@@ -51,12 +52,14 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     "django_filters",
+    "silk",
 
     # Local
     "catalog",
-    #"catalog_import",
+    "catalog_import",
     "cloudinary",
     "cloudinary_storage",
+    
 ]
 
 
@@ -65,6 +68,7 @@ INSTALLED_APPS = [
 # ------------------------------------------------------------------
 
 MIDDLEWARE = [
+    "silk.middleware.SilkyMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
 

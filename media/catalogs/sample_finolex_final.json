@@ -1,0 +1,73 @@
+{
+  "brand": "Finolex",
+  "products": [
+    {
+      "sku": "10302",
+      "product_name": "FR PVC Industrial Cable",
+      "attributes": {
+        "Core": "Single Core",
+        "Packing": "90 m",
+        "Voltage": "1100V"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "0.75 sq.mm": 1920
+      },
+      "page_number": 12
+    },
+    {
+      "sku": "10303",
+      "product_name": "FR PVC Industrial Cable",
+      "attributes": {
+        "Core": "Single Core",
+        "Packing": "90 m",
+        "Voltage": "1100V"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1 sq.mm": 2480
+      },
+      "page_number": 12
+    },
+    {
+      "sku": "10304",
+      "product_name": "FR PVC Industrial Cable",
+      "attributes": {
+        "Core": "Single Core",
+        "Packing": "90 m",
+        "Voltage": "1100V"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.5 sq.mm": 3320
+      },
+      "page_number": 12
+    },
+    {
+      "sku": "20110",
+      "product_name": "Flexible Cable",
+      "attributes": {
+        "Core": "2 Core",
+        "Packing": "90 m"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1 sq.mm": 2850
+      },
+      "page_number": 18
+    },
+    {
+      "sku": "30120",
+      "product_name": "LAN Cable",
+      "attributes": {
+        "Category": "CAT6",
+        "Shielding": "UTP"
+      },
+      "variant_axis_name": "Length",
+      "variant_prices": {
+        "305 m": 7850
+      },
+      "page_number": 27
+    }
+  ]
+}

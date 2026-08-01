@@ -1,6 +1,6 @@
 from django.db import models
 
-
+from .storage import CatalogImportStorage
 class CatalogImport(models.Model):
 
     class Status(models.TextChoices):
@@ -15,10 +15,11 @@ class CatalogImport(models.Model):
         JSON = "json", "JSON"
 
     pdf = models.FileField(
-        upload_to="catalogs/",
-        blank=True,
-        null=True,
-    )
+    storage=CatalogImportStorage(),
+    upload_to="",
+    blank=True,
+    null=True,
+)
     brand = models.CharField(
         max_length=120,
         blank=True,

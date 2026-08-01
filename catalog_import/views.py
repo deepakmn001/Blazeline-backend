@@ -1,5 +1,5 @@
 import csv
-
+import traceback
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -65,6 +65,7 @@ class ParsedProductViewSet(viewsets.ModelViewSet):
       ?page=&page_size=&search=&status=&category=&finish=&is_imported=&ordering=&catalog=
 
     Extra actions:
+      GET  /parsed-products/dashboard/    -> products + count + stats + facets in one call
       GET  /parsed-products/stats/        -> live counters (pending/valid/invalid/imported/total)
       GET  /parsed-products/facets/       -> distinct category & finish values for filter dropdowns
       POST /parsed-products/{id}/publish/ -> publish a single product
@@ -134,6 +135,47 @@ class ParsedProductViewSet(viewsets.ModelViewSet):
             qs = qs.filter(finish__iexact=finish)
 
         return qs
+
+    # ------------------------------------------------------
+    # Combined payload for the review page: products + count +
+    # stats + facets in a single round trip, instead of the client
+    # firing three separate requests on every render.
+    # ------------------------------------------------------
+    @action(detail=False, methods=["get"], url_path="dashboard")
+    def dashboard(self, request):
+        base_qs = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(base_qs)
+        serializer = self.get_serializer(
+            page if page is not None else base_qs, many=True
+        )
+
+        if page is not None:
+            products_data = self.get_paginated_response(serializer.data).data
+        else:
+            products_data = {
+                "count": base_qs.count(),
+                "next": None,
+                "previous": None,
+                "results": serializer.data,
+            }
+
+        # Reuse the existing stats/facets actions rather than
+        # re-implementing the aggregation logic here.
+        stats_data = self.stats(request).data
+        facets_data = self.facets(request).data
+
+        return Response(
+            {
+                "products": products_data.get("results", []),
+                "count": products_data.get("count", 0),
+                "next": products_data.get("next"),
+                "previous": products_data.get("previous"),
+                "stats": stats_data,
+                "facets": facets_data,
+            },
+            status=status.HTTP_200_OK,
+        )
 
     # ------------------------------------------------------
     # Live counters for the toolbar
@@ -554,11 +596,13 @@ class JsonCatalogImportAPIView(APIView):
             )
 
         except Exception as exc:
+            traceback.print_exc()
 
             return Response(
-                {
-                    "success": False,
-                    "error": str(exc),
-                },
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            )
+        {
+            "success": False,
+            "type": exc.__class__.__name__,
+            "error": str(exc),
+        },
+        status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+    )

@@ -1,0 +1,271 @@
+{
+  "brand": "Finolex",
+  "collection": "Finolex Irons",
+  "source_pdf": "Iron Catalogue (297 x 210mm)_ V2_Web.pdf",
+  "catalogue_pages": "5-16",
+  "import_policy": {
+    "images_included": false,
+    "image_upload_method": "admin_edit_product_later",
+    "masters_created_by": "admin"
+  },
+  "products": [
+    {
+      "sku": "FIN-IR-SLI-1600",
+      "product_name": "Finolex Slinky Steam Iron 1600W",
+      "collection": "Finolex Irons",
+      "series": "Slinky",
+      "variant": "Blue",
+      "finish": "Blue",
+      "finishes": [
+        "Blue"
+      ],
+      "standard_price": 1499,
+      "variant_prices": {},
+      "variant_axis_name": "Colour",
+      "page_number": 5,
+      "raw_text": "Slinky Steam Iron 1600W. Colour available: Blue. Specifications: 1600W, 240V, 50 Hz, Single Phase AC, Weilburger Non-Stick Soleplate Coating, Plastic body, ISI Yes. Features include uniform heating, aluminium design, 360° cord swivel movement, advanced soleplate with German coating, reliable snap action thermostat, suitable for multiple fabric types, steam burst dual direction horizontally and vertically, neon indicator, fast & powerful crease removal, overheat safety shut off, 220 ml water tank capacity, powerful steam, self-clean function, and cool touch body.",
+      "attributes": {
+        "Type": "Steam Iron",
+        "Power": "1600W",
+        "Voltage": "240V, 50 Hz, Single Phase AC",
+        "Body": "Plastic",
+        "Soleplate": "Weilburger Non-Stick Soleplate Coating",
+        "ISI": true,
+        "Warranty": "2 Years",
+        "Colour Options": [
+          "Blue"
+        ],
+        "Features": [
+          "Uniform Heating",
+          "Aluminium Design",
+          "360° Cord Swivel Movement",
+          "Advanced Soleplate with German Coating",
+          "Reliable Snap Action Thermostat",
+          "Suitable For Multiple Fabric Types",
+          "Steam Burst Dual Direction Horizontally And Vertically",
+          "Neon Indicator",
+          "Fast & Powerful Crease Removal",
+          "Overheat Safety Shut Off",
+          "220 ml Water Tank Capacity",
+          "Powerful Steam",
+          "Self-Clean Function",
+          "Cool Touch Body"
+        ]
+      },
+      "status": "published"
+    },
+    {
+      "sku": "FIN-IR-CUP-1000",
+      "product_name": "Finolex Cupid Dry Plastic Iron 1000W",
+      "collection": "Finolex Irons",
+      "series": "Cupid",
+      "variant": "Lavender & White",
+      "finish": "Lavender & White",
+      "finishes": [
+        "Lavender & White",
+        "Teal & Black"
+      ],
+      "standard_price": 699,
+      "variant_prices": {},
+      "variant_axis_name": "Colour",
+      "page_number": 7,
+      "raw_text": "Cupid Dry Plastic Iron 1000W. Colours available: Lavender & White, Teal & Black. Specifications: 1000W, 230V, 50 Hz, Single Phase AC, Weilburger Non-Stick Soleplate Coating, Plastic body, ISI Yes. Features include uniform heating, aluminium design, 360° cord swivel movement, advanced soleplate with German coating, reliable snap action thermostat, suitable for multiple fabric types, LED indicator, fast & powerful crease removal, overheat safety shut-off, and cool touch body.",
+      "attributes": {
+        "Type": "Dry Plastic Iron",
+        "Power": "1000W",
+        "Voltage": "230V, 50 Hz, Single Phase AC",
+        "Body": "Plastic",
+        "Soleplate": "Weilburger Non-Stick Soleplate Coating",
+        "ISI": true,
+        "Warranty": "2 Years",
+        "Colour Options": [
+          "Lavender & White",
+          "Teal & Black"
+        ],
+        "Features": [
+          "Uniform Heating",
+          "Aluminium Design",
+          "360° Cord Swivel Movement",
+          "Advanced Soleplate with German Coating",
+          "Reliable Snap Action Thermostat",
+          "Suitable For Multiple Fabric Types",
+          "LED Indicator",
+          "Fast & Powerful Crease Removal",
+          "Overheat Safety Shut-Off",
+          "Cool Touch Body"
+        ]
+      },
+      "status": "published"
+    },
+    {
+      "sku": "FIN-IR-MAG-1000",
+      "product_name": "Finolex Maglev Dry Plastic Iron 1000W",
+      "collection": "Finolex Irons",
+      "series": "Maglev",
+      "variant": "Sea Blue",
+      "finish": "Sea Blue",
+      "finishes": [
+        "Sea Blue",
+        "Purple & White"
+      ],
+      "standard_price": 749,
+      "variant_prices": {},
+      "variant_axis_name": "Colour",
+      "page_number": 9,
+      "raw_text": "Maglev Dry Plastic Iron 1000W. Colours available: Sea Blue, Purple & White. Specifications: 1000W, 230V, 50 Hz, Single Phase AC, Weilburger Non-Stick Soleplate Coating, Plastic body, ISI Yes. Features include uniform heating, aluminium design, 360° cord swivel movement, advanced soleplate with German coating, reliable snap action thermostat, suitable for multiple fabric types, neon indicator, fast & powerful crease removal, overheat safety shut off, and cool touch body.",
+      "attributes": {
+        "Type": "Dry Plastic Iron",
+        "Power": "1000W",
+        "Voltage": "230V, 50 Hz, Single Phase AC",
+        "Body": "Plastic",
+        "Soleplate": "Weilburger Non-Stick Soleplate Coating",
+        "ISI": true,
+        "Warranty": "2 Years",
+        "Colour Options": [
+          "Sea Blue",
+          "Purple & White"
+        ],
+        "Features": [
+          "Uniform Heating",
+          "Aluminium Design",
+          "360° Cord Swivel Movement",
+          "Advanced Soleplate with German Coating",
+          "Reliable Snap Action Thermostat",
+          "Suitable For Multiple Fabric Types",
+          "Neon Indicator",
+          "Fast & Powerful Crease Removal",
+          "Overheat Safety Shut Off",
+          "Cool Touch Body"
+        ]
+      },
+      "status": "published"
+    },
+    {
+      "sku": "FIN-IR-QUI-1000",
+      "product_name": "Finolex Quinto Dry Metal Heavy Duty Iron 1000W",
+      "collection": "Finolex Irons",
+      "series": "Quinto",
+      "variant": "Black & Grey",
+      "finish": "Black & Grey",
+      "finishes": [
+        "Black & Grey"
+      ],
+      "standard_price": 899,
+      "variant_prices": {},
+      "variant_axis_name": "Colour",
+      "page_number": 11,
+      "raw_text": "Quinto Dry Metal Heavy Duty Iron 1000W. Colour available: Black & Grey. Specifications: 1000W, 230V, 50 Hz, Single Phase AC, Weilburger Non-Stick Soleplate Coating, Metal body, ISI Yes. Features include uniform heating, aluminium design, 360° cord swivel movement, advanced soleplate with German coating, reliable snap action thermostat, heavy weight, suitable for multiple fabric types, neon indicator, fast & powerful crease removal, and overheat safety shut off.",
+      "attributes": {
+        "Type": "Dry Metal Heavy Duty Iron",
+        "Power": "1000W",
+        "Voltage": "230V, 50 Hz, Single Phase AC",
+        "Body": "Metal",
+        "Soleplate": "Weilburger Non-Stick Soleplate Coating",
+        "ISI": true,
+        "Warranty": "2 Years",
+        "Colour Options": [
+          "Black & Grey"
+        ],
+        "Features": [
+          "Uniform Heating",
+          "Aluminium Design",
+          "360° Cord Swivel Movement",
+          "Advanced Soleplate with German Coating",
+          "Reliable Snap Action Thermostat",
+          "Heavy Weight",
+          "Suitable For Multiple Fabric Types",
+          "Neon Indicator",
+          "Fast & Powerful Crease Removal",
+          "Overheat Safety Shut Off"
+        ]
+      },
+      "status": "published"
+    },
+    {
+      "sku": "FIN-IR-FIO-1000",
+      "product_name": "Finolex Fionn Dry Metal Iron 1000W",
+      "collection": "Finolex Irons",
+      "series": "Fionn",
+      "variant": "White & Grey",
+      "finish": "White & Grey",
+      "finishes": [
+        "White & Grey",
+        "Turquoise & Grey"
+      ],
+      "standard_price": 799,
+      "variant_prices": {},
+      "variant_axis_name": "Colour",
+      "page_number": 13,
+      "raw_text": "Fionn Dry Metal Iron 1000W. Colours available: White & Grey, Turquoise & Grey. Specifications: 1000W, 230V, 50 Hz, Single Phase AC, Weilburger Non-Stick Soleplate Coating, Metal body, ISI Yes. Features include uniform heating, aluminium design, 360° cord swivel movement, advanced soleplate with German coating, reliable snap action thermostat, suitable for multiple fabric types, neon indicator, chrome plated steel body, fast & powerful crease removal, and overheat safety shut off.",
+      "attributes": {
+        "Type": "Dry Metal Iron",
+        "Power": "1000W",
+        "Voltage": "230V, 50 Hz, Single Phase AC",
+        "Body": "Metal",
+        "Soleplate": "Weilburger Non-Stick Soleplate Coating",
+        "ISI": true,
+        "Warranty": "2 Years",
+        "Colour Options": [
+          "White & Grey",
+          "Turquoise & Grey"
+        ],
+        "Features": [
+          "Uniform Heating",
+          "Aluminium Design",
+          "360° Cord Swivel Movement",
+          "Advanced Soleplate with German Coating",
+          "Reliable Snap Action Thermostat",
+          "Suitable For Multiple Fabric Types",
+          "Neon Indicator",
+          "Chrome Plated Steel Body",
+          "Fast & Powerful Crease Removal",
+          "Overheat Safety Shut Off"
+        ]
+      },
+      "status": "published"
+    },
+    {
+      "sku": "FIN-IR-FNX-1000",
+      "product_name": "Finolex Fionn NXG Dry Iron 1000W",
+      "collection": "Finolex Irons",
+      "series": "Fionn NXG",
+      "variant": "Yellow",
+      "finish": "Yellow",
+      "finishes": [
+        "Yellow",
+        "White"
+      ],
+      "standard_price": 649,
+      "variant_prices": {},
+      "variant_axis_name": "Colour",
+      "page_number": 15,
+      "raw_text": "Fionn NXG Dry Iron 1000W. Colours available: Yellow, White. Specifications: 1000W, 230V, 50 Hz, Single Phase AC, P.T.F.E Non-Stick Soleplate, Metal body, ISI Yes. Features include uniform heating, aluminium design, 360° cord swivel movement, P.T.F.E non-stick soleplate, reliable snap action thermostat, suitable for multiple fabric types, neon indicator, temperature control, fast & powerful crease removal, and overheat safety shut off.",
+      "attributes": {
+        "Type": "Dry Iron",
+        "Power": "1000W",
+        "Voltage": "230V, 50 Hz, Single Phase AC",
+        "Body": "Metal",
+        "Soleplate": "P.T.F.E Non-Stick Soleplate",
+        "ISI": true,
+        "Warranty": "2 Years",
+        "Colour Options": [
+          "Yellow",
+          "White"
+        ],
+        "Features": [
+          "Uniform Heating",
+          "Aluminium Design",
+          "360° Cord Swivel Movement",
+          "P.T.F.E Non-Stick Soleplate",
+          "Reliable Snap Action Thermostat",
+          "Suitable For Multiple Fabric Types",
+          "Neon Indicator",
+          "Temperature Control",
+          "Fast & Powerful Crease Removal",
+          "Overheat Safety Shut Off"
+        ]
+      },
+      "status": "published"
+    }
+  ]
+}

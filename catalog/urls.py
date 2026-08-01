@@ -11,6 +11,7 @@ from .views import (
     DashboardAPIView,
     DeliveryCheckAPIView,
      QuoteRequestAPIView,
+     ReverseLocationAPIView,
 )
 
 router = DefaultRouter()
@@ -89,6 +90,11 @@ path(
     "quote-requests/",
     QuoteRequestAPIView.as_view(),
     name="quote-requests",
+),
+path(
+    "location/reverse/",
+    ReverseLocationAPIView.as_view(),
+    name="reverse-location",
 ),
 ]
 

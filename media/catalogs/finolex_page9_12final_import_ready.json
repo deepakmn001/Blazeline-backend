@@ -1,0 +1,2477 @@
+{
+  "brand": "Finolex",
+  "category": "Electricals",
+  "subcategory": "Wires & Cables",
+  "collection": "Flexible Cables",
+  "source_pdf": "9-12 finolex.pdf",
+  "catalogue_pages": "9-12",
+  "products": [
+    {
+      "sku": "14001-single_core_unsheathed-0_50_sq_mm",
+      "product_name": "Flexible Cables - Single Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core (Unsheathed)",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 1390,
+      "variant_prices": {
+        "FR": 1390,
+        "FRLS": 1425
+      },
+      "attributes": {
+        "Manufacturer SKU": "14001",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14002-single_core_unsheathed-0_75_sq_mm",
+      "product_name": "Flexible Cables - Single Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core (Unsheathed)",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 2005,
+      "variant_prices": {
+        "FR": 2005,
+        "FRLS": 2055
+      },
+      "attributes": {
+        "Manufacturer SKU": "14002",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14003-single_core_unsheathed-1_00_sq_mm",
+      "product_name": "Flexible Cables - Single Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core (Unsheathed)",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 2570,
+      "variant_prices": {
+        "FR": 2570,
+        "FRLS": 2635
+      },
+      "attributes": {
+        "Manufacturer SKU": "14003",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14104-single_core_unsheathed-1_50_sq_mm",
+      "product_name": "Flexible Cables - Single Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core (Unsheathed)",
+      "variant": "1.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 3845,
+      "variant_prices": {
+        "FR": 3845,
+        "FRLS": 3940
+      },
+      "attributes": {
+        "Manufacturer SKU": "14104",
+        "Conductor Area": "1.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14105-single_core_unsheathed-2_50_sq_mm",
+      "product_name": "Flexible Cables - Single Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core (Unsheathed)",
+      "variant": "2.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 6165,
+      "variant_prices": {
+        "FR": 6165,
+        "FRLS": 6320
+      },
+      "attributes": {
+        "Manufacturer SKU": "14105",
+        "Conductor Area": "2.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14206-single_core_unsheathed-4_00_sq_mm",
+      "product_name": "Flexible Cables - Single Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core (Unsheathed)",
+      "variant": "4.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 9400,
+      "variant_prices": {
+        "FR": 9400,
+        "FRLS": 9635
+      },
+      "attributes": {
+        "Manufacturer SKU": "14206",
+        "Conductor Area": "4.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14207-single_core_heavy_duty_unsheathed-6",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "6",
+      "variant_axis_name": "Price Type",
+      "standard_price": 14270,
+      "variant_prices": {
+        "FR": 14270,
+        "FRLS": 14625
+      },
+      "attributes": {
+        "Manufacturer SKU": "14207",
+        "Conductor Area": "6",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14208-single_core_heavy_duty_unsheathed-10",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "10",
+      "variant_axis_name": "Price Type",
+      "standard_price": 24980,
+      "variant_prices": {
+        "FR": 24980,
+        "FRLS": 25605
+      },
+      "attributes": {
+        "Manufacturer SKU": "14208",
+        "Conductor Area": "10",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14209-single_core_heavy_duty_unsheathed-16",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "16",
+      "variant_axis_name": "Price Type",
+      "standard_price": 39345,
+      "variant_prices": {
+        "FR": 39345,
+        "FRLS": 40330
+      },
+      "attributes": {
+        "Manufacturer SKU": "14209",
+        "Conductor Area": "16",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14210-single_core_heavy_duty_unsheathed-25",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "25",
+      "variant_axis_name": "Price Type",
+      "standard_price": 61515,
+      "variant_prices": {
+        "FR": 61515,
+        "FRLS": 63055
+      },
+      "attributes": {
+        "Manufacturer SKU": "14210",
+        "Conductor Area": "25",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14211-single_core_heavy_duty_unsheathed-35",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "35",
+      "variant_axis_name": "Price Type",
+      "standard_price": 85895,
+      "variant_prices": {
+        "FR": 85895,
+        "FRLS": 88040
+      },
+      "attributes": {
+        "Manufacturer SKU": "14211",
+        "Conductor Area": "35",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14212-single_core_heavy_duty_unsheathed-50",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "50",
+      "variant_axis_name": "Price Type",
+      "standard_price": 121790,
+      "variant_prices": {
+        "FR": 121790,
+        "FRLS": 124835
+      },
+      "attributes": {
+        "Manufacturer SKU": "14212",
+        "Conductor Area": "50",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14513-single_core_heavy_duty_unsheathed-70",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "70",
+      "variant_axis_name": "Price Type",
+      "standard_price": 177480,
+      "variant_prices": {
+        "FR": 177480,
+        "FRLS": 181915
+      },
+      "attributes": {
+        "Manufacturer SKU": "14513",
+        "Conductor Area": "70",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14514-single_core_heavy_duty_unsheathed-95_star",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "95*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 234740,
+      "variant_prices": {
+        "FR": 234740,
+        "FRLS": 240610
+      },
+      "attributes": {
+        "Manufacturer SKU": "14514",
+        "Conductor Area": "95*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14515-single_core_heavy_duty_unsheathed-120_star",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "120*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 301490,
+      "variant_prices": {
+        "FR": 301490,
+        "FRLS": 309025
+      },
+      "attributes": {
+        "Manufacturer SKU": "14515",
+        "Conductor Area": "120*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14516-single_core_heavy_duty_unsheathed-150_star",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "150*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 373380,
+      "variant_prices": {
+        "FR": 373380,
+        "FRLS": 382715
+      },
+      "attributes": {
+        "Manufacturer SKU": "14516",
+        "Conductor Area": "150*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14517-single_core_heavy_duty_unsheathed-185_star",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "185*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 461475,
+      "variant_prices": {
+        "FR": 461475,
+        "FRLS": 473010
+      },
+      "attributes": {
+        "Manufacturer SKU": "14517",
+        "Conductor Area": "185*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "14518-single_core_heavy_duty_unsheathed-240_star",
+      "product_name": "Flexible Cables - Single Core Heavy Duty (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Single Core Heavy Duty (Unsheathed)",
+      "variant": "240*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 606735,
+      "variant_prices": {
+        "FR": 606735,
+        "FRLS": 621905
+      },
+      "attributes": {
+        "Manufacturer SKU": "14518",
+        "Conductor Area": "240*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 9,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17002-two_core_unsheathed-0_50_sq_mm",
+      "product_name": "Flexible Cables - Two Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Two Core (Unsheathed)",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 3605,
+      "variant_prices": {
+        "FR": 3605,
+        "FRLS": 3765
+      },
+      "attributes": {
+        "Manufacturer SKU": "17002",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17002-two_core_unsheathed-0_75_sq_mm",
+      "product_name": "Flexible Cables - Two Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Two Core (Unsheathed)",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 4995,
+      "variant_prices": {
+        "FR": 4995,
+        "FRLS": 5220
+      },
+      "attributes": {
+        "Manufacturer SKU": "17002",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17002-two_core_unsheathed-1_00_sq_mm",
+      "product_name": "Flexible Cables - Two Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Two Core (Unsheathed)",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 6240,
+      "variant_prices": {
+        "FR": 6240,
+        "FRLS": 6490
+      },
+      "attributes": {
+        "Manufacturer SKU": "17002",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17102-two_core_unsheathed-1_5_sq_mm",
+      "product_name": "Flexible Cables - Two Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Two Core (Unsheathed)",
+      "variant": "1.5 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 8580,
+      "variant_prices": {
+        "FR": 8580,
+        "FRLS": 8835
+      },
+      "attributes": {
+        "Manufacturer SKU": "17102",
+        "Conductor Area": "1.5 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17102-two_core_unsheathed-2_5_sq_mm",
+      "product_name": "Flexible Cables - Two Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Two Core (Unsheathed)",
+      "variant": "2.5 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 13935,
+      "variant_prices": {
+        "FR": 13935,
+        "FRLS": 14355
+      },
+      "attributes": {
+        "Manufacturer SKU": "17102",
+        "Conductor Area": "2.5 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17202-two_core_unsheathed-4",
+      "product_name": "Flexible Cables - Two Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Two Core (Unsheathed)",
+      "variant": "4",
+      "variant_axis_name": "Price Type",
+      "standard_price": 21815,
+      "variant_prices": {
+        "FR": 21815,
+        "FRLS": 22470
+      },
+      "attributes": {
+        "Manufacturer SKU": "17202",
+        "Conductor Area": "4",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17003-three_core_unsheathed-0_50_sq_mm",
+      "product_name": "Flexible Cables - Three Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Three Core (Unsheathed)",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 4985,
+      "variant_prices": {
+        "FR": 4985,
+        "FRLS": 5185
+      },
+      "attributes": {
+        "Manufacturer SKU": "17003",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17003-three_core_unsheathed-0_75_sq_mm",
+      "product_name": "Flexible Cables - Three Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Three Core (Unsheathed)",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 6880,
+      "variant_prices": {
+        "FR": 6880,
+        "FRLS": 7120
+      },
+      "attributes": {
+        "Manufacturer SKU": "17003",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17003-three_core_unsheathed-1_00_sq_mm",
+      "product_name": "Flexible Cables - Three Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Three Core (Unsheathed)",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 8720,
+      "variant_prices": {
+        "FR": 8720,
+        "FRLS": 8980
+      },
+      "attributes": {
+        "Manufacturer SKU": "17003",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17103-three_core_unsheathed-1_5_sq_mm",
+      "product_name": "Flexible Cables - Three Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Three Core (Unsheathed)",
+      "variant": "1.5 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 12160,
+      "variant_prices": {
+        "FR": 12160,
+        "FRLS": 12465
+      },
+      "attributes": {
+        "Manufacturer SKU": "17103",
+        "Conductor Area": "1.5 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17103-three_core_unsheathed-2_5_sq_mm",
+      "product_name": "Flexible Cables - Three Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Three Core (Unsheathed)",
+      "variant": "2.5 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 19610,
+      "variant_prices": {
+        "FR": 19610,
+        "FRLS": 20100
+      },
+      "attributes": {
+        "Manufacturer SKU": "17103",
+        "Conductor Area": "2.5 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17203-three_core_unsheathed-4",
+      "product_name": "Flexible Cables - Three Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Three Core (Unsheathed)",
+      "variant": "4",
+      "variant_axis_name": "Price Type",
+      "standard_price": 31115,
+      "variant_prices": {
+        "FR": 31115,
+        "FRLS": 31895
+      },
+      "attributes": {
+        "Manufacturer SKU": "17203",
+        "Conductor Area": "4",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17004-four_core_unsheathed-0_50_sq_mm",
+      "product_name": "Flexible Cables - Four Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Four Core (Unsheathed)",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 6375,
+      "variant_prices": {
+        "FR": 6375,
+        "FRLS": 6600
+      },
+      "attributes": {
+        "Manufacturer SKU": "17004",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17004-four_core_unsheathed-0_75_sq_mm",
+      "product_name": "Flexible Cables - Four Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Four Core (Unsheathed)",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 8845,
+      "variant_prices": {
+        "FR": 8845,
+        "FRLS": 9110
+      },
+      "attributes": {
+        "Manufacturer SKU": "17004",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17004-four_core_unsheathed-1_00_sq_mm",
+      "product_name": "Flexible Cables - Four Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Four Core (Unsheathed)",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 11240,
+      "variant_prices": {
+        "FR": 11240,
+        "FRLS": 11520
+      },
+      "attributes": {
+        "Manufacturer SKU": "17004",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17104-four_core_unsheathed-1_5_sq_mm",
+      "product_name": "Flexible Cables - Four Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Four Core (Unsheathed)",
+      "variant": "1.5 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 16020,
+      "variant_prices": {
+        "FR": 16020,
+        "FRLS": 16420
+      },
+      "attributes": {
+        "Manufacturer SKU": "17104",
+        "Conductor Area": "1.5 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17104-four_core_unsheathed-2_5_sq_mm",
+      "product_name": "Flexible Cables - Four Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Four Core (Unsheathed)",
+      "variant": "2.5 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 26115,
+      "variant_prices": {
+        "FR": 26115,
+        "FRLS": 26770
+      },
+      "attributes": {
+        "Manufacturer SKU": "17104",
+        "Conductor Area": "2.5 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17204-four_core_unsheathed-4",
+      "product_name": "Flexible Cables - Four Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Four Core (Unsheathed)",
+      "variant": "4",
+      "variant_axis_name": "Price Type",
+      "standard_price": 40945,
+      "variant_prices": {
+        "FR": 40945,
+        "FRLS": 41970
+      },
+      "attributes": {
+        "Manufacturer SKU": "17204",
+        "Conductor Area": "4",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17006-six_core_unsheathed-0_50_sq_mm",
+      "product_name": "Flexible Cables - Six Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Six Core (Unsheathed)",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 9485,
+      "variant_prices": {
+        "FR": 9485,
+        "FRLS": 9815
+      },
+      "attributes": {
+        "Manufacturer SKU": "17006",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17006-six_core_unsheathed-0_75_sq_mm",
+      "product_name": "Flexible Cables - Six Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Six Core (Unsheathed)",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 13440,
+      "variant_prices": {
+        "FR": 13440,
+        "FRLS": 13845
+      },
+      "attributes": {
+        "Manufacturer SKU": "17006",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17006-six_core_unsheathed-1_00_sq_mm",
+      "product_name": "Flexible Cables - Six Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Six Core (Unsheathed)",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 17520,
+      "variant_prices": {
+        "FR": 17520,
+        "FRLS": 18045
+      },
+      "attributes": {
+        "Manufacturer SKU": "17006",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17106-six_core_unsheathed-1_5_sq_mm",
+      "product_name": "Flexible Cables - Six Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Six Core (Unsheathed)",
+      "variant": "1.5 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 24410,
+      "variant_prices": {
+        "FR": 24410,
+        "FRLS": 25020
+      },
+      "attributes": {
+        "Manufacturer SKU": "17106",
+        "Conductor Area": "1.5 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17106-six_core_unsheathed-2_5_sq_mm",
+      "product_name": "Flexible Cables - Six Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Six Core (Unsheathed)",
+      "variant": "2.5 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 39220,
+      "variant_prices": {
+        "FR": 39220,
+        "FRLS": 40200
+      },
+      "attributes": {
+        "Manufacturer SKU": "17106",
+        "Conductor Area": "2.5 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17206-six_core_unsheathed-4",
+      "product_name": "Flexible Cables - Six Core (Unsheathed)",
+      "collection": "Flexible Cables",
+      "series": "Six Core (Unsheathed)",
+      "variant": "4",
+      "variant_axis_name": "Price Type",
+      "standard_price": 61755,
+      "variant_prices": {
+        "FR": 61755,
+        "FRLS": 63300
+      },
+      "attributes": {
+        "Manufacturer SKU": "17206",
+        "Conductor Area": "4",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 10,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17008-seven_cores_1_6-0_50_sq_mm",
+      "product_name": "Flexible Cables - Seven Cores (1+6)*",
+      "collection": "Flexible Cables",
+      "series": "Seven Cores (1+6)*",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 11160,
+      "variant_prices": {
+        "FR": 11160,
+        "FRLS": 11550
+      },
+      "attributes": {
+        "Manufacturer SKU": "17008",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17008-seven_cores_1_6-0_75_sq_mm",
+      "product_name": "Flexible Cables - Seven Cores (1+6)*",
+      "collection": "Flexible Cables",
+      "series": "Seven Cores (1+6)*",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 15640,
+      "variant_prices": {
+        "FR": 15640,
+        "FRLS": 16110
+      },
+      "attributes": {
+        "Manufacturer SKU": "17008",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17008-seven_cores_1_6-1_00_sq_mm",
+      "product_name": "Flexible Cables - Seven Cores (1+6)*",
+      "collection": "Flexible Cables",
+      "series": "Seven Cores (1+6)*",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 19925,
+      "variant_prices": {
+        "FR": 19925,
+        "FRLS": 20425
+      },
+      "attributes": {
+        "Manufacturer SKU": "17008",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17108-seven_cores_1_6-1_50_sq_mm",
+      "product_name": "Flexible Cables - Seven Cores (1+6)*",
+      "collection": "Flexible Cables",
+      "series": "Seven Cores (1+6)*",
+      "variant": "1.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 27830,
+      "variant_prices": {
+        "FR": 27830,
+        "FRLS": 28525
+      },
+      "attributes": {
+        "Manufacturer SKU": "17108",
+        "Conductor Area": "1.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17108-seven_cores_1_6-2_50_sq_mm",
+      "product_name": "Flexible Cables - Seven Cores (1+6)*",
+      "collection": "Flexible Cables",
+      "series": "Seven Cores (1+6)*",
+      "variant": "2.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 45815,
+      "variant_prices": {
+        "FR": 45815,
+        "FRLS": 46960
+      },
+      "attributes": {
+        "Manufacturer SKU": "17108",
+        "Conductor Area": "2.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17208-seven_cores_1_6-4_00_sq_mm",
+      "product_name": "Flexible Cables - Seven Cores (1+6)*",
+      "collection": "Flexible Cables",
+      "series": "Seven Cores (1+6)*",
+      "variant": "4.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 71525,
+      "variant_prices": {
+        "FR": 71525,
+        "FRLS": 73315
+      },
+      "attributes": {
+        "Manufacturer SKU": "17208",
+        "Conductor Area": "4.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17008-eight_cores-0_50_sq_mm",
+      "product_name": "Flexible Cables - Eight Cores*",
+      "collection": "Flexible Cables",
+      "series": "Eight Cores*",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 12360,
+      "variant_prices": {
+        "FR": 12360,
+        "FRLS": 12730
+      },
+      "attributes": {
+        "Manufacturer SKU": "17008",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17008-eight_cores-0_75_sq_mm",
+      "product_name": "Flexible Cables - Eight Cores*",
+      "collection": "Flexible Cables",
+      "series": "Eight Cores*",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 17490,
+      "variant_prices": {
+        "FR": 17490,
+        "FRLS": 18015
+      },
+      "attributes": {
+        "Manufacturer SKU": "17008",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17008-eight_cores-1_00_sq_mm",
+      "product_name": "Flexible Cables - Eight Cores*",
+      "collection": "Flexible Cables",
+      "series": "Eight Cores*",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 22460,
+      "variant_prices": {
+        "FR": 22460,
+        "FRLS": 23020
+      },
+      "attributes": {
+        "Manufacturer SKU": "17008",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17108-eight_cores-1_50_sq_mm",
+      "product_name": "Flexible Cables - Eight Cores*",
+      "collection": "Flexible Cables",
+      "series": "Eight Cores*",
+      "variant": "1.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 32075,
+      "variant_prices": {
+        "FR": 32075,
+        "FRLS": 32875
+      },
+      "attributes": {
+        "Manufacturer SKU": "17108",
+        "Conductor Area": "1.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17108-eight_cores-2_50_sq_mm",
+      "product_name": "Flexible Cables - Eight Cores*",
+      "collection": "Flexible Cables",
+      "series": "Eight Cores*",
+      "variant": "2.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 51600,
+      "variant_prices": {
+        "FR": 51600,
+        "FRLS": 52890
+      },
+      "attributes": {
+        "Manufacturer SKU": "17108",
+        "Conductor Area": "2.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17208-eight_cores-4_00_sq_mm",
+      "product_name": "Flexible Cables - Eight Cores*",
+      "collection": "Flexible Cables",
+      "series": "Eight Cores*",
+      "variant": "4.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 81610,
+      "variant_prices": {
+        "FR": 81610,
+        "FRLS": 83650
+      },
+      "attributes": {
+        "Manufacturer SKU": "17208",
+        "Conductor Area": "4.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17010-ten_cores_2_8-0_50_sq_mm",
+      "product_name": "Flexible Cables - Ten Cores (2+8)*",
+      "collection": "Flexible Cables",
+      "series": "Ten Cores (2+8)*",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 15400,
+      "variant_prices": {
+        "FR": 15400,
+        "FRLS": 16015
+      },
+      "attributes": {
+        "Manufacturer SKU": "17010",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17010-ten_cores_2_8-0_75_sq_mm",
+      "product_name": "Flexible Cables - Ten Cores (2+8)*",
+      "collection": "Flexible Cables",
+      "series": "Ten Cores (2+8)*",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 21975,
+      "variant_prices": {
+        "FR": 21975,
+        "FRLS": 22745
+      },
+      "attributes": {
+        "Manufacturer SKU": "17010",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17010-ten_cores_2_8-1_00_sq_mm",
+      "product_name": "Flexible Cables - Ten Cores (2+8)*",
+      "collection": "Flexible Cables",
+      "series": "Ten Cores (2+8)*",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 28015,
+      "variant_prices": {
+        "FR": 28015,
+        "FRLS": 28715
+      },
+      "attributes": {
+        "Manufacturer SKU": "17010",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17110-ten_cores_2_8-1_50_sq_mm",
+      "product_name": "Flexible Cables - Ten Cores (2+8)*",
+      "collection": "Flexible Cables",
+      "series": "Ten Cores (2+8)*",
+      "variant": "1.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 39690,
+      "variant_prices": {
+        "FR": 39690,
+        "FRLS": 40680
+      },
+      "attributes": {
+        "Manufacturer SKU": "17110",
+        "Conductor Area": "1.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17110-ten_cores_2_8-2_50_sq_mm",
+      "product_name": "Flexible Cables - Ten Cores (2+8)*",
+      "collection": "Flexible Cables",
+      "series": "Ten Cores (2+8)*",
+      "variant": "2.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 64485,
+      "variant_prices": {
+        "FR": 64485,
+        "FRLS": 66095
+      },
+      "attributes": {
+        "Manufacturer SKU": "17110",
+        "Conductor Area": "2.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17210-ten_cores_2_8-4_00_sq_mm",
+      "product_name": "Flexible Cables - Ten Cores (2+8)*",
+      "collection": "Flexible Cables",
+      "series": "Ten Cores (2+8)*",
+      "variant": "4.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 101340,
+      "variant_prices": {
+        "FR": 101340,
+        "FRLS": 103875
+      },
+      "attributes": {
+        "Manufacturer SKU": "17210",
+        "Conductor Area": "4.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17012-twelve_cores_3_9-0_50_sq_mm",
+      "product_name": "Flexible Cables - Twelve Cores (3+9)*",
+      "collection": "Flexible Cables",
+      "series": "Twelve Cores (3+9)*",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 18110,
+      "variant_prices": {
+        "FR": 18110,
+        "FRLS": 18655
+      },
+      "attributes": {
+        "Manufacturer SKU": "17012",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17012-twelve_cores_3_9-0_75_sq_mm",
+      "product_name": "Flexible Cables - Twelve Cores (3+9)*",
+      "collection": "Flexible Cables",
+      "series": "Twelve Cores (3+9)*",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 26135,
+      "variant_prices": {
+        "FR": 26135,
+        "FRLS": 26920
+      },
+      "attributes": {
+        "Manufacturer SKU": "17012",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17012-twelve_cores_3_9-1_00_sq_mm",
+      "product_name": "Flexible Cables - Twelve Cores (3+9)*",
+      "collection": "Flexible Cables",
+      "series": "Twelve Cores (3+9)*",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 33340,
+      "variant_prices": {
+        "FR": 33340,
+        "FRLS": 34175
+      },
+      "attributes": {
+        "Manufacturer SKU": "17012",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17112-twelve_cores_3_9-1_50_sq_mm",
+      "product_name": "Flexible Cables - Twelve Cores (3+9)*",
+      "collection": "Flexible Cables",
+      "series": "Twelve Cores (3+9)*",
+      "variant": "1.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 47280,
+      "variant_prices": {
+        "FR": 47280,
+        "FRLS": 48460
+      },
+      "attributes": {
+        "Manufacturer SKU": "17112",
+        "Conductor Area": "1.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17112-twelve_cores_3_9-2_50_sq_mm",
+      "product_name": "Flexible Cables - Twelve Cores (3+9)*",
+      "collection": "Flexible Cables",
+      "series": "Twelve Cores (3+9)*",
+      "variant": "2.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 76630,
+      "variant_prices": {
+        "FR": 76630,
+        "FRLS": 78545
+      },
+      "attributes": {
+        "Manufacturer SKU": "17112",
+        "Conductor Area": "2.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17212-twelve_cores_3_9-4_00_sq_mm",
+      "product_name": "Flexible Cables - Twelve Cores (3+9)*",
+      "collection": "Flexible Cables",
+      "series": "Twelve Cores (3+9)*",
+      "variant": "4.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 121080,
+      "variant_prices": {
+        "FR": 121080,
+        "FRLS": 124105
+      },
+      "attributes": {
+        "Manufacturer SKU": "17212",
+        "Conductor Area": "4.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17014-fourteen_cores_4_10-0_50_sq_mm",
+      "product_name": "Flexible Cables - Fourteen Cores (4+10)*",
+      "collection": "Flexible Cables",
+      "series": "Fourteen Cores (4+10)*",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 20330,
+      "variant_prices": {
+        "FR": 20330,
+        "FRLS": 20840
+      },
+      "attributes": {
+        "Manufacturer SKU": "17014",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17014-fourteen_cores_4_10-0_75_sq_mm",
+      "product_name": "Flexible Cables - Fourteen Cores (4+10)*",
+      "collection": "Flexible Cables",
+      "series": "Fourteen Cores (4+10)*",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 29240,
+      "variant_prices": {
+        "FR": 29240,
+        "FRLS": 29970
+      },
+      "attributes": {
+        "Manufacturer SKU": "17014",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17014-fourteen_cores_4_10-1_00_sq_mm",
+      "product_name": "Flexible Cables - Fourteen Cores (4+10)*",
+      "collection": "Flexible Cables",
+      "series": "Fourteen Cores (4+10)*",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 38605,
+      "variant_prices": {
+        "FR": 38605,
+        "FRLS": 39570
+      },
+      "attributes": {
+        "Manufacturer SKU": "17014",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17114-fourteen_cores_4_10-1_50_sq_mm",
+      "product_name": "Flexible Cables - Fourteen Cores (4+10)*",
+      "collection": "Flexible Cables",
+      "series": "Fourteen Cores (4+10)*",
+      "variant": "1.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 55070,
+      "variant_prices": {
+        "FR": 55070,
+        "FRLS": 56445
+      },
+      "attributes": {
+        "Manufacturer SKU": "17114",
+        "Conductor Area": "1.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17114-fourteen_cores_4_10-2_50_sq_mm",
+      "product_name": "Flexible Cables - Fourteen Cores (4+10)*",
+      "collection": "Flexible Cables",
+      "series": "Fourteen Cores (4+10)*",
+      "variant": "2.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 89060,
+      "variant_prices": {
+        "FR": 89060,
+        "FRLS": 91285
+      },
+      "attributes": {
+        "Manufacturer SKU": "17114",
+        "Conductor Area": "2.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17214-fourteen_cores_4_10-4_00_sq_mm",
+      "product_name": "Flexible Cables - Fourteen Cores (4+10)*",
+      "collection": "Flexible Cables",
+      "series": "Fourteen Cores (4+10)*",
+      "variant": "4.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 140705,
+      "variant_prices": {
+        "FR": 140705,
+        "FRLS": 144225
+      },
+      "attributes": {
+        "Manufacturer SKU": "17214",
+        "Conductor Area": "4.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 11,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17016-sixteen_cores_8_11-0_50_sq_mm",
+      "product_name": "Flexible Cables - Sixteen Cores (8+11)*",
+      "collection": "Flexible Cables",
+      "series": "Sixteen Cores (8+11)*",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 23530,
+      "variant_prices": {
+        "FR": 23530,
+        "FRLS": 24235
+      },
+      "attributes": {
+        "Manufacturer SKU": "17016",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17016-sixteen_cores_8_11-0_75_sq_mm",
+      "product_name": "Flexible Cables - Sixteen Cores (8+11)*",
+      "collection": "Flexible Cables",
+      "series": "Sixteen Cores (8+11)*",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 33460,
+      "variant_prices": {
+        "FR": 33460,
+        "FRLS": 34295
+      },
+      "attributes": {
+        "Manufacturer SKU": "17016",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17016-sixteen_cores_8_11-1_00_sq_mm",
+      "product_name": "Flexible Cables - Sixteen Cores (8+11)*",
+      "collection": "Flexible Cables",
+      "series": "Sixteen Cores (8+11)*",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 43210,
+      "variant_prices": {
+        "FR": 43210,
+        "FRLS": 44290
+      },
+      "attributes": {
+        "Manufacturer SKU": "17016",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17116-sixteen_cores_8_11-1_50_sq_mm",
+      "product_name": "Flexible Cables - Sixteen Cores (8+11)*",
+      "collection": "Flexible Cables",
+      "series": "Sixteen Cores (8+11)*",
+      "variant": "1.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 61925,
+      "variant_prices": {
+        "FR": 61925,
+        "FRLS": 63475
+      },
+      "attributes": {
+        "Manufacturer SKU": "17116",
+        "Conductor Area": "1.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17116-sixteen_cores_8_11-2_50_sq_mm",
+      "product_name": "Flexible Cables - Sixteen Cores (8+11)*",
+      "collection": "Flexible Cables",
+      "series": "Sixteen Cores (8+11)*",
+      "variant": "2.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 101465,
+      "variant_prices": {
+        "FR": 101465,
+        "FRLS": 104000
+      },
+      "attributes": {
+        "Manufacturer SKU": "17116",
+        "Conductor Area": "2.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17216-sixteen_cores_8_11-4_00_sq_mm",
+      "product_name": "Flexible Cables - Sixteen Cores (8+11)*",
+      "collection": "Flexible Cables",
+      "series": "Sixteen Cores (8+11)*",
+      "variant": "4.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 160970,
+      "variant_prices": {
+        "FR": 160970,
+        "FRLS": 164995
+      },
+      "attributes": {
+        "Manufacturer SKU": "17216",
+        "Conductor Area": "4.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17019-nineteen_cores_1_6_12-0_50_sq_mm",
+      "product_name": "Flexible Cables - Nineteen Cores (1+6+12)*",
+      "collection": "Flexible Cables",
+      "series": "Nineteen Cores (1+6+12)*",
+      "variant": "0.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 27650,
+      "variant_prices": {
+        "FR": 27650,
+        "FRLS": 28340
+      },
+      "attributes": {
+        "Manufacturer SKU": "17019",
+        "Conductor Area": "0.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17019-nineteen_cores_1_6_12-0_75_sq_mm",
+      "product_name": "Flexible Cables - Nineteen Cores (1+6+12)*",
+      "collection": "Flexible Cables",
+      "series": "Nineteen Cores (1+6+12)*",
+      "variant": "0.75 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 40255,
+      "variant_prices": {
+        "FR": 40255,
+        "FRLS": 41260
+      },
+      "attributes": {
+        "Manufacturer SKU": "17019",
+        "Conductor Area": "0.75 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17019-nineteen_cores_1_6_12-1_00_sq_mm",
+      "product_name": "Flexible Cables - Nineteen Cores (1+6+12)*",
+      "collection": "Flexible Cables",
+      "series": "Nineteen Cores (1+6+12)*",
+      "variant": "1.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 51125,
+      "variant_prices": {
+        "FR": 51125,
+        "FRLS": 52405
+      },
+      "attributes": {
+        "Manufacturer SKU": "17019",
+        "Conductor Area": "1.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17119-nineteen_cores_1_6_12-1_50_sq_mm",
+      "product_name": "Flexible Cables - Nineteen Cores (1+6+12)*",
+      "collection": "Flexible Cables",
+      "series": "Nineteen Cores (1+6+12)*",
+      "variant": "1.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 73230,
+      "variant_prices": {
+        "FR": 73230,
+        "FRLS": 75060
+      },
+      "attributes": {
+        "Manufacturer SKU": "17119",
+        "Conductor Area": "1.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17119-nineteen_cores_1_6_12-2_50_sq_mm",
+      "product_name": "Flexible Cables - Nineteen Cores (1+6+12)*",
+      "collection": "Flexible Cables",
+      "series": "Nineteen Cores (1+6+12)*",
+      "variant": "2.50 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 119520,
+      "variant_prices": {
+        "FR": 119520,
+        "FRLS": 122510
+      },
+      "attributes": {
+        "Manufacturer SKU": "17119",
+        "Conductor Area": "2.50 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17219-nineteen_cores_1_6_12-4_00_sq_mm",
+      "product_name": "Flexible Cables - Nineteen Cores (1+6+12)*",
+      "collection": "Flexible Cables",
+      "series": "Nineteen Cores (1+6+12)*",
+      "variant": "4.00 sq.mm",
+      "variant_axis_name": "Price Type",
+      "standard_price": 190185,
+      "variant_prices": {
+        "FR": 190185,
+        "FRLS": 194940
+      },
+      "attributes": {
+        "Manufacturer SKU": "17219",
+        "Conductor Area": "4.00 sq.mm",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17203074-3_core_round_sheathed_multicore_heavy_duty-6",
+      "product_name": "Flexible Cables - 3 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "3 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "6",
+      "variant_axis_name": "Price Type",
+      "standard_price": 46270,
+      "variant_prices": {
+        "FR": 46270,
+        "FRLS": 47425
+      },
+      "attributes": {
+        "Manufacturer SKU": "17203074",
+        "Conductor Area": "6",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17203084-3_core_round_sheathed_multicore_heavy_duty-10",
+      "product_name": "Flexible Cables - 3 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "3 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "10",
+      "variant_axis_name": "Price Type",
+      "standard_price": 78775,
+      "variant_prices": {
+        "FR": 78775,
+        "FRLS": 80745
+      },
+      "attributes": {
+        "Manufacturer SKU": "17203084",
+        "Conductor Area": "10",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17203094-3_core_round_sheathed_multicore_heavy_duty-16_star",
+      "product_name": "Flexible Cables - 3 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "3 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "16*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 122885,
+      "variant_prices": {
+        "FR": 122885,
+        "FRLS": 125955
+      },
+      "attributes": {
+        "Manufacturer SKU": "17203094",
+        "Conductor Area": "16*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17203104-3_core_round_sheathed_multicore_heavy_duty-25_star",
+      "product_name": "Flexible Cables - 3 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "3 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "25*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 190155,
+      "variant_prices": {
+        "FR": 190155,
+        "FRLS": 194910
+      },
+      "attributes": {
+        "Manufacturer SKU": "17203104",
+        "Conductor Area": "25*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17203114-3_core_round_sheathed_multicore_heavy_duty-35_star",
+      "product_name": "Flexible Cables - 3 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "3 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "35*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 266800,
+      "variant_prices": {
+        "FR": 266800,
+        "FRLS": 273470
+      },
+      "attributes": {
+        "Manufacturer SKU": "17203114",
+        "Conductor Area": "35*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17203124-3_core_round_sheathed_multicore_heavy_duty-50_star",
+      "product_name": "Flexible Cables - 3 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "3 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "50*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 382295,
+      "variant_prices": {
+        "FR": 382295,
+        "FRLS": 391850
+      },
+      "attributes": {
+        "Manufacturer SKU": "17203124",
+        "Conductor Area": "50*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17503134-3_core_round_sheathed_multicore_heavy_duty-70_star",
+      "product_name": "Flexible Cables - 3 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "3 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "70*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 541835,
+      "variant_prices": {
+        "FR": 541835,
+        "FRLS": 555380
+      },
+      "attributes": {
+        "Manufacturer SKU": "17503134",
+        "Conductor Area": "70*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17503144-3_core_round_sheathed_multicore_heavy_duty-95_star",
+      "product_name": "Flexible Cables - 3 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "3 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "95*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 715195,
+      "variant_prices": {
+        "FR": 715195,
+        "FRLS": 733075
+      },
+      "attributes": {
+        "Manufacturer SKU": "17503144",
+        "Conductor Area": "95*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17503154-3_core_round_sheathed_multicore_heavy_duty-120_star",
+      "product_name": "Flexible Cables - 3 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "3 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "120*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 955430,
+      "variant_prices": {
+        "FR": 955430,
+        "FRLS": 979315
+      },
+      "attributes": {
+        "Manufacturer SKU": "17503154",
+        "Conductor Area": "120*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17204074-4_core_round_sheathed_multicore_heavy_duty-6",
+      "product_name": "Flexible Cables - 4 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "4 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "6",
+      "variant_axis_name": "Price Type",
+      "standard_price": 60500,
+      "variant_prices": {
+        "FR": 60500,
+        "FRLS": 62010
+      },
+      "attributes": {
+        "Manufacturer SKU": "17204074",
+        "Conductor Area": "6",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17204084-4_core_round_sheathed_multicore_heavy_duty-10",
+      "product_name": "Flexible Cables - 4 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "4 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "10",
+      "variant_axis_name": "Price Type",
+      "standard_price": 103460,
+      "variant_prices": {
+        "FR": 103460,
+        "FRLS": 106045
+      },
+      "attributes": {
+        "Manufacturer SKU": "17204084",
+        "Conductor Area": "10",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ]
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17204094-4_core_round_sheathed_multicore_heavy_duty-16_star",
+      "product_name": "Flexible Cables - 4 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "4 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "16*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 160510,
+      "variant_prices": {
+        "FR": 160510,
+        "FRLS": 164525
+      },
+      "attributes": {
+        "Manufacturer SKU": "17204094",
+        "Conductor Area": "16*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17204104-4_core_round_sheathed_multicore_heavy_duty-25_star",
+      "product_name": "Flexible Cables - 4 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "4 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "25*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 252030,
+      "variant_prices": {
+        "FR": 252030,
+        "FRLS": 258330
+      },
+      "attributes": {
+        "Manufacturer SKU": "17204104",
+        "Conductor Area": "25*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17204114-4_core_round_sheathed_multicore_heavy_duty-35_star",
+      "product_name": "Flexible Cables - 4 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "4 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "35*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 352690,
+      "variant_prices": {
+        "FR": 352690,
+        "FRLS": 361505
+      },
+      "attributes": {
+        "Manufacturer SKU": "17204114",
+        "Conductor Area": "35*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17204124-4_core_round_sheathed_multicore_heavy_duty-50_star",
+      "product_name": "Flexible Cables - 4 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "4 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "50*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 502545,
+      "variant_prices": {
+        "FR": 502545,
+        "FRLS": 515110
+      },
+      "attributes": {
+        "Manufacturer SKU": "17204124",
+        "Conductor Area": "50*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17504134-4_core_round_sheathed_multicore_heavy_duty-70_star",
+      "product_name": "Flexible Cables - 4 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "4 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "70*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 717475,
+      "variant_prices": {
+        "FR": 717475,
+        "FRLS": 735410
+      },
+      "attributes": {
+        "Manufacturer SKU": "17504134",
+        "Conductor Area": "70*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17504144-4_core_round_sheathed_multicore_heavy_duty-95_star",
+      "product_name": "Flexible Cables - 4 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "4 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "95*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 948470,
+      "variant_prices": {
+        "FR": 948470,
+        "FRLS": 972180
+      },
+      "attributes": {
+        "Manufacturer SKU": "17504144",
+        "Conductor Area": "95*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    },
+    {
+      "sku": "17504154-4_core_round_sheathed_multicore_heavy_duty-120_star",
+      "product_name": "Flexible Cables - 4 Core Round Sheathed (Multicore Heavy Duty)",
+      "collection": "Flexible Cables",
+      "series": "4 Core Round Sheathed (Multicore Heavy Duty)",
+      "variant": "120*",
+      "variant_axis_name": "Price Type",
+      "standard_price": 1239665,
+      "variant_prices": {
+        "FR": 1239665,
+        "FRLS": 1270655
+      },
+      "attributes": {
+        "Manufacturer SKU": "17504154",
+        "Conductor Area": "120*",
+        "Price Types": [
+          "FR",
+          "FRLS"
+        ],
+        "Non-stock item": true
+      },
+      "page_number": 12,
+      "category": "Electricals",
+      "subcategory": "Wires & Cables"
+    }
+  ]
+}

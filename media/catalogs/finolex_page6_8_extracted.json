@@ -1,0 +1,389 @@
+{
+  "brand": "Finolex",
+  "products": [
+    {
+      "sku": "10112013",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "20",
+        "Conductor Area": "0.75 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "0.75 sq.mm": 1905
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10113",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "20",
+        "Conductor Area": "1.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.0 sq.mm": 2425
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10114",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "12",
+        "Conductor Area": "1.5 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.5 sq.mm": 3580
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10115",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "12",
+        "Conductor Area": "2.5 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "2.5 sq.mm": 5720
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10106",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "8",
+        "Conductor Area": "4.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "4.0 sq.mm": 8685
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10107",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "4",
+        "Conductor Area": "6.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "6.0 sq.mm": 13175
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10112016",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "8",
+        "Conductor Area": "0.75 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "0.75 sq.mm": 3730
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10113016",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "8",
+        "Conductor Area": "1.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.0 sq.mm": 4880
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10114016",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "6",
+        "Conductor Area": "1.5 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.5 sq.mm": 7060
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10115016",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "4",
+        "Conductor Area": "2.5 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "2.5 sq.mm": 11650
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10106016",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "4",
+        "Conductor Area": "4.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "4.0 sq.mm": 18155
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10107016",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "4",
+        "Conductor Area": "6.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "6.0 sq.mm": 27265
+      },
+      "page_number": 1
+    },
+    {
+      "sku": "10122017",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "300 m",
+        "Master Carton Qty": "8",
+        "Conductor Area": "0.75 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "0.75 sq.mm": 6245
+      },
+      "page_number": 2
+    },
+    {
+      "sku": "10123017",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "300 m",
+        "Master Carton Qty": "8",
+        "Conductor Area": "1.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.0 sq.mm": 8170
+      },
+      "page_number": 2
+    },
+    {
+      "sku": "10124017",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "300 m",
+        "Master Carton Qty": "6",
+        "Conductor Area": "1.5 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.5 sq.mm": 11820
+      },
+      "page_number": 2
+    },
+    {
+      "sku": "10125017",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "300 m",
+        "Master Carton Qty": "4",
+        "Conductor Area": "2.5 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "2.5 sq.mm": 19495
+      },
+      "page_number": 2
+    },
+    {
+      "sku": "10126012",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "200 m",
+        "Master Carton Qty": "4",
+        "Conductor Area": "4.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "4.0 sq.mm": 20255
+      },
+      "page_number": 2
+    },
+    {
+      "sku": "10127012",
+      "product_name": "FLAMEGARD FR-LSH Industrial Cable",
+      "collection": "FLAMEGARD",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "200 m",
+        "Master Carton Qty": "3",
+        "Conductor Area": "6.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "6.0 sq.mm": 30425
+      },
+      "page_number": 2
+    },
+    {
+      "sku": "10412013",
+      "product_name": "HFFR Industrial Cable",
+      "collection": "HFFR",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "20",
+        "Conductor Area": "0.75 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "0.75 sq.mm": 1890
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10403",
+      "product_name": "HFFR Industrial Cable",
+      "collection": "HFFR",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "20",
+        "Conductor Area": "1.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.0 sq.mm": 2415
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10404",
+      "product_name": "HFFR Industrial Cable",
+      "collection": "HFFR",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "12",
+        "Conductor Area": "1.5 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.5 sq.mm": 3585
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10405",
+      "product_name": "HFFR Industrial Cable",
+      "collection": "HFFR",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "12",
+        "Conductor Area": "2.5 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "2.5 sq.mm": 5745
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10406",
+      "product_name": "HFFR Industrial Cable",
+      "collection": "HFFR",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "8",
+        "Conductor Area": "4.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "4.0 sq.mm": 8735
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10407",
+      "product_name": "HFFR Industrial Cable",
+      "collection": "HFFR",
+      "series": "Standard Packing",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "4",
+        "Conductor Area": "6.0 sq.mm"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "6.0 sq.mm": 13250
+      },
+      "page_number": 3
+    }
+  ]
+}

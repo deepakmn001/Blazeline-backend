@@ -8,9 +8,10 @@ from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
 )
-
+from django.urls import include, path
 
 urlpatterns = [
+     path("silk/", include("silk.urls")),
 
     # Django Admin
     path(
@@ -24,11 +25,11 @@ urlpatterns = [
         include("catalog.urls"),
     ),
 
-# Catalog Import APIs
-#path(
- #   "api/",
-  #  include("catalog_import.urls"),
-#),
+ #Catalog Import APIs
+path(
+    "api/",
+    include("catalog_import.urls"),
+),
     # OpenAPI Schema
     path(
         "api/schema/",

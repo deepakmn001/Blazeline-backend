@@ -1,6 +1,7 @@
 # ==========================================================
 # catalog/serializers.py
 # ==========================================================
+import time
 from cloudinary.utils import cloudinary_url
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
@@ -397,7 +398,57 @@ class ProductSpecificationSerializer(serializers.ModelSerializer):
             "key",
             "value",
         ]
+class ProductListSerializer(serializers.ModelSerializer):
 
+    category = CategoryMiniSerializer(read_only=True)
+    subcategory = SubCategoryMiniSerializer(read_only=True)
+
+    image = serializers.SerializerMethodField()
+    price = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = [
+            "id",
+            "name",
+            "slug",
+            "category",
+            "subcategory",
+            "image",
+            "price",
+            "featured",
+            "status",
+        ]
+
+    def _get_default_variant(self, obj):
+        variants = list(obj.variants.all())
+        if not variants:
+            return None
+        for v in variants:
+            if v.is_default:
+                return v
+        return variants[0]
+
+    def get_image(self, obj):
+        variant = self._get_default_variant(obj)
+        if not variant:
+            return None
+
+        image = variant.images.filter(featured=True).first() or variant.images.first()
+        if not image:
+            return None
+
+        return ProductImageSerializer(
+            image,
+            context=self.context,
+        ).data
+
+    def get_price(self, obj):
+        variant = self._get_default_variant(obj)
+        if not variant:
+            return None
+
+        return variant.selling_price
 
 # ==========================================================
 # PRODUCT

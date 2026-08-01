@@ -1,0 +1,395 @@
+{
+  "brand": "Finolex",
+  "products": [
+    {
+      "sku": "10452",
+      "product_name": "FINOULTRA Industrial Cable",
+      "collection": "FINOULTRA",
+      "series": "E Beamed Low Smoke Zero Halogen Insulated Industrial Cables",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "20"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "0.75 sq.mm": 2040
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10453",
+      "product_name": "FINOULTRA Industrial Cable",
+      "collection": "FINOULTRA",
+      "series": "E Beamed Low Smoke Zero Halogen Insulated Industrial Cables",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "20"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.0 sq.mm": 2625
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10454",
+      "product_name": "FINOULTRA Industrial Cable",
+      "collection": "FINOULTRA",
+      "series": "E Beamed Low Smoke Zero Halogen Insulated Industrial Cables",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "12"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.5 sq.mm": 3820
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10455",
+      "product_name": "FINOULTRA Industrial Cable",
+      "collection": "FINOULTRA",
+      "series": "E Beamed Low Smoke Zero Halogen Insulated Industrial Cables",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "12"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "2.5 sq.mm": 6155
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10456",
+      "product_name": "FINOULTRA Industrial Cable",
+      "collection": "FINOULTRA",
+      "series": "E Beamed Low Smoke Zero Halogen Insulated Industrial Cables",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "8"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "4.0 sq.mm": 9545
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10457",
+      "product_name": "FINOULTRA Industrial Cable",
+      "collection": "FINOULTRA",
+      "series": "E Beamed Low Smoke Zero Halogen Insulated Industrial Cables",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "4"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "6.0 sq.mm": 14140
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10302",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Gold Pack",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "20"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "0.75 sq.mm": 1920
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10303",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Gold Pack",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "20"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.0 sq.mm": 2640
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10304",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Gold Pack",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "12"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.5 sq.mm": 3865
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10305",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Gold Pack",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "12"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "2.5 sq.mm": 6015
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10306",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Gold Pack",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "8"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "4.0 sq.mm": 8820
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10307",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Gold Pack",
+      "attributes": {
+        "Packing": "90 m",
+        "Master Carton Qty": "4"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "6.0 sq.mm": 13215
+      },
+      "page_number": 3
+    },
+    {
+      "sku": "10312016",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "8"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "0.75 sq.mm": 3640
+      },
+      "page_number": 4
+    },
+    {
+      "sku": "10313",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "8"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.0 sq.mm": 4760
+      },
+      "page_number": 4
+    },
+    {
+      "sku": "10314",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "6"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.5 sq.mm": 6890
+      },
+      "page_number": 4
+    },
+    {
+      "sku": "10315",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "4"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "2.5 sq.mm": 11365
+      },
+      "page_number": 4
+    },
+    {
+      "sku": "10306016",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "4"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "4.0 sq.mm": 17710
+      },
+      "page_number": 4
+    },
+    {
+      "sku": "10307016",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "Project Packing",
+      "attributes": {
+        "Packing": "180 m",
+        "Master Carton Qty": "4"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "6.0 sq.mm": 26600
+      },
+      "page_number": 4
+    },
+    {
+      "sku": "10316",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "45 Packing",
+      "attributes": {
+        "Packing": "45 m",
+        "Master Carton Qty": "12"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "4.0 sq.mm": 4235
+      },
+      "page_number": 4
+    },
+    {
+      "sku": "10317",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "45 Packing",
+      "attributes": {
+        "Packing": "45 m",
+        "Master Carton Qty": "8"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "6.0 sq.mm": 6435
+      },
+      "page_number": 4
+    },
+    {
+      "sku": "10312017",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "300 Packing",
+      "attributes": {
+        "Packing": "300 m",
+        "Master Carton Qty": "8"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "0.75 sq.mm": 6095
+      },
+      "page_number": 5
+    },
+    {
+      "sku": "10313017",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "300 Packing",
+      "attributes": {
+        "Packing": "300 m",
+        "Master Carton Qty": "8"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.0 sq.mm": 7970
+      },
+      "page_number": 5
+    },
+    {
+      "sku": "10314017",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "300 Packing",
+      "attributes": {
+        "Packing": "300 m",
+        "Master Carton Qty": "6"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "1.5 sq.mm": 11530
+      },
+      "page_number": 5
+    },
+    {
+      "sku": "10315017",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "300 Packing",
+      "attributes": {
+        "Packing": "300 m",
+        "Master Carton Qty": "4"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "2.5 sq.mm": 19020
+      },
+      "page_number": 5
+    },
+    {
+      "sku": "10306015",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "200 Packing",
+      "attributes": {
+        "Packing": "200 m",
+        "Master Carton Qty": "4"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "4.0 sq.mm": 19760
+      },
+      "page_number": 5
+    },
+    {
+      "sku": "10307015",
+      "product_name": "FR PVC Industrial Cable",
+      "collection": "FR PVC",
+      "series": "200 Packing",
+      "attributes": {
+        "Packing": "200 m",
+        "Master Carton Qty": "3"
+      },
+      "variant_axis_name": "Conductor Area",
+      "variant_prices": {
+        "6.0 sq.mm": 29685
+      },
+      "page_number": 5
+    }
+  ]
+}

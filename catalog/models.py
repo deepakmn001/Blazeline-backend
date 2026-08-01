@@ -439,7 +439,7 @@ class ProductSpecification(models.Model):
 
     key = models.CharField(max_length=120)
 
-    value = models.CharField(max_length=255)
+    value = models.TextField()
 
     class Meta:
         ordering = ["id"]

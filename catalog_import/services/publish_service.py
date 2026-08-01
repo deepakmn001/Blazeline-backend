@@ -87,21 +87,40 @@ def _decimal(value):
     return Decimal(str(value))
 
 
+def _normalize_axis(name: str) -> str:
+    """
+    Treat 'Colour' and 'Colour Options' as the same logical axis.
+    Also works for Finish/Finish Options, Size/Size Options, etc.
+    """
+    name = (name or "").strip().lower()
+
+    if name.endswith(" options"):
+        name = name[:-8].strip()
+
+    return name
+
+
 def _unique_slug(name: str) -> str:
     """
-    Generate unique product slug.
+    Generate a unique slug that never exceeds the Product.slug max_length.
     """
+
+    max_length = Product._meta.get_field("slug").max_length
 
     base = slugify(name)
 
     if not base:
         base = "product"
 
+    # Keep the base slug within the DB limit
+    base = base[:max_length]
+
     slug = base
     counter = 2
 
     while Product.objects.filter(slug=slug).exists():
-        slug = f"{base}-{counter}"
+        suffix = f"-{counter}"
+        slug = f"{base[:max_length - len(suffix)]}{suffix}"
         counter += 1
 
     return slug
@@ -272,6 +291,32 @@ def _attach_specifications(product, parsed):
     if parsed.series:
         specs.append(("Series", parsed.series))
 
+    # --------------------------------------------------
+    # Generic parser attributes -> ProductSpecification
+    # --------------------------------------------------
+
+    attributes = getattr(parsed, "attributes", {}) or {}
+
+    fanout_axis = (
+        getattr(parsed, "variant_axis_name", "") or ""
+    ).strip().lower()
+
+    for key, value in attributes.items():
+
+        # Variant option ko specification me duplicate mat karo
+        if _normalize_axis(key) == _normalize_axis(fanout_axis):
+            continue
+
+        if isinstance(value, list):
+            value = ", ".join(map(str, value))
+
+        value = str(value).strip()
+
+        if not value:
+            continue
+
+        specs.append((key, value))
+
     if not specs:
         return
 
@@ -332,6 +377,14 @@ def _find_or_create_option_value(option, value: str, value_cache: dict):
     """
 
     value = str(value).strip()
+    # ===========================
+    # DEBUG
+    # ===========================
+    print("=" * 70)
+    print("OPTION :", option.name)
+    print("VALUE  :", value)
+    print("LENGTH :", len(value))
+    print("=" * 70)
     key = (option.id, value.lower())
 
     if key in value_cache:
@@ -369,6 +422,16 @@ def _resolve_static_axes(product, parsed, option_cache, value_cache):
 
     attributes = getattr(parsed, "attributes", None)
 
+    print("=" * 80)
+    print("ATTRIBUTES:")
+    print(attributes)
+    print("=" * 80)
+
+    option_values = []
+    fanout_axis = (
+        getattr(parsed, "variant_axis_name", None) or ""
+    ).strip().lower()
+
     if attributes:
         pairs = list(attributes.items())
     else:
@@ -378,11 +441,83 @@ def _resolve_static_axes(product, parsed, option_cache, value_cache):
             ("Material", getattr(parsed, "material", None)),
         ]
 
-    option_values = []
-
     for axis_name, raw_value in pairs:
 
+        print(f"AXIS = {axis_name}")
+        print(f"TYPE = {type(raw_value)}")
+        print(f"VALUE = {raw_value}")
+        print("-" * 60)
+
         if not raw_value:
+            continue
+
+        # ----------------------------------------
+        # List values: two cases.
+        #
+        # 1. This list belongs to the fan-out axis itself
+        #    (e.g. "Colour Options": ["Lavender & White",
+        #    "Teal & Black"] where variant_axis_name ==
+        #    "Colour Options"). Each item is its own option
+        #    value and must be registered here, or the
+        #    colour variant never gets created.
+        #
+        # 2. Any other list (Features, Applications,
+        #    Benefits, ...) is a plain multi-value spec, not
+        #    a variant axis — it stays out of ProductOption
+        #    entirely and is left for _attach_specifications
+        #    to join into a comma-separated string.
+        # ----------------------------------------
+
+        if isinstance(raw_value, list):
+
+            print("LIST DETECTED:", axis_name)
+            print("NORMALIZED AXIS:", _normalize_axis(axis_name))
+            print("FANOUT AXIS:", _normalize_axis(fanout_axis))
+
+            if _normalize_axis(axis_name) == _normalize_axis(fanout_axis):
+
+                option = _find_or_create_option(
+                    product,
+                    axis_name.strip(),
+                    option_cache,
+                )
+
+                for item in raw_value:
+                    item = str(item).strip()
+
+                    if not item:
+                        continue
+
+                    # ProductOptionValue.value = VARCHAR(120)
+                    if len(item) > 120:
+                        continue
+
+                    _find_or_create_option_value(
+                        option,
+                        item,
+                        value_cache,
+                    )
+
+            continue
+
+        # dict-valued attributes have no sane single-value
+        # representation as a ProductOptionValue — leave them
+        # to _attach_specifications as well.
+
+        if isinstance(raw_value, dict):
+            continue
+
+        if _normalize_axis(axis_name) == _normalize_axis(fanout_axis):
+            continue
+
+        raw_value = str(raw_value).strip()
+
+        if not raw_value:
+            continue
+
+        # ProductOptionValue.value = VARCHAR(120)
+
+        if len(raw_value) > 120:
             continue
 
         axis_name = str(axis_name).strip()
@@ -390,8 +525,17 @@ def _resolve_static_axes(product, parsed, option_cache, value_cache):
         if not axis_name:
             continue
 
-        option = _find_or_create_option(product, axis_name, option_cache)
-        option_value = _find_or_create_option_value(option, raw_value, value_cache)
+        option = _find_or_create_option(
+            product,
+            axis_name,
+            option_cache,
+        )
+
+        option_value = _find_or_create_option_value(
+            option,
+            raw_value,
+            value_cache,
+        )
 
         option_values.append(option_value)
 
@@ -423,6 +567,21 @@ def _resolve_fanout_axis(parsed):
             if price not in (None, "")
         ]
         return axis_name, pairs
+
+    attributes = getattr(parsed, "attributes", {}) or {}
+    finishes = getattr(parsed, "finishes", []) or []
+
+    # Colour/Finish/Size style variants stored as a list
+    if finishes and getattr(parsed, "variant_axis_name", ""):
+        return (
+            getattr(parsed, "variant_axis_name"),
+            [
+                (value, getattr(parsed, "standard_price", None)
+                        or getattr(parsed, "gd_price", None)
+                        or getattr(parsed, "rgd_price", None))
+                for value in finishes
+            ],
+        )
 
     legacy_fields = (
         ("GD", "gd_price"),

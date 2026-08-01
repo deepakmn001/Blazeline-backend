@@ -1,0 +1,159 @@
+{
+  "brand": "Finolex",
+  "collection": "Finolex Irons",
+  "source_pdf": "Finolex Irons Catalogue",
+  "catalogue_pages": "5-16",
+  "import_policy": {
+    "images_included": false,
+    "image_upload_method": "admin_edit_product_later",
+    "masters_created_by": "admin"
+  },
+  "products": [
+    {
+      "sku": "FIN-IR-SLI-1600",
+      "product_name": "Finolex Slinky Steam Iron 1600W",
+      "collection": "Finolex Irons",
+      "series": "Slinky",
+      "variant": "Blue",
+      "finishes": [
+        "Blue"
+      ],
+      "variant_axis_name": "Colour",
+      "standard_price": null,
+      "variant_prices": {},
+      "attributes": {
+        "Type": "Steam Iron",
+        "Power": "1600W",
+        "Voltage": "240V",
+        "Frequency": "50Hz",
+        "Body": "Plastic",
+        "Soleplate": "Non Stick",
+        "Water Tank": "220 ml",
+        "ISI": true,
+        "Colour Options": [
+          "Blue"
+        ]
+      },
+      "page_number": 5,
+      "status": "published"
+    },
+    {
+      "sku": "FIN-IR-CUP-1000",
+      "product_name": "Finolex Cupid Dry Plastic Iron 1000W",
+      "collection": "Finolex Irons",
+      "series": "Cupid",
+      "variant": "Lavender & White",
+      "finishes": [
+        "Lavender & White",
+        "Teal & Black"
+      ],
+      "variant_axis_name": "Colour",
+      "standard_price": null,
+      "variant_prices": {},
+      "attributes": {
+        "Type": "Dry Plastic Iron",
+        "Power": "1000W",
+        "Colour Options": [
+          "Lavender & White",
+          "Teal & Black"
+        ]
+      },
+      "page_number": 7,
+      "status": "published"
+    },
+    {
+      "sku": "FIN-IR-MAG-1000",
+      "product_name": "Finolex Maglev Dry Plastic Iron 1000W",
+      "collection": "Finolex Irons",
+      "series": "Maglev",
+      "variant": "Sea Blue",
+      "finishes": [
+        "Sea Blue",
+        "Purple & White"
+      ],
+      "variant_axis_name": "Colour",
+      "standard_price": null,
+      "variant_prices": {},
+      "attributes": {
+        "Type": "Dry Plastic Iron",
+        "Power": "1000W",
+        "Colour Options": [
+          "Sea Blue",
+          "Purple & White"
+        ]
+      },
+      "page_number": 9,
+      "status": "published"
+    },
+    {
+      "sku": "FIN-IR-QUI-1000",
+      "product_name": "Finolex Quinto Dry Metal Heavy Duty Iron 1000W",
+      "collection": "Finolex Irons",
+      "series": "Quinto",
+      "variant": "Black & Grey",
+      "finishes": [
+        "Black & Grey"
+      ],
+      "variant_axis_name": "Colour",
+      "standard_price": null,
+      "variant_prices": {},
+      "attributes": {
+        "Type": "Dry Metal Heavy Duty Iron",
+        "Power": "1000W",
+        "Colour Options": [
+          "Black & Grey"
+        ]
+      },
+      "page_number": 11,
+      "status": "published"
+    },
+    {
+      "sku": "FIN-IR-FIO-1000",
+      "product_name": "Finolex Fionn Dry Metal Iron 1000W",
+      "collection": "Finolex Irons",
+      "series": "Fionn",
+      "variant": "White & Grey",
+      "finishes": [
+        "White & Grey",
+        "Turquoise & Grey"
+      ],
+      "variant_axis_name": "Colour",
+      "standard_price": null,
+      "variant_prices": {},
+      "attributes": {
+        "Type": "Dry Metal Iron",
+        "Power": "1000W",
+        "Colour Options": [
+          "White & Grey",
+          "Turquoise & Grey"
+        ]
+      },
+      "page_number": 13,
+      "status": "published"
+    },
+    {
+      "sku": "FIN-IR-FNX-1000",
+      "product_name": "Finolex Fionn NXG Dry Iron 1000W",
+      "collection": "Finolex Irons",
+      "series": "Fionn NXG",
+      "variant": "Yellow",
+      "finishes": [
+        "Yellow",
+        "White"
+      ],
+      "variant_axis_name": "Colour",
+      "standard_price": null,
+      "variant_prices": {},
+      "attributes": {
+        "Type": "Dry Iron",
+        "Power": "1000W",
+        "Colour Options": [
+          "Yellow",
+          "White"
+        ]
+      },
+      "page_number": 15,
+      "status": "published"
+    }
+  ]
+}

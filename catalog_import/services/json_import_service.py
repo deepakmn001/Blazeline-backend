@@ -198,7 +198,7 @@ def import_json(
     products_raw = payload["products"]
 
     validated_products: List[_ValidatedProduct] = []
-    seen_products: Dict[tuple[str, str], int] = {}
+    seen_products: Dict[tuple[str, str, str], int] = {}
     summary = _ImportSummary(
         total_products=len(products_raw),
         brand=resolved_brand,
@@ -215,10 +215,26 @@ def import_json(
                 root_collection=root_collection,
                 root_series=root_series,
             )
+            
+            
+            
+            variant_identity = (
+                validated.variant.strip()
+    if validated.variant
+    else str(
+        validated.attributes.get(
+            validated.variant_axis_name,
+            ""
+        )
+    ).strip()
+)
+
             product_key = (
                 validated.sku.strip().upper(),
                 validated.product_name.strip().upper(),
+                variant_identity.strip().upper(),
             )
+            
 
             if product_key in seen_products:
                 raise DuplicateSkuError(
