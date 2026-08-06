@@ -105,6 +105,7 @@ class _ValidatedProduct:
     attributes: Dict[str, Any]
     variant_axis_name: str
     variant_prices: Dict[str, Decimal]
+    variants: List[Dict[str, Any]]
 
     ocr_confidence: float
     ai_confidence: float
@@ -374,6 +375,13 @@ def _validate_product(
     standard_price = _validate_numeric(raw_product.get("standard_price"), "standard_price", index)
 
     variant_prices = _validate_variant_prices(raw_product.get("variant_prices"), index)
+    variants = raw_product.get("variants") or []
+
+    if not isinstance(variants, list):
+       raise ProductValidationError(
+        index,
+        "'variants' must be a list."
+    )
 
     # Backward compatibility: if the payload provides the newer
     # `variant_prices` mapping (e.g. {"GD": 3300, "RGD": 3060, "MB": 2600}),
@@ -426,6 +434,7 @@ def _validate_product(
         attributes=attributes,
         variant_axis_name=variant_axis_name,
         variant_prices=variant_prices,
+        variants=variants,
         ocr_confidence=ocr_confidence,
         ai_confidence=ai_confidence,
         sku_confidence=sku_confidence,
@@ -705,6 +714,8 @@ def _bulk_create_parsed_products(
             variant_prices={
                 key: str(price) for key, price in product.variant_prices.items()
             },
+            variants=product.variants,
+
             raw_text=product.raw_text,
             status=ParsedProduct.Status.PENDING,
             is_imported=False,

@@ -1,0 +1,462 @@
+{
+  "catalog_name": "Advance Flawless Flutes XL 17000 Series",
+  "source_pdf": "Advance Flawless Flutes Xl 17000 Series (12 Inch) (3).pdf",
+  "page_count": 19,
+  "products": [
+    {
+      "sku": "17029",
+      "product_name": "Lakota Flute",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 5,
+      "page_numbers": [
+        5
+      ],
+      "standard_price": 5500,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17028",
+      "product_name": "Lakota Flute",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 6,
+      "page_numbers": [
+        6
+      ],
+      "standard_price": 4990,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17001",
+      "product_name": "Lakota Flute",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 8,
+      "page_numbers": [
+        8
+      ],
+      "standard_price": 6840,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17003",
+      "product_name": "Lakota Flute",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 8,
+      "page_numbers": [
+        8
+      ],
+      "standard_price": 2700,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17018",
+      "product_name": "Parallel Line Flute",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 10,
+      "page_numbers": [
+        10
+      ],
+      "standard_price": 6040,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17007",
+      "product_name": "Parallel Line Flute",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 11,
+      "page_numbers": [
+        11
+      ],
+      "standard_price": 7680,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17006",
+      "product_name": "Parallel Line Flute",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 12,
+      "page_numbers": [
+        12
+      ],
+      "standard_price": 3870,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17008",
+      "product_name": "Parallel Line Flute",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 12,
+      "page_numbers": [
+        12
+      ],
+      "standard_price": 7670,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17015",
+      "product_name": "Ocarina Flute",
+      "family": "Ocarina Flute",
+      "series": "17000",
+      "page_number": 14,
+      "page_numbers": [
+        14
+      ],
+      "standard_price": 5060,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17010",
+      "product_name": "Ocarina Flute",
+      "family": "Ocarina Flute",
+      "series": "17000",
+      "page_number": 14,
+      "page_numbers": [
+        14
+      ],
+      "standard_price": 5540,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17023",
+      "product_name": "Ocarina Flute",
+      "family": "Ocarina Flute",
+      "series": "17000",
+      "page_number": 15,
+      "page_numbers": [
+        15
+      ],
+      "standard_price": 6810,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17031",
+      "product_name": "Paixiao Flute",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 19,
+      "page_numbers": [
+        19
+      ],
+      "standard_price": 3900,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17026",
+      "product_name": "Paixiao Flute",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 18,
+      "page_numbers": [
+        18
+      ],
+      "standard_price": 5480,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17000",
+      "product_name": "Paixiao Flute",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 20,
+      "page_numbers": [
+        20
+      ],
+      "standard_price": 4820,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17002",
+      "product_name": "Paixiao Flute",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 20,
+      "page_numbers": [
+        20
+      ],
+      "standard_price": 3670,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17025",
+      "product_name": "Kena Flute",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 22,
+      "page_numbers": [
+        22
+      ],
+      "standard_price": 5490,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17020",
+      "product_name": "Kena Flute",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 22,
+      "page_numbers": [
+        22
+      ],
+      "standard_price": 3960,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17014",
+      "product_name": "Kena Flute",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 24,
+      "page_numbers": [
+        24
+      ],
+      "standard_price": 4710,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17009",
+      "product_name": "Kena Flute",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 24,
+      "page_numbers": [
+        24
+      ],
+      "standard_price": 6590,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17030",
+      "product_name": "Diple Flute",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 26,
+      "page_numbers": [
+        26
+      ],
+      "standard_price": 6780,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17027",
+      "product_name": "Diple Flute",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 26,
+      "page_numbers": [
+        26
+      ],
+      "standard_price": 4960,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17021",
+      "product_name": "Diple Flute",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 27,
+      "page_numbers": [
+        27
+      ],
+      "standard_price": 3300,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17024",
+      "product_name": "Diple Flute",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 27,
+      "page_numbers": [
+        27
+      ],
+      "standard_price": 5540,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17013",
+      "product_name": "Diple Flute",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 28,
+      "page_numbers": [
+        28
+      ],
+      "standard_price": 3170,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17022",
+      "product_name": "Diple Flute",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 28,
+      "page_numbers": [
+        28
+      ],
+      "standard_price": 2200,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17011",
+      "product_name": "Native American Flute",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 30,
+      "page_numbers": [
+        30
+      ],
+      "standard_price": 2320,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17012",
+      "product_name": "Native American Flute",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 30,
+      "page_numbers": [
+        30
+      ],
+      "standard_price": 2860,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17017",
+      "product_name": "Native American Flute",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 32,
+      "page_numbers": [
+        32
+      ],
+      "standard_price": 4820,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17019",
+      "product_name": "Native American Flute",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 32,
+      "page_numbers": [
+        32
+      ],
+      "standard_price": 5450,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    },
+    {
+      "sku": "17005",
+      "product_name": "Zig-Zag Flute",
+      "family": "Zig-Zag Flute",
+      "series": "17000",
+      "page_number": 34,
+      "page_numbers": [
+        34
+      ],
+      "standard_price": 2750,
+      "dimensions": {
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      }
+    }
+  ],
+  "specifications": {
+    "Material": "PS Louvers",
+    "Length": "9.5FT",
+    "Width": "12 INCH"
+  }
+}

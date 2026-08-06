@@ -22,6 +22,15 @@ parser provides them:
                                 belong to. Defaults to "Finish" if not
                                 supplied.
 
+    parsed.variants          -> list[dict], e.g. [{"label": "GD",
+                                "price": 3000, "sku": "VAU1001-GD"}, ...]
+                                Highest-priority fan-out source. Used
+                                when the parser has already resolved
+                                explicit per-variant SKUs (instead of
+                                letting this service derive them via
+                                `_build_variant_sku`). Checked before
+                                `variant_prices`.
+
 No axis name or axis value (Size, Finish, GD, RGD, MB, Voltage, ...) is
 ever hardcoded as a branch in this file — a client adding "Pressure" or
 "Handle Type" tomorrow requires zero changes here, only a parser change
@@ -546,16 +555,43 @@ def _resolve_fanout_axis(parsed):
     """
     Fully generic fan-out resolution.
 
-    Preferred path: parsed.variant_prices (dict[str, price]) +
-    parsed.variant_axis_name (str, defaults to "Finish"). Neither the
-    axis name nor its values are hardcoded here.
+    Priority order:
 
-    Fallback path (only used if parsed.variant_prices is absent):
-    legacy gd_price/rgd_price/mb_price/standard_price fields, axis
-    fixed at "Finish", kept for backward compatibility only.
+      1. parsed.variants (list[dict{label, price, sku}]) — the parser
+         has already resolved explicit per-variant SKUs, so this
+         service must NOT derive its own via `_build_variant_sku`;
+         it uses the parser-provided sku as-is.
 
-    Returns (axis_name: str, [(value, price), ...]).
+      2. parsed.variant_prices (dict[str, price]) + parsed.variant_axis_name
+         (str, defaults to "Finish"). Neither the axis name nor its
+         values are hardcoded here. SKUs are derived via
+         `_build_variant_sku`.
+
+      3. Fallback (only used if neither of the above is present):
+         legacy gd_price/rgd_price/mb_price/standard_price fields,
+         axis fixed at "Finish", kept for backward compatibility only.
+
+    Returns (axis_name: str, pairs) where each item in pairs is either
+    (value, price) — sku to be derived downstream — or
+    (value, price, original_sku) when the sku is already resolved.
     """
+
+    variants = getattr(parsed, "variants", None)
+
+    if variants:
+        axis_name = getattr(parsed, "variant_axis_name", None) or "Finish"
+
+        return (
+            axis_name,
+            [
+                (
+                    item["label"],
+                    item["price"],
+                    item["sku"],
+                )
+                for item in variants
+            ],
+        )
 
     variant_prices = getattr(parsed, "variant_prices", None)
 
@@ -656,7 +692,13 @@ def _create_variants(product, parsed):
 
     candidates = []  # list of dicts: sku, price, option_values
 
-    for axis_value, price in fanout_pairs:
+    for item in fanout_pairs:
+
+        if len(item) == 3:
+            axis_value, price, original_sku = item
+        else:
+            axis_value, price = item
+            original_sku = None
 
         fanout_option = _find_or_create_option(
             product, fanout_axis_name, option_cache,
@@ -673,7 +715,10 @@ def _create_variants(product, parsed):
 
         existing_combinations.add(combo_key)  # guard against dup within this row
 
-        sku = _build_variant_sku(parsed, axis_value, fan_out)
+        if original_sku:
+            sku = original_sku
+        else:
+            sku = _build_variant_sku(parsed, axis_value, fan_out)
 
         candidates.append({
             "sku": sku,

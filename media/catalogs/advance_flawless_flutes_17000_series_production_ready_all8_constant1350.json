@@ -1,0 +1,371 @@
+{
+  "catalog_name": "Advance Flawless Flutes XL 17000 Series",
+  "source_pdf": "Advance Flawless Flutes Xl 17000 Series (12 Inch) (3).pdf",
+  "page_count": 19,
+  "common_attributes": {
+    "Material": "PS Louvers",
+    "Length": "9.5FT",
+    "Width": "12 INCH"
+  },
+  "products": [
+    {
+      "sku": "17029",
+      "product_name": "Lakota Flute",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 5,
+      "page_numbers": [
+        5,
+        6,
+        8
+      ],
+      "variant_axis_name": "Color",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1350,
+      "variant_prices": {
+        "White Marble": 1350,
+        "Dark Walnut": 1350,
+        "Steel Blue": 1350,
+        "Teal Blue": 1350
+      },
+      "variants": [
+        {
+          "sku": "17029",
+          "label": "White Marble",
+          "price": 1350
+        },
+        {
+          "sku": "17028",
+          "label": "Dark Walnut",
+          "price": 1350
+        },
+        {
+          "sku": "17001",
+          "label": "Steel Blue",
+          "price": 1350
+        },
+        {
+          "sku": "17003",
+          "label": "Teal Blue",
+          "price": 1350
+        }
+      ]
+    },
+    {
+      "sku": "17018",
+      "product_name": "Parallel Line Flute",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 10,
+      "page_numbers": [
+        10,
+        11,
+        12
+      ],
+      "variant_axis_name": "Color",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "310mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1350,
+      "variant_prices": {
+        "Dark Brown": 1350,
+        "Sand Beige": 1350,
+        "Teak Brown": 1350,
+        "Espresso Brown": 1350
+      },
+      "variants": [
+        {
+          "sku": "17018",
+          "label": "Dark Brown",
+          "price": 1350
+        },
+        {
+          "sku": "17007",
+          "label": "Sand Beige",
+          "price": 1350
+        },
+        {
+          "sku": "17006",
+          "label": "Teak Brown",
+          "price": 1350
+        },
+        {
+          "sku": "17008",
+          "label": "Espresso Brown",
+          "price": 1350
+        }
+      ]
+    },
+    {
+      "sku": "17015",
+      "product_name": "Ocarina Flute",
+      "family": "Ocarina Flute",
+      "series": "17000",
+      "page_number": 14,
+      "page_numbers": [
+        14,
+        15
+      ],
+      "variant_axis_name": "Color",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1350,
+      "variant_prices": {
+        "Dark Espresso": 1350,
+        "Silver Beige": 1350,
+        "Mahogany Brown": 1350
+      },
+      "variants": [
+        {
+          "sku": "17015",
+          "label": "Dark Espresso",
+          "price": 1350
+        },
+        {
+          "sku": "17010",
+          "label": "Silver Beige",
+          "price": 1350
+        },
+        {
+          "sku": "17023",
+          "label": "Mahogany Brown",
+          "price": 1350
+        }
+      ]
+    },
+    {
+      "sku": "17031",
+      "product_name": "Paixiao Flute",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 18,
+      "page_numbers": [
+        18,
+        19,
+        20
+      ],
+      "variant_axis_name": "Color",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1350,
+      "variant_prices": {
+        "White Marble": 1350,
+        "Charcoal Grey": 1350,
+        "Black Texture": 1350,
+        "Gold Beige": 1350
+      },
+      "variants": [
+        {
+          "sku": "17031",
+          "label": "White Marble",
+          "price": 1350
+        },
+        {
+          "sku": "17026",
+          "label": "Charcoal Grey",
+          "price": 1350
+        },
+        {
+          "sku": "17000",
+          "label": "Black Texture",
+          "price": 1350
+        },
+        {
+          "sku": "17002",
+          "label": "Gold Beige",
+          "price": 1350
+        }
+      ]
+    },
+    {
+      "sku": "17025",
+      "product_name": "Kena Flute",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 22,
+      "page_numbers": [
+        22,
+        24
+      ],
+      "variant_axis_name": "Color",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1350,
+      "variant_prices": {
+        "Honey Oak": 1350,
+        "Dark Walnut": 1350,
+        "Light Oak": 1350,
+        "Espresso Brown": 1350
+      },
+      "variants": [
+        {
+          "sku": "17025",
+          "label": "Honey Oak",
+          "price": 1350
+        },
+        {
+          "sku": "17020",
+          "label": "Dark Walnut",
+          "price": 1350
+        },
+        {
+          "sku": "17014",
+          "label": "Light Oak",
+          "price": 1350
+        },
+        {
+          "sku": "17009",
+          "label": "Espresso Brown",
+          "price": 1350
+        }
+      ]
+    },
+    {
+      "sku": "17027",
+      "product_name": "Diple Flute",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 26,
+      "page_numbers": [
+        26,
+        27,
+        28
+      ],
+      "variant_axis_name": "Color",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1350,
+      "variant_prices": {
+        "White Marble": 1350,
+        "Dark Wine": 1350,
+        "Mahogany": 1350,
+        "Ivory Cream": 1350,
+        "Sand Beige": 1350,
+        "Espresso Brown": 1350
+      },
+      "variants": [
+        {
+          "sku": "17027",
+          "label": "White Marble",
+          "price": 1350
+        },
+        {
+          "sku": "17030",
+          "label": "Dark Wine",
+          "price": 1350
+        },
+        {
+          "sku": "17021",
+          "label": "Mahogany",
+          "price": 1350
+        },
+        {
+          "sku": "17024",
+          "label": "Ivory Cream",
+          "price": 1350
+        },
+        {
+          "sku": "17013",
+          "label": "Sand Beige",
+          "price": 1350
+        },
+        {
+          "sku": "17022",
+          "label": "Espresso Brown",
+          "price": 1350
+        }
+      ]
+    },
+    {
+      "sku": "17011",
+      "product_name": "Native American Flute",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 30,
+      "page_numbers": [
+        30,
+        32
+      ],
+      "variant_axis_name": "Color",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "316mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1350,
+      "variant_prices": {
+        "Dark Brown": 1350,
+        "Black Stripe": 1350,
+        "Rosewood": 1350,
+        "Beige Stripe": 1350
+      },
+      "variants": [
+        {
+          "sku": "17011",
+          "label": "Dark Brown",
+          "price": 1350
+        },
+        {
+          "sku": "17012",
+          "label": "Black Stripe",
+          "price": 1350
+        },
+        {
+          "sku": "17017",
+          "label": "Rosewood",
+          "price": 1350
+        },
+        {
+          "sku": "17019",
+          "label": "Beige Stripe",
+          "price": 1350
+        }
+      ]
+    },
+    {
+      "sku": "17005",
+      "product_name": "Zig-Zag Flute",
+      "family": "Zig-Zag Flute",
+      "series": "17000",
+      "page_number": 34,
+      "page_numbers": [
+        34
+      ],
+      "variant_axis_name": "Color",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "305mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1350,
+      "variant_prices": {
+        "Zig-Zag Brown": 1350
+      },
+      "variants": [
+        {
+          "sku": "17005",
+          "label": "Zig-Zag Brown",
+          "price": 1350
+        }
+      ]
+    }
+  ]
+}

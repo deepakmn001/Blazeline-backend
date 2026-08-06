@@ -24,7 +24,11 @@ class Category(models.Model):
         blank=True,
         null=True,
     )
-
+    icon = models.CharField(
+        max_length=100,
+        blank=True,
+    )
+    sort_order = models.PositiveIntegerField(default=0)
     featured = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
 
@@ -61,13 +65,16 @@ class SubCategory(models.Model):
         blank=True,
         null=True,
     )
+    featured = models.BooleanField(default=False)
 
+    sort_order = models.PositiveIntegerField(default=0)
     active = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["sort_order", "name"]
         unique_together = ("category", "slug")
         verbose_name = "Sub Category"
         verbose_name_plural = "Sub Categories"
@@ -563,3 +570,4 @@ class QuoteAttachment(models.Model):
 
     def __str__(self):
         return f"{self.quote.full_name} - Attachment"
+    

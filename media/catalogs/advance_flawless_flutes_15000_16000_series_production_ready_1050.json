@@ -1,0 +1,329 @@
+{
+  "catalog_name": "Advance Flawless Flutes L 15000,16000 Series",
+  "source_pdf": "Advance_Flawless_Flutes_L_15000,16000_Series_8,9_5_&_10_Inch_2.pdf",
+  "page_count": 17,
+  "common_attributes": {
+    "Material": "PS Louvers",
+    "Length": "9.5FT",
+    "Width": "8, 9.5 & 10 INCH"
+  },
+  "products": [
+    {
+      "sku": "15011",
+      "product_name": "Knittel Flute",
+      "family": "Knittel Flute",
+      "series": "15000",
+      "page_number": 5,
+      "page_numbers": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "variant_axis_name": "Color",
+      "variant": "Beige Stripe",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "200mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1050,
+      "variant_prices": {
+        "Beige Stripe": 1050,
+        "Moss Marble": 1050,
+        "Amber Stripe": 1050,
+        "Natural Wood": 1050
+      },
+      "variants": [
+        {
+          "sku": "15011",
+          "label": "Beige Stripe",
+          "price": 1050
+        },
+        {
+          "sku": "15010",
+          "label": "Moss Marble",
+          "price": 1050
+        },
+        {
+          "sku": "15007",
+          "label": "Amber Stripe",
+          "price": 1050
+        },
+        {
+          "sku": "15006",
+          "label": "Natural Wood",
+          "price": 1050
+        }
+      ]
+    },
+    {
+      "sku": "16002",
+      "product_name": "Paldon Flute",
+      "family": "Paldon Flute",
+      "series": "16000",
+      "page_number": 9,
+      "page_numbers": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "variant_axis_name": "Color",
+      "variant": "Taupe Stripe",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "247mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1050,
+      "variant_prices": {
+        "Taupe Stripe": 1050,
+        "Brick Red": 1050,
+        "Dark Stripe": 1050,
+        "Rust Wood": 1050
+      },
+      "variants": [
+        {
+          "sku": "16002",
+          "label": "Taupe Stripe",
+          "price": 1050
+        },
+        {
+          "sku": "16005",
+          "label": "Brick Red",
+          "price": 1050
+        },
+        {
+          "sku": "16004",
+          "label": "Dark Stripe",
+          "price": 1050
+        },
+        {
+          "sku": "16007",
+          "label": "Rust Wood",
+          "price": 1050
+        }
+      ]
+    },
+    {
+      "sku": "15009",
+      "product_name": "Sarinda Flute",
+      "family": "Sarinda Flute",
+      "series": "15000",
+      "page_number": 13,
+      "page_numbers": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "variant_axis_name": "Color",
+      "variant": "Midnight Marble",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "200mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1050,
+      "variant_prices": {
+        "Midnight Marble": 1050,
+        "White Marble": 1050,
+        "Purple Wood": 1050,
+        "Brown Wood": 1050
+      },
+      "variants": [
+        {
+          "sku": "15009",
+          "label": "Midnight Marble",
+          "price": 1050
+        },
+        {
+          "sku": "15008",
+          "label": "White Marble",
+          "price": 1050
+        },
+        {
+          "sku": "15004",
+          "label": "Purple Wood",
+          "price": 1050
+        },
+        {
+          "sku": "15005",
+          "label": "Brown Wood",
+          "price": 1050
+        }
+      ]
+    },
+    {
+      "sku": "15012",
+      "product_name": "Dayereh Flute",
+      "family": "Dayereh Flute",
+      "series": "15000",
+      "page_number": 17,
+      "page_numbers": [
+        17,
+        18
+      ],
+      "variant_axis_name": "Color",
+      "variant": "Dark Brown Stripe",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "200mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1050,
+      "variant_prices": {
+        "Dark Brown Stripe": 1050
+      },
+      "variants": [
+        {
+          "sku": "15012",
+          "label": "Dark Brown Stripe",
+          "price": 1050
+        }
+      ]
+    },
+    {
+      "sku": "16009",
+      "product_name": "Ocarina Flute",
+      "family": "Ocarina Flute",
+      "series": "16000",
+      "page_number": 19,
+      "page_numbers": [
+        19,
+        20,
+        21,
+        22
+      ],
+      "variant_axis_name": "Color",
+      "variant": "Ice Marble",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "240mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1050,
+      "variant_prices": {
+        "Ice Marble": 1050,
+        "Black Texture": 1050,
+        "Light Oak": 1050,
+        "Plum Wood": 1050
+      },
+      "variants": [
+        {
+          "sku": "16009",
+          "label": "Ice Marble",
+          "price": 1050
+        },
+        {
+          "sku": "16010",
+          "label": "Black Texture",
+          "price": 1050
+        },
+        {
+          "sku": "16003",
+          "label": "Light Oak",
+          "price": 1050
+        },
+        {
+          "sku": "16006",
+          "label": "Plum Wood",
+          "price": 1050
+        }
+      ]
+    },
+    {
+      "sku": "16008",
+      "product_name": "Tarka Flute",
+      "family": "Tarka Flute",
+      "series": "16000",
+      "page_number": 23,
+      "page_numbers": [
+        23,
+        24,
+        25,
+        26
+      ],
+      "variant_axis_name": "Color",
+      "variant": "White Marble",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "240mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1050,
+      "variant_prices": {
+        "White Marble": 1050,
+        "Herringbone Beige": 1050,
+        "Herringbone Brown": 1050
+      },
+      "variants": [
+        {
+          "sku": "16008",
+          "label": "White Marble",
+          "price": 1050
+        },
+        {
+          "sku": "16001",
+          "label": "Herringbone Beige",
+          "price": 1050
+        },
+        {
+          "sku": "16000",
+          "label": "Herringbone Brown",
+          "price": 1050
+        }
+      ]
+    },
+    {
+      "sku": "15000",
+      "product_name": "Hyperbass Flute",
+      "family": "Hyperbass Flute",
+      "series": "15000",
+      "page_number": 27,
+      "page_numbers": [
+        27,
+        28,
+        29,
+        30
+      ],
+      "variant_axis_name": "Color",
+      "variant": "Soft Lavender",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "200mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 1050,
+      "variant_prices": {
+        "Soft Lavender": 1050,
+        "Cool Grey": 1050,
+        "Warm Tan": 1050,
+        "Sand Beige": 1050
+      },
+      "variants": [
+        {
+          "sku": "15000",
+          "label": "Soft Lavender",
+          "price": 1050
+        },
+        {
+          "sku": "15001",
+          "label": "Cool Grey",
+          "price": 1050
+        },
+        {
+          "sku": "15002",
+          "label": "Warm Tan",
+          "price": 1050
+        },
+        {
+          "sku": "15003",
+          "label": "Sand Beige",
+          "price": 1050
+        }
+      ]
+    }
+  ]
+}

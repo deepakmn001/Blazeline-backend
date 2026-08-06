@@ -54,9 +54,30 @@ class CategoryMiniSerializer(serializers.ModelSerializer):
 
 class SubCategorySerializer(serializers.ModelSerializer):
 
+    category_name = serializers.CharField(
+        source="category.name",
+        read_only=True,
+    )
+
+    product_count = serializers.SerializerMethodField()
+
     class Meta:
         model = SubCategory
-        fields = "__all__"
+        fields = [
+            "id",
+            "category",
+            "category_name",
+            "name",
+            "slug",
+            "description",
+            "image",
+            "active",
+            "created_at",
+            "product_count",
+        ]
+
+    def get_product_count(self, obj):
+        return obj.products.count()
 
 
 class SubCategoryMiniSerializer(serializers.ModelSerializer):
@@ -985,3 +1006,11 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
             )
 
         return quote
+    
+    
+    
+    
+    
+    
+    
+    

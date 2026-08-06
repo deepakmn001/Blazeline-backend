@@ -1,0 +1,447 @@
+{
+  "catalog_name": "Advance Flawless Flutes XL 17000 Series",
+  "source_pdf": "Advance Flawless Flutes Xl 17000 Series (12 Inch) (3).pdf",
+  "page_count": 19,
+  "common_attributes": {
+    "Material": "PS Louvers",
+    "Length": "9.5FT",
+    "Width": "12 INCH"
+  },
+  "products": [
+    {
+      "sku": "17029",
+      "product_name": "Lakota Flute",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 5,
+      "page_numbers": [
+        5
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 5500
+    },
+    {
+      "sku": "17028",
+      "product_name": "Lakota Flute",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 6,
+      "page_numbers": [
+        6
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 4990
+    },
+    {
+      "sku": "17001",
+      "product_name": "Lakota Flute",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 8,
+      "page_numbers": [
+        8
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 6840
+    },
+    {
+      "sku": "17003",
+      "product_name": "Lakota Flute",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 8,
+      "page_numbers": [
+        8
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 2700
+    },
+    {
+      "sku": "17018",
+      "product_name": "Parallel Line Flute",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 10,
+      "page_numbers": [
+        10
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "310mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 6040
+    },
+    {
+      "sku": "17007",
+      "product_name": "Parallel Line Flute",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 11,
+      "page_numbers": [
+        11
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "310mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 7680
+    },
+    {
+      "sku": "17006",
+      "product_name": "Parallel Line Flute",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 12,
+      "page_numbers": [
+        12
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "310mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 3870
+    },
+    {
+      "sku": "17008",
+      "product_name": "Parallel Line Flute",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 12,
+      "page_numbers": [
+        12
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "310mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 7670
+    },
+    {
+      "sku": "17015",
+      "product_name": "Ocarina Flute",
+      "family": "Ocarina Flute",
+      "series": "17000",
+      "page_number": 14,
+      "page_numbers": [
+        14
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 5060
+    },
+    {
+      "sku": "17010",
+      "product_name": "Ocarina Flute",
+      "family": "Ocarina Flute",
+      "series": "17000",
+      "page_number": 14,
+      "page_numbers": [
+        14
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 5540
+    },
+    {
+      "sku": "17023",
+      "product_name": "Ocarina Flute",
+      "family": "Ocarina Flute",
+      "series": "17000",
+      "page_number": 15,
+      "page_numbers": [
+        15
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 6810
+    },
+    {
+      "sku": "17031",
+      "product_name": "Paixiao Flute",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 19,
+      "page_numbers": [
+        19
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 3900
+    },
+    {
+      "sku": "17026",
+      "product_name": "Paixiao Flute",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 18,
+      "page_numbers": [
+        18
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 5480
+    },
+    {
+      "sku": "17000",
+      "product_name": "Paixiao Flute",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 20,
+      "page_numbers": [
+        20
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 4820
+    },
+    {
+      "sku": "17002",
+      "product_name": "Paixiao Flute",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 20,
+      "page_numbers": [
+        20
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 3670
+    },
+    {
+      "sku": "17025",
+      "product_name": "Kena Flute",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 22,
+      "page_numbers": [
+        22
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 5490
+    },
+    {
+      "sku": "17020",
+      "product_name": "Kena Flute",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 22,
+      "page_numbers": [
+        22
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 3960
+    },
+    {
+      "sku": "17014",
+      "product_name": "Kena Flute",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 24,
+      "page_numbers": [
+        24
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 4710
+    },
+    {
+      "sku": "17009",
+      "product_name": "Kena Flute",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 24,
+      "page_numbers": [
+        24
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 6590
+    },
+    {
+      "sku": "17030",
+      "product_name": "Diple Flute",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 26,
+      "page_numbers": [
+        26,
+        27,
+        28
+      ],
+      "variant_axis_name": "Color",
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "300mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 4960,
+      "variants": [
+        {
+          "sku": "17027",
+          "label": "White Marble",
+          "price": 4960
+        },
+        {
+          "sku": "17030",
+          "label": "Dark Wine",
+          "price": 6780
+        },
+        {
+          "sku": "17021",
+          "label": "Mahogany",
+          "price": 3300
+        },
+        {
+          "sku": "17024",
+          "label": "Ivory Cream",
+          "price": 5540
+        },
+        {
+          "sku": "17013",
+          "label": "Sand Beige",
+          "price": 3170
+        },
+        {
+          "sku": "17022",
+          "label": "Espresso Brown",
+          "price": 2200
+        }
+      ]
+    },
+    {
+      "sku": "17011",
+      "product_name": "Native American Flute",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 30,
+      "page_numbers": [
+        30
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "316mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 2320
+    },
+    {
+      "sku": "17012",
+      "product_name": "Native American Flute",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 30,
+      "page_numbers": [
+        30
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "316mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 2860
+    },
+    {
+      "sku": "17017",
+      "product_name": "Native American Flute",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 32,
+      "page_numbers": [
+        32
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "316mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 4820
+    },
+    {
+      "sku": "17019",
+      "product_name": "Native American Flute",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 32,
+      "page_numbers": [
+        32
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "316mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 5450
+    },
+    {
+      "sku": "17005",
+      "product_name": "Zig-Zag Flute",
+      "family": "Zig-Zag Flute",
+      "series": "17000",
+      "page_number": 34,
+      "page_numbers": [
+        34
+      ],
+      "attributes": {
+        "Material": "PS Louvers",
+        "Width": "305mm",
+        "Length": "2900mm"
+      },
+      "standard_price": 2750
+    }
+  ]
+}

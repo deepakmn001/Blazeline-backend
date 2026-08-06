@@ -9,6 +9,7 @@ from .views import (
     ProductVariantViewSet,
     ProductSpecificationViewSet,
     DashboardAPIView,
+    SubCategoryStatsAPIView,
     DeliveryCheckAPIView,
      QuoteRequestAPIView,
      ReverseLocationAPIView,
@@ -81,6 +82,11 @@ urlpatterns = [
         DashboardAPIView.as_view(),
         name="dashboard",
     ),
+    path(
+    "subcategories/stats/",
+    SubCategoryStatsAPIView.as_view(),
+    name="subcategory-stats",
+),
     path(
     "delivery/check/",
     DeliveryCheckAPIView.as_view(),

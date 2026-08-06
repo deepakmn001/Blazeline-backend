@@ -1,0 +1,522 @@
+{
+  "catalog_name": "Advance Flawless Flutes XL 17000 Series",
+  "source_pdf": "Advance Flawless Flutes Xl 17000 Series (12 Inch) (3).pdf",
+  "page_count": 19,
+  "common_attributes": {
+    "Material": "PS Louvers",
+    "Length": "9.5FT",
+    "Width": "12 INCH"
+  },
+  "products": [
+    {
+      "sku": "17029",
+      "product_name": "Lakota Flute 17029",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 5,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        5
+      ],
+      "price": 5500,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17028",
+      "product_name": "Lakota Flute 17028",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 6,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        6
+      ],
+      "price": 4990,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17001",
+      "product_name": "Lakota Flute 17001",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 8,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        8
+      ],
+      "price": 6840,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17003",
+      "product_name": "Lakota Flute 17003",
+      "family": "Lakota Flute",
+      "series": "17000",
+      "page_number": 8,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        8
+      ],
+      "price": 2700,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17018",
+      "product_name": "Parallel Line Flute 17018",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 10,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        10
+      ],
+      "price": 6040,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17007",
+      "product_name": "Parallel Line Flute 17007",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 11,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        11
+      ],
+      "price": 7680,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17006",
+      "product_name": "Parallel Line Flute 17006",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 12,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        12
+      ],
+      "price": 3870,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17008",
+      "product_name": "Parallel Line Flute 17008",
+      "family": "Parallel Line Flute",
+      "series": "17000",
+      "page_number": 12,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        12
+      ],
+      "price": 7670,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17015",
+      "product_name": "Ocarina Flute 17015",
+      "family": "Ocarina Flute",
+      "series": "17000",
+      "page_number": 14,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        14
+      ],
+      "price": 5060,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17010",
+      "product_name": "Ocarina Flute 17010",
+      "family": "Ocarina Flute",
+      "series": "17000",
+      "page_number": 14,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        14
+      ],
+      "price": 5540,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17023",
+      "product_name": "Ocarina Flute 17023",
+      "family": "Ocarina Flute",
+      "series": "17000",
+      "page_number": 15,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        15
+      ],
+      "price": 6810,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17031",
+      "product_name": "Paixiao Flute 17031",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 19,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        19
+      ],
+      "price": 3900,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17026",
+      "product_name": "Paixiao Flute 17026",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 18,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        18
+      ],
+      "price": 5480,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17000",
+      "product_name": "Paixiao Flute 17000",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 20,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        20
+      ],
+      "price": 4820,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17002",
+      "product_name": "Paixiao Flute 17002",
+      "family": "Paixiao Flute",
+      "series": "17000",
+      "page_number": 20,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        20
+      ],
+      "price": 3670,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17025",
+      "product_name": "Kena Flute 17025",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 22,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        22
+      ],
+      "price": 5490,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17020",
+      "product_name": "Kena Flute 17020",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 22,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        22
+      ],
+      "price": 3960,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17014",
+      "product_name": "Kena Flute 17014",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 24,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        24
+      ],
+      "price": 4710,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17009",
+      "product_name": "Kena Flute 17009",
+      "family": "Kena Flute",
+      "series": "17000",
+      "page_number": 24,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        24
+      ],
+      "price": 6590,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17030",
+      "product_name": "Diple Flute 17030",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 26,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        26
+      ],
+      "price": 6780,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17027",
+      "product_name": "Diple Flute 17027",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 26,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        26
+      ],
+      "price": 4960,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17021",
+      "product_name": "Diple Flute 17021",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 27,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        27
+      ],
+      "price": 3300,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17024",
+      "product_name": "Diple Flute 17024",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 27,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        27
+      ],
+      "price": 5540,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17013",
+      "product_name": "Diple Flute 17013",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 28,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        28
+      ],
+      "price": 3170,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17022",
+      "product_name": "Diple Flute 17022",
+      "family": "Diple Flute",
+      "series": "17000",
+      "page_number": 28,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        28
+      ],
+      "price": 2200,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17011",
+      "product_name": "Native American Flute 17011",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 30,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        30
+      ],
+      "price": 2320,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17012",
+      "product_name": "Native American Flute 17012",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 30,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        30
+      ],
+      "price": 2860,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17017",
+      "product_name": "Native American Flute 17017",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 32,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        32
+      ],
+      "price": 4820,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17019",
+      "product_name": "Native American Flute 17019",
+      "family": "Native American Flute",
+      "series": "17000",
+      "page_number": 32,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        32
+      ],
+      "price": 5450,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    },
+    {
+      "sku": "17005",
+      "product_name": "Zig-Zag Flute 17005",
+      "family": "Zig-Zag Flute",
+      "series": "17000",
+      "page_number": 34,
+      "attributes": {
+        "Material": "PS Louvers",
+        "Length": "9.5FT",
+        "Width": "12 INCH"
+      },
+      "page_numbers": [
+        34
+      ],
+      "price": 2750,
+      "price_note": "Placeholder price added on request; not sourced from the brochure."
+    }
+  ]
+}

@@ -48,8 +48,12 @@ from django.db.models.functions import TruncMonth
 # ==========================================================
 
 class CategoryViewSet(viewsets.ModelViewSet):
-
     queryset = Category.objects.all()
+
+    serializer_class = CategorySerializer
+
+    lookup_field = "slug"
+    lookup_url_kwarg = "slug"
 
     serializer_class = CategorySerializer
 
@@ -83,6 +87,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 # ==========================================================
 
 class SubCategoryViewSet(viewsets.ModelViewSet):
+    
 
     queryset = (
         SubCategory.objects
@@ -90,6 +95,8 @@ class SubCategoryViewSet(viewsets.ModelViewSet):
     )
 
     serializer_class = SubCategorySerializer
+    lookup_field = "slug"
+    lookup_url_kwarg = "slug"
 
     def get_permissions(self):
         if self.action in ["list", "retrieve"]:
@@ -491,7 +498,27 @@ class ReverseLocationAPIView(APIView):
                     "message": str(e),
                 },
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                
+            
             )
+            
+            
+            # ==========================================================
+# SUB CATEGORY STATS API
+# ==========================================================
+
+class SubCategoryStatsAPIView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({
+            "total": SubCategory.objects.count(),
+            "featured": SubCategory.objects.filter(featured=True).count(),
+            "active": SubCategory.objects.filter(active=True).count(),
+            "inactive": SubCategory.objects.filter(active=False).count(),
+            "products": Product.objects.count(),
+        })
     # ==========================================================
 # DELIVERY CHECK API
 # ==========================================================
