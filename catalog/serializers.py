@@ -932,6 +932,85 @@ class ProductSerializer(serializers.ModelSerializer):
                 old_ov.delete()
 
 
+# ==========================================================
+# BULK PRODUCT ACTIONS
+# ==========================================================
+#
+# Shared base handles what every bulk action needs identically:
+#   - product_ids must be non-empty
+#   - duplicates in product_ids are silently ignored (order preserved)
+#   - every id must reference an existing Product, or the whole
+#     request is rejected with a DRF ValidationError (400)
+# ==========================================================
+
+class BaseBulkProductActionSerializer(serializers.Serializer):
+
+    product_ids = serializers.ListField(
+        child=serializers.IntegerField(min_value=1),
+        allow_empty=False,
+    )
+
+    def validate_product_ids(self, value):
+        return list(dict.fromkeys(value))
+
+    def validate(self, attrs):
+        ids = attrs["product_ids"]
+
+        existing_ids = set(
+            Product.objects.filter(id__in=ids).values_list("id", flat=True)
+        )
+        missing_ids = sorted(set(ids) - existing_ids)
+
+        if missing_ids:
+            raise serializers.ValidationError(
+                {"product_ids": f"The following product ids do not exist: {missing_ids}"}
+            )
+
+        return attrs
+
+
+class BulkDeleteSerializer(BaseBulkProductActionSerializer):
+    """POST /products/bulk-delete/ — {"product_ids": [1,2,3]}"""
+    pass
+
+
+class BulkMoveProductsSerializer(BaseBulkProductActionSerializer):
+    """
+    POST /products/bulk-move/ — {"product_ids": [...], "category": 5, "subcategory": 12}
+
+    This is the ONLY allowed way to bulk-change a product's category or
+    subcategory. category and subcategory are always written together,
+    inside one atomic transaction, so no product can ever end up with a
+    subcategory that doesn't belong to its category.
+    """
+
+    category = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(),
+    )
+    subcategory = serializers.PrimaryKeyRelatedField(
+        queryset=SubCategory.objects.select_related("category"),
+    )
+
+    def validate(self, attrs):
+        attrs = super().validate(attrs)
+
+        category = attrs["category"]
+        subcategory = attrs["subcategory"]
+
+        if subcategory.category_id != category.id:
+            raise serializers.ValidationError(
+                {
+                    "subcategory": (
+                        f"Subcategory '{subcategory.name}' belongs to category "
+                        f"'{subcategory.category.name}', not '{category.name}'. "
+                        "The selected subcategory must belong to the selected category."
+                    )
+                }
+            )
+
+        return attrs                
+
+
 class DeliveryCheckSerializer(serializers.Serializer):
 
     pincode = serializers.RegexField(

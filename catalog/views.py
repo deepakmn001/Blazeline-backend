@@ -12,7 +12,8 @@ from django.core.exceptions import ValidationError
 from rest_framework import viewsets, filters, parsers
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
-
+from rest_framework.decorators import action
+from django.db import transaction
 from rest_framework import status
 
 from .models import (
@@ -36,12 +37,15 @@ from .serializers import (
     ProductSpecificationSerializer,
     DeliveryCheckSerializer,
     QuoteRequestSerializer,
+     BulkDeleteSerializer,
+    BulkMoveProductsSerializer
 )
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
+from django.shortcuts import get_object_or_404
 
 # ==========================================================
 # CATEGORY
@@ -80,6 +84,19 @@ class CategoryViewSet(viewsets.ModelViewSet):
         context = super().get_serializer_context()
         context["request"] = self.request
         return context
+    
+    
+    
+
+class AdminCategoryViewSet(CategoryViewSet):
+    lookup_field = "pk"
+    lookup_url_kwarg = "pk"
+
+    def get_object(self):
+        return get_object_or_404(
+            self.get_queryset(),
+            pk=self.kwargs["pk"],
+        )
 
 
 # ==========================================================
@@ -203,7 +220,46 @@ class ProductViewSet(viewsets.ModelViewSet):
         context["request"] = self.request
         return context
 
+    @action(detail=False, methods=["post"], url_path="bulk-delete")
+    def bulk_delete(self, request):
+        serializer = BulkDeleteSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
+        product_ids = serializer.validated_data["product_ids"]
+
+        with transaction.atomic():
+            deleted_count, _ = (
+                Product.objects.filter(id__in=product_ids).delete()
+            )
+
+        return Response(
+            {"deleted": deleted_count},
+            status=status.HTTP_200_OK,
+        )
+
+    @action(detail=False, methods=["post"], url_path="bulk-move")
+    def bulk_move(self, request):
+        serializer = BulkMoveProductsSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        product_ids = serializer.validated_data["product_ids"]
+        category = serializer.validated_data["category"]
+        subcategory = serializer.validated_data["subcategory"]
+
+        with transaction.atomic():
+            updated_count = (
+                Product.objects.filter(id__in=product_ids)
+                .update(category=category, subcategory=subcategory)
+            )
+
+        return Response(
+            {
+                "updated": updated_count,
+                "category": category.id,
+                "subcategory": subcategory.id,
+            },
+            status=status.HTTP_200_OK,
+        )
 # ==========================================================
 # PRODUCT IMAGE
 # ==========================================================

@@ -13,6 +13,7 @@ from .views import (
     DeliveryCheckAPIView,
      QuoteRequestAPIView,
      ReverseLocationAPIView,
+     AdminCategoryViewSet,
 )
 
 router = DefaultRouter()
@@ -25,7 +26,11 @@ router.register(
     "categories",
     CategoryViewSet,
 )
-
+router.register(
+    "admin/categories",
+    AdminCategoryViewSet,
+    basename="admin-categories",
+)
 # ==========================================================
 # SUB CATEGORY
 # ==========================================================
