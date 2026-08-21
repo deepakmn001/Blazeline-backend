@@ -18,6 +18,7 @@ from rest_framework import status
 
 from .models import (
     Category,
+    HomepageCategory,
     SubCategory,
     Product,
     ProductImage,
@@ -29,6 +30,7 @@ from .models import (
 
 from .serializers import (
     CategorySerializer,
+     HomepageCategorySerializer,
     SubCategorySerializer,
     ProductSerializer,
      ProductListSerializer,
@@ -97,7 +99,23 @@ class AdminCategoryViewSet(CategoryViewSet):
             self.get_queryset(),
             pk=self.kwargs["pk"],
         )
+# ==========================================================
+# HOMEPAGE CATEGORY
+# ==========================================================
 
+class HomepageCategoryViewSet(viewsets.ModelViewSet):
+    queryset = (
+        HomepageCategory.objects
+        .select_related("category")
+        .order_by("sort_order", "id")
+    )
+
+    serializer_class = HomepageCategorySerializer
+
+    def get_permissions(self):
+        if self.action in ["list", "retrieve"]:
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
 # ==========================================================
 # SUB CATEGORY

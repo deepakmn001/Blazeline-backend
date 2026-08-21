@@ -81,6 +81,29 @@ class SubCategory(models.Model):
 
     def __str__(self):
         return f"{self.category.name} → {self.name}"
+    
+# ==========================================================
+# HOMEPAGE CATEGORY
+# ==========================================================
+
+class HomepageCategory(models.Model):
+    category = models.OneToOneField(
+        Category,
+        on_delete=models.CASCADE,
+        related_name="homepage_config",
+    )
+
+    is_active = models.BooleanField(default=True)
+
+    sort_order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["sort_order", "id"]
+        verbose_name = "Homepage Category"
+        verbose_name_plural = "Homepage Categories"
+
+    def __str__(self):
+        return f"{self.sort_order} · {self.category.name}"
 
 
 # ==========================================================

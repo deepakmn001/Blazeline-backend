@@ -9,6 +9,7 @@ from rest_framework import serializers
 
 from .models import (
     Category,
+    HomepageCategory,
     SubCategory,
     Product,
     ProductOption,
@@ -35,8 +36,7 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = "__all__"
-
-
+        
 class CategoryMiniSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -46,6 +46,26 @@ class CategoryMiniSerializer(serializers.ModelSerializer):
             "name",
             "slug",
         ]
+        
+class HomepageCategorySerializer(serializers.ModelSerializer):
+    category = CategoryMiniSerializer(read_only=True)
+
+    category_id = serializers.PrimaryKeyRelatedField(
+        source="category",
+        queryset=Category.objects.all(),
+        write_only=True,
+    )
+
+    class Meta:
+        model = HomepageCategory
+        fields = [
+            "id",
+            "category",
+            "category_id",
+            "is_active",
+            "sort_order",
+        ]
+
 
 
 # ==========================================================

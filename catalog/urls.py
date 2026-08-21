@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from .views import (
     CategoryViewSet,
+     HomepageCategoryViewSet,
     SubCategoryViewSet,
     ProductViewSet,
     ProductImageViewSet,
@@ -30,6 +31,11 @@ router.register(
     "admin/categories",
     AdminCategoryViewSet,
     basename="admin-categories",
+)
+router.register(
+    "homepage/categories",
+    HomepageCategoryViewSet,
+    basename="homepage-categories",
 )
 # ==========================================================
 # SUB CATEGORY
