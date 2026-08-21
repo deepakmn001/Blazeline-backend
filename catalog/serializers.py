@@ -427,6 +427,8 @@ class ProductListSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
     price = serializers.SerializerMethodField()
     in_stock = serializers.SerializerMethodField()
+    collection = serializers.SerializerMethodField()
+    series = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -441,6 +443,8 @@ class ProductListSerializer(serializers.ModelSerializer):
             "in_stock",
             "featured",
             "status",
+            "collection",
+            "series",
         ]
 
     def _get_default_variant(self, obj):
@@ -478,6 +482,24 @@ class ProductListSerializer(serializers.ModelSerializer):
         if not variant:
             return False
         return (variant.stock or 0) > 0
+    def _get_spec_value(self, obj, key):
+        for spec in obj.specifications.all():
+            if (
+                 isinstance(spec.key, str)
+                 and spec.key.strip().lower() == key.lower()
+        ):
+                value = (spec.value or "").strip()
+                return value or None
+
+        return None
+
+
+    def get_collection(self, obj):
+        return self._get_spec_value(obj, "collection")
+
+
+    def get_series(self, obj):
+        return self._get_spec_value(obj, "series")
 
 # ==========================================================
 # PRODUCT
