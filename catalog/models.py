@@ -131,6 +131,12 @@ class Product(models.Model):
     )
 
     name = models.CharField(max_length=255)
+    brand = models.CharField(
+    max_length=120,
+    blank=True,
+    default="",
+    db_index=True,
+)
 
     slug = models.SlugField(unique=True)
 

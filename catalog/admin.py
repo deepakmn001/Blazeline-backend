@@ -1,6 +1,14 @@
 from django.contrib import admin
 from django.db.models import Count, Sum, Min, Max
 from django.utils.html import format_html
+import csv
+import io
+
+from django.contrib import messages
+from django.db import transaction
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import path
 
 from .models import (
     Category,
@@ -465,20 +473,227 @@ class ServiceablePincodeAdmin(admin.ModelAdmin):
         "pincode",
         "area_name",
         "city",
+        "state",
         "is_active",
     )
 
     search_fields = (
         "pincode",
         "area_name",
+        "city",
+        "state",
     )
 
     list_filter = (
         "city",
+        "state",
         "is_active",
     )
 
     ordering = ("pincode",)
+    list_per_page = 100
+
+    change_list_template = "admin/serviceable_pincode/change_list.html"
+
+    def get_urls(self):
+        urls = super().get_urls()
+
+        custom_urls = [
+            path(
+                "import-csv/",
+                self.admin_site.admin_view(self.import_csv_view),
+                name="serviceablepincode_import_csv",
+            ),
+        ]
+
+        return custom_urls + urls
+
+    def import_csv_view(self, request):
+        if request.method == "POST":
+            uploaded_file = request.FILES.get("csv_file")
+
+            if not uploaded_file:
+                messages.error(request, "Please select a CSV file.")
+                return HttpResponseRedirect(request.path)
+
+            if not uploaded_file.name.lower().endswith(".csv"):
+                messages.error(request, "Only CSV files are supported.")
+                return HttpResponseRedirect(request.path)
+
+            try:
+                raw = uploaded_file.read().decode("utf-8-sig")
+            except UnicodeDecodeError:
+                messages.error(
+                    request,
+                    "CSV must be UTF-8 encoded. Please save the file as UTF-8 CSV.",
+                )
+                return HttpResponseRedirect(request.path)
+
+            reader = csv.DictReader(io.StringIO(raw))
+
+            required_columns = {
+                "pincode",
+                "area_name",
+                "city",
+                "state",
+                "is_active",
+            }
+
+            headers = {
+                (header or "").strip().lower()
+                for header in (reader.fieldnames or [])
+            }
+
+            missing_columns = required_columns - headers
+
+            if missing_columns:
+                messages.error(
+                    request,
+                    "Missing columns: "
+                    + ", ".join(sorted(missing_columns)),
+                )
+                return HttpResponseRedirect(request.path)
+
+            rows = []
+            seen_pincodes = set()
+            invalid_rows = []
+            duplicate_rows = []
+
+            for line_number, row in enumerate(reader, start=2):
+                pincode = (row.get("pincode") or "").strip()
+                area_name = (row.get("area_name") or "").strip()
+                city = (row.get("city") or "").strip()
+                state = (row.get("state") or "").strip()
+                is_active_raw = (row.get("is_active") or "").strip().lower()
+
+                if not pincode.isdigit() or len(pincode) != 6:
+                    invalid_rows.append(
+                        f"Row {line_number}: invalid pincode '{pincode}'."
+                    )
+                    continue
+
+                if not area_name:
+                    invalid_rows.append(
+                        f"Row {line_number}: area_name is required."
+                    )
+                    continue
+
+                if not city:
+                    invalid_rows.append(
+                        f"Row {line_number}: city is required."
+                    )
+                    continue
+
+                if not state:
+                    invalid_rows.append(
+                        f"Row {line_number}: state is required."
+                    )
+                    continue
+
+                if is_active_raw in {"true", "1", "yes", "y"}:
+                    is_active = True
+                elif is_active_raw in {"false", "0", "no", "n"}:
+                    is_active = False
+                else:
+                    invalid_rows.append(
+                        f"Row {line_number}: invalid is_active value '{is_active_raw}'."
+                    )
+                    continue
+
+                if pincode in seen_pincodes:
+                    duplicate_rows.append(
+                        f"Row {line_number}: duplicate pincode {pincode}."
+                    )
+                    continue
+
+                seen_pincodes.add(pincode)
+
+                rows.append(
+                    {
+                        "pincode": pincode,
+                        "area_name": area_name,
+                        "city": city,
+                        "state": state,
+                        "is_active": is_active,
+                    }
+                )
+
+            existing = {
+                obj.pincode: obj
+                for obj in ServiceablePincode.objects.filter(
+                    pincode__in=seen_pincodes
+                )
+            }
+
+            to_create = []
+            to_update = []
+
+            for row in rows:
+                existing_obj = existing.get(row["pincode"])
+
+                if existing_obj:
+                    existing_obj.area_name = row["area_name"]
+                    existing_obj.city = row["city"]
+                    existing_obj.state = row["state"]
+                    existing_obj.is_active = row["is_active"]
+                    to_update.append(existing_obj)
+                else:
+                    to_create.append(
+                        ServiceablePincode(**row)
+                    )
+
+            try:
+                with transaction.atomic():
+                    if to_create:
+                        ServiceablePincode.objects.bulk_create(
+                            to_create,
+                            batch_size=500,
+                        )
+
+                    if to_update:
+                        ServiceablePincode.objects.bulk_update(
+                            to_update,
+                            [
+                                "area_name",
+                                "city",
+                                "state",
+                                "is_active",
+                            ],
+                            batch_size=500,
+                        )
+
+            except Exception as exc:
+                messages.error(
+                    request,
+                    f"Import failed: {exc}",
+                )
+                return HttpResponseRedirect(request.path)
+
+            messages.success(
+                request,
+                (
+                    f"Import complete — "
+                    f"{len(to_create)} created, "
+                    f"{len(to_update)} updated, "
+                    f"{len(duplicate_rows)} duplicate rows skipped, "
+                    f"{len(invalid_rows)} invalid rows skipped."
+                ),
+            )
+
+            return HttpResponseRedirect(
+                "../"
+            )
+
+        context = {
+            **self.admin_site.each_context(request),
+            "title": "Import Serviceable Pincodes",
+        }
+
+        return render(
+            request,
+            "admin/serviceable_pincode/import.html",
+            context,
+        )
 
 
 

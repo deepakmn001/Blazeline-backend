@@ -8,6 +8,7 @@
 from .pagination import StandardResultsPagination 
 from .filters import ProductFilter
 from .services import LocationService
+from .facet_service import build_product_facets
 from django.core.exceptions import ValidationError
 from rest_framework import viewsets, filters, parsers
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -199,7 +200,7 @@ class ProductViewSet(viewsets.ModelViewSet):
         return ProductSerializer
 
     def get_permissions(self):
-        if self.action in ["list", "retrieve"]:
+        if self.action in ["list", "retrieve", "facets"]:
             return [AllowAny()]
         return [IsAuthenticated()]
 
@@ -237,6 +238,42 @@ class ProductViewSet(viewsets.ModelViewSet):
         context = super().get_serializer_context()
         context["request"] = self.request
         return context
+    @action(detail=False, methods=["get"], url_path="facets")
+    def facets(self, request):
+        """
+        Read-only customer-facing filter metadata.
+
+        Existing /products/ list/retrieve behavior is untouched.
+        """
+
+        def parse_id(value):
+            if value in (None, ""):
+                return None
+
+            try:
+                parsed = int(value)
+            except (TypeError, ValueError):
+                return None
+
+            return parsed if parsed > 0 else None
+
+        category_id = parse_id(
+            request.query_params.get("category")
+        )
+
+        subcategory_id = parse_id(
+            request.query_params.get("subcategory")
+        )
+
+        payload = build_product_facets(
+            category_id=category_id,
+            subcategory_id=subcategory_id,
+        )
+
+        return Response(
+            payload,
+            status=status.HTTP_200_OK,
+        )
 
     @action(detail=False, methods=["post"], url_path="bulk-delete")
     def bulk_delete(self, request):

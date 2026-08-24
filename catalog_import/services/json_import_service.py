@@ -106,6 +106,7 @@ class _ValidatedProduct:
     variant_axis_name: str
     variant_prices: Dict[str, Decimal]
     variants: List[Dict[str, Any]]
+    variant_result_attributes: Dict[str, Any]
 
     ocr_confidence: float
     ai_confidence: float
@@ -414,6 +415,10 @@ def _validate_product(
 
     attributes = _validate_attributes(raw_product.get("attributes"), index)
     variant_axis_name = _validate_optional_str(raw_product, "variant_axis_name", index)
+    variant_result_attributes = _validate_attributes(
+    raw_product.get("variant_result_attributes"),
+    index,
+)
 
     return _ValidatedProduct(
         sku=sku,
@@ -435,6 +440,7 @@ def _validate_product(
         variant_axis_name=variant_axis_name,
         variant_prices=variant_prices,
         variants=variants,
+        variant_result_attributes=variant_result_attributes,
         ocr_confidence=ocr_confidence,
         ai_confidence=ai_confidence,
         sku_confidence=sku_confidence,
@@ -715,6 +721,7 @@ def _bulk_create_parsed_products(
                 key: str(price) for key, price in product.variant_prices.items()
             },
             variants=product.variants,
+            variant_result_attributes=product.variant_result_attributes,
 
             raw_text=product.raw_text,
             status=ParsedProduct.Status.PENDING,

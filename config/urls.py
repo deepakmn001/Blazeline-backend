@@ -42,7 +42,7 @@ urlpatterns = [
 #path(
  #   "api/",
   #  include("catalog_import.urls"),
-#),
+##),
     # OpenAPI Schema
     path(
         "api/schema/",

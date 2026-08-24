@@ -306,7 +306,11 @@ class ParsedProduct(models.Model):
     default=list,
     blank=True,
 )
-
+# while these values belong to the exact selected variant.
+    variant_result_attributes = models.JSONField(
+        default=dict,
+        blank=True,
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
     )

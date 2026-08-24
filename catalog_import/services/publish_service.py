@@ -231,50 +231,115 @@ def _normalize_name(name: str) -> str:
 
 def _find_or_create_product(parsed: ParsedProduct):
     """
-    Layout B support.
+    Find or create the correct Product identity.
 
-    Reuses an existing Product under the same category + subcategory
-    if the name matches, so VAU1001 / VAU1002 / VAU1003 (different
-    ParsedProduct rows = different sizes/finishes of the same item)
-    merge into a single Product across successive publish calls.
+    Legacy records without Collection / Series preserve the old
+    category + subcategory + product-name matching behavior.
 
-    Matching order:
-      1. exact case-insensitive name match (fast path, indexed-ish)
-      2. whitespace-normalized, case-insensitive match across
-         candidates in the same category+subcategory (handles
-         "Angle  Cock" vs "Angle Cock" / stray double spaces)
-
-    Returns (product, created: bool).
+    Records that contain Collection / Series only reuse a Product
+    when those identity fields also match.
     """
 
     category = parsed.catalog.category
     subcategory = _find_subcategory(parsed)
 
-    product = Product.objects.filter(
-        category=category,
-        subcategory=subcategory,
-        name__iexact=parsed.product_name.strip(),
-    ).first()
+    incoming_brand = (
+        getattr(parsed.catalog, "brand", "") or ""
+    ).strip()
 
-    if product:
-        return product, False
+    product_name = parsed.product_name.strip()
+    normalized_name = _normalize_name(product_name)
 
-    target = _normalize_name(parsed.product_name)
+    incoming_collection = (
+        getattr(parsed, "collection", "") or ""
+    ).strip().lower()
+
+    incoming_series = (
+        getattr(parsed, "series", "") or ""
+    ).strip().lower()
+
+    # ------------------------------------------------------
+    # Find same-name products inside the same
+    # category + subcategory.
+    # ------------------------------------------------------
 
     candidates = Product.objects.filter(
         category=category,
         subcategory=subcategory,
     )
 
-    for candidate in candidates:
-        if _normalize_name(candidate.name) == target:
-            return candidate, False
+    if incoming_brand:
+        candidates = candidates.filter(
+            brand__iexact=incoming_brand,
+        )
+    else:
+        candidates = candidates.filter(
+            brand="",
+        )
+
+    same_name_products = [
+        product
+        for product in candidates
+        if _normalize_name(product.name) == normalized_name
+    ]
+
+    # ------------------------------------------------------
+    # LEGACY BEHAVIOR
+    # No collection/series on incoming record:
+    # preserve the old grouping behavior exactly.
+    # ------------------------------------------------------
+
+    if not incoming_collection and not incoming_series:
+        if same_name_products:
+            product = same_name_products[0]
+
+            if incoming_brand and not product.brand:
+                product.brand = incoming_brand
+                product.save(update_fields=["brand"])
+
+            return product, False
+
+    # ------------------------------------------------------
+    # COLLECTION / SERIES AWARE BEHAVIOR
+    # ------------------------------------------------------
+
+    for product in same_name_products:
+
+        stored_specs = {
+            str(key).strip().lower(): str(value).strip().lower()
+            for key, value in (
+                ProductSpecification.objects
+                .filter(product=product)
+                .values_list("key", "value")
+            )
+        }
+
+        stored_collection = stored_specs.get("collection", "")
+        stored_series = stored_specs.get("series", "")
+
+        if incoming_collection and stored_collection != incoming_collection:
+            continue
+
+        if incoming_series and stored_series != incoming_series:
+            continue
+
+        if incoming_brand and not product.brand:
+            product.brand = incoming_brand
+            product.save(update_fields=["brand"])
+
+        return product, False
+
+    # ------------------------------------------------------
+    # No matching identity found:
+    # create a separate Product.
+    # ------------------------------------------------------
 
     product = Product.objects.create(
         category=category,
         subcategory=subcategory,
-        name=parsed.product_name,
-        slug=_unique_slug(parsed.product_name),
+        name=product_name,
+        brand=incoming_brand,
+        slug=_unique_slug(product_name),
         short_description="",
         description=parsed.raw_text or "",
         featured=False,
@@ -430,12 +495,16 @@ def _resolve_static_axes(product, parsed, option_cache, value_cache):
     """
 
     attributes = getattr(parsed, "attributes", None)
+    variant_result_attributes = getattr(
+        parsed,
+        "variant_result_attributes",
+        None,
+    ) or {}
 
     print("=" * 80)
     print("ATTRIBUTES:")
     print(attributes)
     print("=" * 80)
-
     option_values = []
     fanout_axis = (
         getattr(parsed, "variant_axis_name", None) or ""
@@ -449,7 +518,8 @@ def _resolve_static_axes(product, parsed, option_cache, value_cache):
             ("Color", getattr(parsed, "color", None)),
             ("Material", getattr(parsed, "material", None)),
         ]
-
+    if variant_result_attributes:
+        pairs.extend(variant_result_attributes.items())
     for axis_name, raw_value in pairs:
 
         print(f"AXIS = {axis_name}")
