@@ -8,6 +8,12 @@
 from .pagination import StandardResultsPagination 
 from .filters import ProductFilter
 from .services import LocationService
+from .delivery.services import (
+    calculate_delivery,
+    NotServiceableError,
+    get_serviceable_location,
+    CartValidationError,
+)
 from .facet_service import build_product_facets
 from django.core.exceptions import ValidationError
 from rest_framework import viewsets, filters, parsers
@@ -39,6 +45,8 @@ from .serializers import (
     ProductVariantSerializer,
     ProductSpecificationSerializer,
     DeliveryCheckSerializer,
+     DeliveryQuoteRequestSerializer,
+     DeliveryQuoteResponseSerializer,
     QuoteRequestSerializer,
      BulkDeleteSerializer,
     BulkMoveProductsSerializer
@@ -71,9 +79,12 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
     filter_backends = [
         filters.SearchFilter,
+        DjangoFilterBackend,
         filters.OrderingFilter,
     ]
-
+    filterset_fields = [
+    "active",
+]
     search_fields = [
         "name",
         "group",
@@ -162,6 +173,28 @@ class SubCategoryViewSet(viewsets.ModelViewSet):
         context = super().get_serializer_context()
         context["request"] = self.request
         return context
+class AdminSubCategoryViewSet(SubCategoryViewSet):
+    lookup_field = "pk"
+    lookup_url_kwarg = "pk"
+    permission_classes = [IsAuthenticated]
+
+    ordering = [
+        "sort_order",
+        "name",
+    ]
+
+    ordering_fields = [
+        "sort_order",
+        "name",
+        "created_at",
+        "updated_at",
+    ]
+
+    def get_object(self):
+        return get_object_or_404(
+            self.get_queryset(),
+            pk=self.kwargs["pk"],
+        )
 
 
 # ==========================================================
@@ -634,10 +667,15 @@ class SubCategoryStatsAPIView(APIView):
 # DELIVERY CHECK API
 # ==========================================================
 
+# ==========================================================
+# DELIVERY CHECK API
+# ==========================================================
+
+
 class DeliveryCheckAPIView(APIView):
+    permission_classes = [AllowAny]
 
     def post(self, request):
-
         serializer = DeliveryCheckSerializer(
             data=request.data
         )
@@ -648,41 +686,145 @@ class DeliveryCheckAPIView(APIView):
 
         pincode = serializer.validated_data["pincode"]
 
-        location = ServiceablePincode.objects.filter(
-            pincode=pincode,
-            is_active=True
-        ).first()
+        try:
+            location = get_serviceable_location(
+                pincode
+            )
 
-        if location:
+        except CartValidationError as exc:
+            return Response(
+                {
+                    "deliverable": False,
+                    "pincode": pincode,
+                    "zone": None,
+                    "message": str(exc),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
-            return Response({
+        except NotServiceableError as exc:
+            return Response(
+                {
+                    "deliverable": False,
+                    "pincode": pincode,
+                    "zone": None,
+                    "message": str(exc),
+                },
+                status=status.HTTP_200_OK,
+            )
 
+        return Response(
+            {
                 "deliverable": True,
-
                 "pincode": location.pincode,
-
                 "area": location.area_name,
-
                 "city": location.city,
-
-                "message": "Delivery Available"
-
-            })
-
-        return Response({
-
-            "deliverable": False,
-
-            "message": "Currently we deliver only within Kolkata."
-
-        })
-
-
+                "zone": (
+                    {
+                        "id": location.zone.id,
+                        "name": location.zone.name,
+                    }
+                    if location.zone
+                    else None
+                ),
+                "message": "Delivery Available",
+            },
+            status=status.HTTP_200_OK,
+        )
 
 
 
 
 
+
+
+
+# ==========================================================
+# DELIVERY QUOTE API
+# ==========================================================
+
+
+class DeliveryQuoteAPIView(APIView):
+    """
+    POST /api/delivery/quote/
+
+    Client sends only:
+        - pincode
+        - variant_id
+        - quantity
+
+    All pricing, weight, product, variant, zone and
+    serviceability decisions are resolved server-side.
+    """
+
+    def post(self, request):
+        request_serializer = DeliveryQuoteRequestSerializer(
+            data=request.data
+        )
+
+        request_serializer.is_valid(
+            raise_exception=True
+        )
+
+        pincode = request_serializer.validated_data["pincode"]
+        items = request_serializer.validated_data["items"]
+
+        try:
+            result = calculate_delivery(
+                pincode=pincode,
+                cart_items=items,
+            )
+
+        except NotServiceableError as exc:
+            return Response(
+                {
+                    "deliverable": False,
+                    "zone": None,
+                    "subtotal": "0.00",
+                    "weight": "0.000",
+                    "delivery_charge": None,
+                    "free_delivery": False,
+                    "breakdown": [],
+                    "message": str(exc),
+                },
+                status=status.HTTP_200_OK,
+            )
+
+        except CartValidationError as exc:
+            return Response(
+                {
+                    "message": str(exc),
+                    "errors": exc.errors,
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        response_payload = {
+            "deliverable": True,
+            "zone": (
+                {
+                    "id": result["zone"].id,
+                    "name": result["zone"].name,
+                }
+                if result.get("zone")
+                else None
+            ),
+            "subtotal": result["subtotal"],
+            "weight": result["weight"],
+            "delivery_charge": result["total"],
+            "free_delivery": result["total"] == 0,
+            "breakdown": result["breakdown"],
+            "message": "Delivery Available",
+        }
+
+        response_serializer = DeliveryQuoteResponseSerializer(
+            response_payload
+        )
+
+        return Response(
+            response_serializer.data,
+            status=status.HTTP_200_OK,
+        )
     # ==========================================================
 # REQUEST A QUOTE API
 # ==========================================================

@@ -91,8 +91,18 @@ class SubCategorySerializer(serializers.ModelSerializer):
             "slug",
             "description",
             "image",
+             "featured",
             "active",
+            "sort_order",
             "created_at",
+            "updated_at",
+            "product_count",
+        ]
+        read_only_fields = [
+            "id",
+            "category_name",
+            "created_at",
+            "updated_at",
             "product_count",
         ]
 
@@ -1127,7 +1137,117 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
             )
 
         return quote
-    
+
+
+
+
+
+
+
+
+# ==========================================================
+# DELIVERY QUOTE
+# ==========================================================
+
+# ==========================================================
+# DELIVERY QUOTE
+# ==========================================================
+
+
+class DeliveryQuoteItemSerializer(serializers.Serializer):
+    variant_id = serializers.IntegerField(
+        min_value=1,
+    )
+
+    quantity = serializers.IntegerField(
+        min_value=1,
+        max_value=100000,
+    )
+
+
+class DeliveryQuoteRequestSerializer(serializers.Serializer):
+    pincode = serializers.CharField(
+        trim_whitespace=True,
+        max_length=6,
+    )
+
+    items = DeliveryQuoteItemSerializer(
+        many=True,
+        allow_empty=False,
+    )
+
+    def validate_pincode(self, value):
+        from .delivery.validators import normalize_pincode
+
+        try:
+            return normalize_pincode(value)
+        except ValueError as exc:
+            raise serializers.ValidationError(str(exc))
+
+    def validate_items(self, value):
+        if len(value) > 100:
+            raise serializers.ValidationError(
+                "A delivery quote can contain at most 100 line items."
+            )
+
+        variant_ids = [
+            item["variant_id"]
+            for item in value
+        ]
+
+        if len(variant_ids) != len(set(variant_ids)):
+            raise serializers.ValidationError(
+                "Duplicate variant_id values are not allowed."
+            )
+
+        return value
+
+
+class DeliveryQuoteBreakdownSerializer(serializers.Serializer):
+    rule = serializers.CharField()
+    label = serializers.CharField()
+    amount = serializers.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+    )
+
+
+class DeliveryQuoteZoneSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+
+
+class DeliveryQuoteResponseSerializer(serializers.Serializer):
+    deliverable = serializers.BooleanField()
+
+    zone = DeliveryQuoteZoneSerializer(
+        allow_null=True,
+        required=False,
+    )
+
+    subtotal = serializers.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+    )
+
+    weight = serializers.DecimalField(
+        max_digits=12,
+        decimal_places=3,
+    )
+
+    delivery_charge = serializers.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        allow_null=True,
+    )
+
+    free_delivery = serializers.BooleanField()
+
+    breakdown = DeliveryQuoteBreakdownSerializer(
+        many=True,
+    )
+
+    message = serializers.CharField()
     
     
     

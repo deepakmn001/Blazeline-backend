@@ -25,6 +25,7 @@ from .models import (
 )
 
 from .models import ServiceablePincode
+from .models import DeliveryZone, DeliveryRule, DeliveryRuleCondition, DeliveryRuleAction
 # ==========================================================
 # CATEGORY / SUBCATEGORY
 # ==========================================================
@@ -474,6 +475,7 @@ class ServiceablePincodeAdmin(admin.ModelAdmin):
         "area_name",
         "city",
         "state",
+         "zone",
         "is_active",
     )
 
@@ -487,9 +489,10 @@ class ServiceablePincodeAdmin(admin.ModelAdmin):
     list_filter = (
         "city",
         "state",
+        "zone",
         "is_active",
     )
-
+    autocomplete_fields = ("zone",)
     ordering = ("pincode",)
     list_per_page = 100
 
@@ -554,6 +557,15 @@ class ServiceablePincodeAdmin(admin.ModelAdmin):
                 )
                 return HttpResponseRedirect(request.path)
 
+            # "zone" is optional — if the column is absent, every row is
+            # simply imported without a zone assignment (legacy behavior).
+            has_zone_column = "zone" in headers
+
+            zone_lookup = {
+                (z.code or "").strip().lower(): z
+                for z in DeliveryZone.objects.all()
+            }
+
             rows = []
             seen_pincodes = set()
             invalid_rows = []
@@ -590,6 +602,17 @@ class ServiceablePincodeAdmin(admin.ModelAdmin):
                     )
                     continue
 
+                zone_obj = None
+                if has_zone_column:
+                    zone_raw = (row.get("zone") or "").strip()
+                    if zone_raw:
+                        zone_obj = zone_lookup.get(zone_raw.lower())
+                        if zone_obj is None:
+                            invalid_rows.append(
+                                f"Row {line_number}: unknown zone code '{zone_raw}'."
+                            )
+                            continue
+
                 if is_active_raw in {"true", "1", "yes", "y"}:
                     is_active = True
                 elif is_active_raw in {"false", "0", "no", "n"}:
@@ -615,6 +638,7 @@ class ServiceablePincodeAdmin(admin.ModelAdmin):
                         "city": city,
                         "state": state,
                         "is_active": is_active,
+                        "zone": zone_obj,
                     }
                 )
 
@@ -636,11 +660,17 @@ class ServiceablePincodeAdmin(admin.ModelAdmin):
                     existing_obj.city = row["city"]
                     existing_obj.state = row["state"]
                     existing_obj.is_active = row["is_active"]
+                    if has_zone_column:
+                        existing_obj.zone = row["zone"]
                     to_update.append(existing_obj)
                 else:
                     to_create.append(
                         ServiceablePincode(**row)
                     )
+
+            update_fields = ["area_name", "city", "state", "is_active"]
+            if has_zone_column:
+                update_fields.append("zone")
 
             try:
                 with transaction.atomic():
@@ -653,12 +683,7 @@ class ServiceablePincodeAdmin(admin.ModelAdmin):
                     if to_update:
                         ServiceablePincode.objects.bulk_update(
                             to_update,
-                            [
-                                "area_name",
-                                "city",
-                                "state",
-                                "is_active",
-                            ],
+                            update_fields,
                             batch_size=500,
                         )
 
@@ -694,9 +719,6 @@ class ServiceablePincodeAdmin(admin.ModelAdmin):
             "admin/serviceable_pincode/import.html",
             context,
         )
-
-
-
 
 
 
@@ -794,3 +816,80 @@ class QuoteRequestAdmin(admin.ModelAdmin):
             },
         ),
     )
+
+# ==========================================================
+# DELIVERY ENGINE
+# ==========================================================
+
+class DeliveryRuleConditionInline(admin.TabularInline):
+    model = DeliveryRuleCondition
+    extra = 1
+    fields = ("field", "operator", "value", "sort_order")
+
+
+class DeliveryRuleActionInline(admin.TabularInline):
+    model = DeliveryRuleAction
+    extra = 1
+    fields = ("action_type", "pricing_mode", "amount", "label", "active", "sort_order")
+
+
+@admin.register(DeliveryZone)
+class DeliveryZoneAdmin(admin.ModelAdmin):
+    list_display = ("name", "code", "active", "priority")
+    list_filter = ("active",)
+    search_fields = ("name", "code")
+    prepopulated_fields = {"code": ("name",)}
+    ordering = ("-priority", "name")
+    list_per_page = 50
+
+@admin.register(DeliveryRule)
+class DeliveryRuleAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "zone",
+        "category",
+        "subcategory",
+        "product",
+        "variant",
+        "combine_mode",
+        "stop_after",
+        "priority",
+        "active",
+    )
+
+    list_filter = (
+        "active",
+        "combine_mode",
+        "zone",
+    )
+
+    search_fields = ("name", "code")
+    prepopulated_fields = {"code": ("name",)}
+    ordering = ("-priority", "name")
+
+    autocomplete_fields = ("category", "subcategory", "product", "variant")
+    list_select_related = ("zone", "category", "subcategory", "product", "variant")
+
+    inlines = [
+        DeliveryRuleConditionInline,
+        DeliveryRuleActionInline,
+    ]
+
+    fieldsets = (
+        ("Identity", {
+            "fields": ("name", "code", "active", "priority"),
+        }),
+        ("Targeting (leave blank = wildcard/global)", {
+            "fields": ("zone", "category", "subcategory", "product", "variant"),
+        }),
+        ("Combination behavior", {
+            "fields": ("combine_mode", "stop_after"),
+        }),
+        ("Validity Window", {
+            "fields": ("starts_at", "ends_at"),
+            "classes": ("collapse",),
+        }),
+    )
+
+    list_per_page = 50
+    save_on_top = True

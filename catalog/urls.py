@@ -11,7 +11,9 @@ from .views import (
     ProductSpecificationViewSet,
     DashboardAPIView,
     SubCategoryStatsAPIView,
+     AdminSubCategoryViewSet,
     DeliveryCheckAPIView,
+     DeliveryQuoteAPIView,
      QuoteRequestAPIView,
      ReverseLocationAPIView,
      AdminCategoryViewSet,
@@ -44,6 +46,11 @@ router.register(
 router.register(
     "subcategories",
     SubCategoryViewSet,
+)
+router.register(
+    "admin/subcategories",
+    AdminSubCategoryViewSet,
+    basename="admin-subcategories",
 )
 
 # ==========================================================
@@ -102,6 +109,12 @@ urlpatterns = [
     "delivery/check/",
     DeliveryCheckAPIView.as_view(),
     name="delivery-check",
+),
+
+path(
+    "delivery/quote/",
+    DeliveryQuoteAPIView.as_view(),
+    name="delivery-quote",
 ),
 path(
     "quote-requests/",
