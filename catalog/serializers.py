@@ -2,6 +2,8 @@
 # catalog/serializers.py
 # ==========================================================
 
+from decimal import Decimal, InvalidOperation
+
 from cloudinary.utils import cloudinary_url
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
@@ -20,8 +22,14 @@ from .models import (
     ProductSpecification,
     QuoteRequest,
     QuoteAttachment,
+    DeliveryZone,
+    ServiceablePincode,
+    DeliveryRule,
+    DeliveryRuleCondition,
+    DeliveryRuleAction,
 )
-
+from .delivery.validators import normalize_pincode
+from .delivery.rule_scope import compute_rule_status, resolve_rule_scope
 
 def _normalize(text):
     return (text or "").strip().lower()
@@ -1250,8 +1258,431 @@ class DeliveryQuoteResponseSerializer(serializers.Serializer):
     message = serializers.CharField()
     
     
-    
-    
-    
-    
-    
+    # ==========================================================
+# DELIVERY ZONE
+# ==========================================================
+
+class DeliveryZoneMiniSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeliveryZone
+        fields = ["id", "name", "code"]
+
+
+class DeliveryZoneSerializer(serializers.ModelSerializer):
+    pincode_count = serializers.SerializerMethodField()
+    rule_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = DeliveryZone
+        fields = [
+            "id", "name", "code", "active", "priority",
+            "pincode_count", "rule_count", "created_at", "updated_at",
+        ]
+        read_only_fields = ["id", "created_at", "updated_at"]
+
+    def get_pincode_count(self, obj):
+        annotated = getattr(obj, "_pincode_count", None)
+        return annotated if annotated is not None else obj.pincodes.count()
+
+    def get_rule_count(self, obj):
+        annotated = getattr(obj, "_rule_count", None)
+        return annotated if annotated is not None else obj.rules.count()
+
+
+# ==========================================================
+# SERVICEABLE PINCODE
+# ==========================================================
+
+class ServiceablePincodeSerializer(serializers.ModelSerializer):
+    zone = DeliveryZoneMiniSerializer(read_only=True)
+    zone_id = serializers.PrimaryKeyRelatedField(
+        source="zone", queryset=DeliveryZone.objects.all(),
+        write_only=True, required=False, allow_null=True,
+    )
+
+    pincode = serializers.CharField(max_length=6, validators=[])
+    area_name = serializers.CharField(required=True, allow_blank=False)
+    city = serializers.CharField(required=True, allow_blank=False)
+    state = serializers.CharField(required=True, allow_blank=False)
+
+    class Meta:
+        model = ServiceablePincode
+        fields = ["id", "pincode", "area_name", "city", "state", "is_active", "zone", "zone_id"]
+        read_only_fields = ["id"]
+
+    def validate_pincode(self, value):
+        try:
+            normalized = normalize_pincode(value)
+        except ValueError as exc:
+            raise serializers.ValidationError(str(exc))
+
+        existing = ServiceablePincode.objects.filter(pincode=normalized)
+        if self.instance:
+            existing = existing.exclude(pk=self.instance.pk)
+        if existing.exists():
+            raise serializers.ValidationError(
+                "Serviceable pincode with this pincode already exists."
+            )
+        return normalized
+
+    def validate_area_name(self, value):
+        if not value.strip():
+            raise serializers.ValidationError("This field may not be blank.")
+        return value
+
+    def validate_city(self, value):
+        if not value.strip():
+            raise serializers.ValidationError("This field may not be blank.")
+        return value
+
+    def validate_state(self, value):
+        if not value.strip():
+            raise serializers.ValidationError("This field may not be blank.")
+        return value
+
+
+# ==========================================================
+# DELIVERY RULE CONDITION
+# ==========================================================
+
+class DeliveryRuleConditionSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+    field_display = serializers.CharField(source="get_field_display", read_only=True)
+    operator_display = serializers.CharField(source="get_operator_display", read_only=True)
+
+    class Meta:
+        model = DeliveryRuleCondition
+        fields = ["id", "field", "field_display", "operator", "operator_display", "value", "sort_order"]
+
+    _TEXT_FIELDS = {DeliveryRuleCondition.FIELD_CUSTOMER_TYPE, DeliveryRuleCondition.FIELD_SHIPPING_TYPE}
+    _DECIMAL_FIELDS = {DeliveryRuleCondition.FIELD_CART_VALUE, DeliveryRuleCondition.FIELD_WEIGHT}
+    _INT_FIELDS = {DeliveryRuleCondition.FIELD_QUANTITY, DeliveryRuleCondition.FIELD_TOTAL_QUANTITY}
+
+    def validate(self, attrs):
+        field = attrs.get("field", getattr(self.instance, "field", None))
+        operator = attrs.get("operator", getattr(self.instance, "operator", None))
+        value = attrs.get("value", getattr(self.instance, "value", None))
+
+        if field in self._TEXT_FIELDS and operator in {
+            DeliveryRuleCondition.OP_GT, DeliveryRuleCondition.OP_GTE,
+            DeliveryRuleCondition.OP_LT, DeliveryRuleCondition.OP_LTE,
+        }:
+            raise serializers.ValidationError(
+                "Comparison operators (>, >=, <, <=) don't apply to text "
+                "fields — use 'equal to' or 'in'."
+            )
+
+        if operator == DeliveryRuleCondition.OP_IN:
+            if not value or not value.strip():
+                raise serializers.ValidationError(
+                    {"value": "Provide at least one comma-separated value for 'in'."}
+                )
+
+            parts = [p.strip() for p in value.split(",")]
+
+            if any(p == "" for p in parts):
+                raise serializers.ValidationError(
+                    {"value": "Comma-separated 'in' values cannot contain empty entries."}
+                )
+
+            if field in self._DECIMAL_FIELDS:
+                for p in parts:
+                    try:
+                        parsed = Decimal(p)
+                    except (InvalidOperation, TypeError):
+                        raise serializers.ValidationError(
+                            {"value": f"'{p}' is not a valid number."}
+                        )
+                    if parsed < 0:
+                        raise serializers.ValidationError(
+                            {"value": f"'{p}' must be non-negative."}
+                        )
+
+            elif field in self._INT_FIELDS:
+                for p in parts:
+                    try:
+                        parsed_int = int(p)
+                    except (TypeError, ValueError):
+                        raise serializers.ValidationError(
+                            {"value": f"'{p}' is not a valid whole number."}
+                        )
+                    if parsed_int < 0:
+                        raise serializers.ValidationError(
+                            {"value": f"'{p}' must be non-negative."}
+                        )
+
+            return attrs
+
+        if field in self._DECIMAL_FIELDS:
+            try:
+                parsed = Decimal(value)
+            except (InvalidOperation, TypeError):
+                raise serializers.ValidationError({"value": "This field requires a numeric value."})
+            if parsed < 0:
+                raise serializers.ValidationError({"value": "Value must be non-negative."})
+
+        elif field in self._INT_FIELDS:
+            try:
+                parsed_int = int(value)
+            except (TypeError, ValueError):
+                raise serializers.ValidationError({"value": "This field requires a whole number."})
+            if parsed_int < 0:
+                raise serializers.ValidationError({"value": "Value must be non-negative."})
+
+        return attrs
+
+
+# ==========================================================
+# DELIVERY RULE ACTION
+# ==========================================================
+
+class DeliveryRuleActionSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+    action_type_display = serializers.CharField(source="get_action_type_display", read_only=True)
+    pricing_mode_display = serializers.CharField(source="get_pricing_mode_display", read_only=True)
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2, min_value=0)
+
+    class Meta:
+        model = DeliveryRuleAction
+        fields = [
+            "id", "action_type", "action_type_display",
+            "pricing_mode", "pricing_mode_display",
+            "amount", "label", "metadata", "sort_order", "active",
+        ]
+    # NOTE: discount+override cross-check deliberately NOT here — it needs
+    # the parent rule's combine_mode, which this child serializer can't
+    # see. Enforced in DeliveryRuleSerializer.validate() below.
+
+
+# ==========================================================
+# DELIVERY RULE — LIST
+# ==========================================================
+
+class DeliveryRuleListSerializer(serializers.ModelSerializer):
+    zone = DeliveryZoneMiniSerializer(read_only=True)
+    category = CategoryMiniSerializer(read_only=True)
+    subcategory = SubCategoryMiniSerializer(read_only=True)
+    computed_status = serializers.SerializerMethodField()
+    scope = serializers.SerializerMethodField()
+    condition_count = serializers.SerializerMethodField()
+    action_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = DeliveryRule
+        fields = [
+            "id", "name", "code", "active", "computed_status",
+            "zone", "category", "subcategory", "scope",
+            "priority", "combine_mode", "stop_after",
+            "starts_at", "ends_at",
+            "condition_count", "action_count", "updated_at",
+        ]
+
+    def get_computed_status(self, obj):
+        return compute_rule_status(obj)
+
+    def get_scope(self, obj):
+        scope_type, label = resolve_rule_scope(obj)
+        return {"type": scope_type, "label": label}
+
+    def get_condition_count(self, obj):
+        annotated = getattr(obj, "_condition_count", None)
+        return annotated if annotated is not None else obj.conditions.count()
+
+    def get_action_count(self, obj):
+        annotated = getattr(obj, "_action_count", None)
+        return annotated if annotated is not None else obj.actions.count()
+
+
+# ==========================================================
+# DELIVERY RULE — DETAIL (create/update/retrieve)
+# ==========================================================
+
+class DeliveryRuleSerializer(serializers.ModelSerializer):
+    zone = DeliveryZoneMiniSerializer(read_only=True)
+    category = CategoryMiniSerializer(read_only=True)
+    subcategory = SubCategoryMiniSerializer(read_only=True)
+    product = serializers.SerializerMethodField()
+    variant = serializers.SerializerMethodField()
+
+    zone_id = serializers.PrimaryKeyRelatedField(
+        source="zone", queryset=DeliveryZone.objects.all(), write_only=True, required=False, allow_null=True,
+    )
+    category_id = serializers.PrimaryKeyRelatedField(
+        source="category", queryset=Category.objects.all(), write_only=True, required=False, allow_null=True,
+    )
+    subcategory_id = serializers.PrimaryKeyRelatedField(
+        source="subcategory", queryset=SubCategory.objects.all(), write_only=True, required=False, allow_null=True,
+    )
+    product_id = serializers.PrimaryKeyRelatedField(
+        source="product", queryset=Product.objects.all(), write_only=True, required=False, allow_null=True,
+    )
+    variant_id = serializers.PrimaryKeyRelatedField(
+        source="variant", queryset=ProductVariant.objects.all(), write_only=True, required=False, allow_null=True,
+    )
+
+    computed_status = serializers.SerializerMethodField()
+    specificity = serializers.IntegerField(read_only=True)
+
+    conditions = DeliveryRuleConditionSerializer(many=True, required=False)
+    actions = DeliveryRuleActionSerializer(many=True, required=False)
+
+    class Meta:
+        model = DeliveryRule
+        fields = [
+            "id", "name", "code", "active", "computed_status", "priority", "specificity",
+            "zone", "zone_id", "category", "category_id",
+            "subcategory", "subcategory_id", "product", "product_id",
+            "variant", "variant_id",
+            "combine_mode", "stop_after", "starts_at", "ends_at",
+            "conditions", "actions", "created_at", "updated_at",
+        ]
+        read_only_fields = ["id", "created_at", "updated_at"]
+
+    def get_computed_status(self, obj):
+        return compute_rule_status(obj)
+
+    def get_product(self, obj):
+        if not obj.product_id:
+            return None
+        return {"id": obj.product.id, "name": obj.product.name, "slug": obj.product.slug}
+
+    def get_variant(self, obj):
+        if not obj.variant_id:
+            return None
+        return {"id": obj.variant.id, "sku": obj.variant.sku, "name": obj.variant.display_name}
+
+    def validate(self, attrs):
+        instance = self.instance
+
+        def eff(name):
+            if name in attrs:
+                return attrs[name]
+            return getattr(instance, name) if instance is not None else None
+
+        trial = DeliveryRule(
+            zone=eff("zone"), category=eff("category"), subcategory=eff("subcategory"),
+            product=eff("product"), variant=eff("variant"),
+            starts_at=eff("starts_at"), ends_at=eff("ends_at"),
+        )
+        try:
+            trial.clean()
+        except DjangoValidationError as exc:
+            raise serializers.ValidationError(
+                exc.message_dict if hasattr(exc, "message_dict") else exc.messages
+            )
+
+        combine_mode = attrs.get("combine_mode", getattr(instance, "combine_mode", None))
+
+        if "actions" in attrs:
+            has_discount = any(
+                a.get("action_type") == DeliveryRuleAction.ACTION_DISCOUNT for a in attrs["actions"]
+            )
+        elif instance is not None:
+            has_discount = instance.actions.filter(action_type=DeliveryRuleAction.ACTION_DISCOUNT).exists()
+        else:
+            has_discount = False
+
+        if combine_mode == DeliveryRule.COMBINE_OVERRIDE and has_discount:
+            raise serializers.ValidationError({
+                "actions": [
+                    "Discount actions require combine_mode = Add. Change combine "
+                    "mode or remove the discount action."
+                ]
+            })
+
+        return attrs
+
+    @transaction.atomic
+    def create(self, validated_data):
+        conditions_data = validated_data.pop("conditions", [])
+        actions_data = validated_data.pop("actions", [])
+        rule = DeliveryRule.objects.create(**validated_data)
+        self._sync_conditions(rule, conditions_data)
+        self._sync_actions(rule, actions_data)
+        return rule
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        conditions_data = validated_data.pop("conditions", None)
+        actions_data = validated_data.pop("actions", None)
+
+        changed = []
+        for field, value in validated_data.items():
+            if getattr(instance, field) != value:
+                setattr(instance, field, value)
+                changed.append(field)
+        if changed:
+            instance.save(update_fields=changed)
+
+        if conditions_data is not None:
+            self._sync_conditions(instance, conditions_data)
+        if actions_data is not None:
+            self._sync_actions(instance, actions_data)
+
+        return instance
+
+    # ------------------------------------------------------------
+    # NESTED SYNC — hardened.
+    #
+    # An `id` in the payload MUST belong to this rule's existing
+    # children. If it doesn't (foreign id, stale id, garbage id), we
+    # reject the whole request with a 400 instead of silently creating
+    # a new row under a mismatched/ignored id. Only a payload with NO
+    # `id` is treated as "create new".
+    # ------------------------------------------------------------
+
+    def _sync_conditions(self, rule, conditions_data):
+        existing = {c.id: c for c in rule.conditions.all()}
+        seen = set()
+
+        for data in conditions_data:
+            data = dict(data)
+            item_id = data.pop("id", None)
+
+            if item_id is not None:
+                if item_id not in existing:
+                    raise serializers.ValidationError(
+                        {"conditions": f"Condition id {item_id} does not belong to this rule."}
+                    )
+                obj = existing[item_id]
+                fields_changed = [f for f, v in data.items() if getattr(obj, f) != v]
+                for f, v in data.items():
+                    setattr(obj, f, v)
+                if fields_changed:
+                    obj.save(update_fields=fields_changed)
+            else:
+                obj = DeliveryRuleCondition.objects.create(rule=rule, **data)
+
+            seen.add(obj.id)
+
+        for old_id, old_obj in existing.items():
+            if old_id not in seen:
+                old_obj.delete()
+
+    def _sync_actions(self, rule, actions_data):
+        existing = {a.id: a for a in rule.actions.all()}
+        seen = set()
+
+        for data in actions_data:
+            data = dict(data)
+            item_id = data.pop("id", None)
+
+            if item_id is not None:
+                if item_id not in existing:
+                    raise serializers.ValidationError(
+                        {"actions": f"Action id {item_id} does not belong to this rule."}
+                    )
+                obj = existing[item_id]
+                fields_changed = [f for f, v in data.items() if getattr(obj, f) != v]
+                for f, v in data.items():
+                    setattr(obj, f, v)
+                if fields_changed:
+                    obj.save(update_fields=fields_changed)
+            else:
+                obj = DeliveryRuleAction.objects.create(rule=rule, **data)
+
+            seen.add(obj.id)
+
+        for old_id, old_obj in existing.items():
+            if old_id not in seen:
+                old_obj.delete()

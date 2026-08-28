@@ -11,7 +11,7 @@ from decimal import Decimal
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 
-from .models import (
+from ..models import (
     Category,
     SubCategory,
     Product,
@@ -20,7 +20,7 @@ from .models import (
     ProductVariant,
     ProductVariantOption,
 )
-from .views import ProductViewSet
+from ..views import ProductViewSet
 
 
 def _list(request_kwargs=None):

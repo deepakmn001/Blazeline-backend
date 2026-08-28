@@ -1,12 +1,34 @@
 # ==========================================================
 # catalog/views.py
-# (unchanged — existing prefetch already covers every relation
-#  the new serializer output needs: options/options__values,
+# (existing prefetch already covers every relation the
+#  serializer output needs: options/options__values,
 #  variants/variants__images, and
 #  variants__variant_options__option_value__option)
 # ==========================================================
-from .pagination import StandardResultsPagination 
-from .filters import ProductFilter
+import logging
+
+from django.core.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError as DRFValidationError  # aliased
+# to avoid colliding with django.core.exceptions.ValidationError above.
+# DRF's exception handler only auto-converts THIS ValidationError into a 400 —
+# raising the django.core one instead falls through as an unhandled 500.
+
+from django.db import transaction
+from django.db.models import Count
+from django.db.models.functions import TruncMonth
+from django.utils import timezone
+from django.shortcuts import get_object_or_404
+
+from rest_framework import viewsets, filters, parsers, status
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from django_filters.rest_framework import DjangoFilterBackend
+
+from .pagination import StandardResultsPagination
+from .filters import ProductFilter, DeliveryRuleFilter
 from .services import LocationService
 from .delivery.services import (
     calculate_delivery,
@@ -14,14 +36,8 @@ from .delivery.services import (
     get_serviceable_location,
     CartValidationError,
 )
+from .delivery.rule_scope import compute_rule_status, status_query
 from .facet_service import build_product_facets
-from django.core.exceptions import ValidationError
-from rest_framework import viewsets, filters, parsers
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.decorators import action
-from django.db import transaction
-from rest_framework import status
 
 from .models import (
     Category,
@@ -31,32 +47,36 @@ from .models import (
     ProductImage,
     ProductVariant,
     ProductSpecification,
-     ServiceablePincode,
-     QuoteRequest,
+    ServiceablePincode,
+    QuoteRequest,
+    DeliveryZone,
+    DeliveryRule,
+    DeliveryRuleAction,
 )
 
 from .serializers import (
     CategorySerializer,
-     HomepageCategorySerializer,
+    HomepageCategorySerializer,
     SubCategorySerializer,
     ProductSerializer,
-     ProductListSerializer,
+    ProductListSerializer,
     ProductImageSerializer,
     ProductVariantSerializer,
     ProductSpecificationSerializer,
     DeliveryCheckSerializer,
-     DeliveryQuoteRequestSerializer,
-     DeliveryQuoteResponseSerializer,
+    DeliveryQuoteRequestSerializer,
+    DeliveryQuoteResponseSerializer,
     QuoteRequestSerializer,
-     BulkDeleteSerializer,
-    BulkMoveProductsSerializer
+    BulkDeleteSerializer,
+    BulkMoveProductsSerializer,
+    DeliveryZoneSerializer,
+    ServiceablePincodeSerializer,
+    DeliveryRuleSerializer,
+    DeliveryRuleListSerializer,
 )
-from rest_framework.views import APIView
-from rest_framework.response import Response
 
-from django.db.models import Count
-from django.db.models.functions import TruncMonth
-from django.shortcuts import get_object_or_404
+logger = logging.getLogger(__name__)
+
 
 # ==========================================================
 # CATEGORY
@@ -64,13 +84,10 @@ from django.shortcuts import get_object_or_404
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
-
     serializer_class = CategorySerializer
 
     lookup_field = "slug"
     lookup_url_kwarg = "slug"
-
-    serializer_class = CategorySerializer
 
     def get_permissions(self):
         if self.action in ["list", "retrieve"]:
@@ -82,25 +99,15 @@ class CategoryViewSet(viewsets.ModelViewSet):
         DjangoFilterBackend,
         filters.OrderingFilter,
     ]
-    filterset_fields = [
-    "active",
-]
-    search_fields = [
-        "name",
-        "group",
-    ]
-
-    ordering = [
-        "name",
-    ]
+    filterset_fields = ["active"]
+    search_fields = ["name", "group"]
+    ordering = ["name"]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
         context["request"] = self.request
         return context
-    
-    
-    
+
 
 class AdminCategoryViewSet(CategoryViewSet):
     lookup_field = "pk"
@@ -111,6 +118,8 @@ class AdminCategoryViewSet(CategoryViewSet):
             self.get_queryset(),
             pk=self.kwargs["pk"],
         )
+
+
 # ==========================================================
 # HOMEPAGE CATEGORY
 # ==========================================================
@@ -129,13 +138,12 @@ class HomepageCategoryViewSet(viewsets.ModelViewSet):
             return [AllowAny()]
         return [IsAuthenticated()]
 
+
 # ==========================================================
 # SUB CATEGORY
 # ==========================================================
 
 class SubCategoryViewSet(viewsets.ModelViewSet):
-    
-
     queryset = (
         SubCategory.objects
         .select_related("category")
@@ -156,32 +164,22 @@ class SubCategoryViewSet(viewsets.ModelViewSet):
         filters.OrderingFilter,
     ]
 
-    filterset_fields = [
-        "category",
-        "active",
-    ]
-
-    search_fields = [
-        "name",
-    ]
-
-    ordering = [
-        "name",
-    ]
+    filterset_fields = ["category", "active"]
+    search_fields = ["name"]
+    ordering = ["name"]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
         context["request"] = self.request
         return context
+
+
 class AdminSubCategoryViewSet(SubCategoryViewSet):
     lookup_field = "pk"
     lookup_url_kwarg = "pk"
     permission_classes = [IsAuthenticated]
 
-    ordering = [
-        "sort_order",
-        "name",
-    ]
+    ordering = ["sort_order", "name"]
 
     ordering_fields = [
         "sort_order",
@@ -204,22 +202,17 @@ class AdminSubCategoryViewSet(SubCategoryViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     lookup_field = "slug"
     lookup_url_kwarg = "slug"
-    pagination_class = StandardResultsPagination 
+    pagination_class = StandardResultsPagination
+
     queryset = (
         Product.objects
-        .select_related(
-            "category",
-            "subcategory",
-        )
+        .select_related("category", "subcategory")
         .prefetch_related(
             "specifications",
-
             "options",
             "options__values",
-
             "variants",
             "variants__images",
-
             "variants__variant_options",
             "variants__variant_options__option_value",
             "variants__variant_options__option_value__option",
@@ -229,7 +222,6 @@ class ProductViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == "list":
             return ProductListSerializer
-
         return ProductSerializer
 
     def get_permissions(self):
@@ -251,62 +243,40 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     filterset_class = ProductFilter
 
-    search_fields = [
-        "name",
-        "description",
-        "short_description",
-    ]
-
-    ordering_fields = [
-        "name",
-        "created_at",
-        "updated_at",
-    ]
-
-    ordering = [
-        "-created_at",
-    ]
+    search_fields = ["name", "description", "short_description"]
+    ordering_fields = ["name", "created_at", "updated_at"]
+    ordering = ["-created_at"]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
         context["request"] = self.request
         return context
+
     @action(detail=False, methods=["get"], url_path="facets")
     def facets(self, request):
         """
         Read-only customer-facing filter metadata.
-
         Existing /products/ list/retrieve behavior is untouched.
         """
 
         def parse_id(value):
             if value in (None, ""):
                 return None
-
             try:
                 parsed = int(value)
             except (TypeError, ValueError):
                 return None
-
             return parsed if parsed > 0 else None
 
-        category_id = parse_id(
-            request.query_params.get("category")
-        )
-
-        subcategory_id = parse_id(
-            request.query_params.get("subcategory")
-        )
+        category_id = parse_id(request.query_params.get("category"))
+        subcategory_id = parse_id(request.query_params.get("subcategory"))
 
         payload = build_product_facets(
             category_id=category_id,
             subcategory_id=subcategory_id,
         )
 
-        return Response(
-            payload,
-            status=status.HTTP_200_OK,
-        )
+        return Response(payload, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["post"], url_path="bulk-delete")
     def bulk_delete(self, request):
@@ -315,13 +285,19 @@ class ProductViewSet(viewsets.ModelViewSet):
 
         product_ids = serializer.validated_data["product_ids"]
 
+        existing_ids = set(
+            Product.objects.filter(id__in=product_ids).values_list("id", flat=True)
+        )
+        missing_ids = set(product_ids) - existing_ids
+
         with transaction.atomic():
-            deleted_count, _ = (
-                Product.objects.filter(id__in=product_ids).delete()
-            )
+            deleted_count, _ = Product.objects.filter(id__in=existing_ids).delete()
 
         return Response(
-            {"deleted": deleted_count},
+            {
+                "deleted": deleted_count,
+                "not_found": list(missing_ids),
+            },
             status=status.HTTP_200_OK,
         )
 
@@ -333,6 +309,11 @@ class ProductViewSet(viewsets.ModelViewSet):
         product_ids = serializer.validated_data["product_ids"]
         category = serializer.validated_data["category"]
         subcategory = serializer.validated_data["subcategory"]
+
+        if subcategory.category_id != category.id:
+            raise DRFValidationError(
+                {"subcategory": "Subcategory does not belong to the selected category."}
+            )
 
         with transaction.atomic():
             updated_count = (
@@ -348,16 +329,15 @@ class ProductViewSet(viewsets.ModelViewSet):
             },
             status=status.HTTP_200_OK,
         )
+
+
 # ==========================================================
 # PRODUCT IMAGE
 # ==========================================================
 
 class ProductImageViewSet(viewsets.ModelViewSet):
-
     queryset = ProductImage.objects.all()
-
     serializer_class = ProductImageSerializer
-
     permission_classes = [IsAuthenticated]
 
     parser_classes = [
@@ -366,19 +346,9 @@ class ProductImageViewSet(viewsets.ModelViewSet):
         parsers.JSONParser,
     ]
 
-    filter_backends = [
-        DjangoFilterBackend,
-        filters.OrderingFilter,
-    ]
-
-    filterset_fields = [
-        "variant",
-        "featured",
-    ]
-
-    ordering = [
-        "sort_order",
-    ]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filterset_fields = ["variant", "featured"]
+    ordering = ["sort_order"]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -391,7 +361,6 @@ class ProductImageViewSet(viewsets.ModelViewSet):
 # ==========================================================
 
 class ProductVariantViewSet(viewsets.ModelViewSet):
-
     permission_classes = [IsAuthenticated]
 
     queryset = (
@@ -413,19 +382,9 @@ class ProductVariantViewSet(viewsets.ModelViewSet):
         filters.OrderingFilter,
     ]
 
-    filterset_fields = [
-        "product",
-    ]
-
-    search_fields = [
-        "sku",
-        "barcode",
-        "product__name",
-    ]
-
-    ordering = [
-        "id",
-    ]
+    filterset_fields = ["product"]
+    search_fields = ["sku", "barcode", "product__name"]
+    ordering = ["id"]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -438,14 +397,9 @@ class ProductVariantViewSet(viewsets.ModelViewSet):
 # ==========================================================
 
 class ProductSpecificationViewSet(viewsets.ModelViewSet):
-
     permission_classes = [IsAuthenticated]
 
-    queryset = (
-        ProductSpecification.objects
-        .select_related("product")
-    )
-
+    queryset = ProductSpecification.objects.select_related("product")
     serializer_class = ProductSpecificationSerializer
 
     filter_backends = [
@@ -454,18 +408,9 @@ class ProductSpecificationViewSet(viewsets.ModelViewSet):
         filters.OrderingFilter,
     ]
 
-    filterset_fields = [
-        "product",
-    ]
-
-    search_fields = [
-        "key",
-        "value",
-    ]
-
-    ordering = [
-        "id",
-    ]
+    filterset_fields = ["product"]
+    search_fields = ["key", "value"]
+    ordering = ["id"]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -478,59 +423,44 @@ class ProductSpecificationViewSet(viewsets.ModelViewSet):
 # ==========================================================
 
 class DashboardAPIView(APIView):
-
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-
         stats = {
             "total_products": Product.objects.count(),
-            "published_products": Product.objects.filter(
-                status="published"
-            ).count(),
-            "draft_products": Product.objects.filter(
-                status="draft"
-            ).count(),
+            "published_products": Product.objects.filter(status="published").count(),
+            "draft_products": Product.objects.filter(status="draft").count(),
             "categories": Category.objects.count(),
             "subcategories": SubCategory.objects.count(),
         }
 
         recent_products = (
             Product.objects
-            .select_related(
-                "category",
-                "subcategory",
-            )
-            .prefetch_related(
-                "variants",
-                "variants__images",
-            )
+            .select_related("category", "subcategory")
+            .prefetch_related("variants", "variants__images")
             .order_by("-created_at")[:10]
         )
 
         recent_products_data = []
 
         for product in recent_products:
-
             image = None
 
-            variant = (
-                product.variants
-                .filter(is_default=True)
-                .first()
-                or product.variants.first()
+            # Use the prefetch cache (product.variants.all()) instead of
+            # product.variants.filter(...), which bypasses prefetch_related
+            # and fires one extra query per product (N+1).
+            variants = list(product.variants.all())
+            variant = next((v for v in variants if v.is_default), None) or (
+                variants[0] if variants else None
             )
 
             if variant:
-                featured = variant.images.filter(
-                    featured=True
-                ).first()
+                images = list(variant.images.all())  # also served from prefetch cache
+                featured = next((img for img in images if img.featured), None)
 
                 if featured and featured.image:
                     try:
-                        image = request.build_absolute_uri(
-                            featured.image.url
-                        )
+                        image = request.build_absolute_uri(featured.image.url)
                     except Exception:
                         image = None
 
@@ -545,68 +475,43 @@ class DashboardAPIView(APIView):
             })
 
         category_distribution = list(
-
-            Category.objects.annotate(
-                total=Count("products")
-            ).values(
-                "name",
-                "total",
-            )
-
+            Category.objects.annotate(total=Count("products")).values("name", "total")
         )
 
         product_growth = list(
-
-            Product.objects.annotate(
-                month=TruncMonth("created_at")
-            ).values(
-                "month",
-            ).annotate(
-                total=Count("id")
-            ).order_by("month")
-
+            Product.objects.annotate(month=TruncMonth("created_at"))
+            .values("month")
+            .annotate(total=Count("id"))
+            .order_by("month")
         )
 
         return Response({
-
             "stats": stats,
-
             "recent_products": recent_products_data,
-
             "category_distribution": category_distribution,
-
             "product_growth": product_growth,
-
         })
 
 
 class ReverseLocationAPIView(APIView):
+    permission_classes = [AllowAny]
 
     def post(self, request):
-
         latitude = request.data.get("latitude")
         longitude = request.data.get("longitude")
 
         if latitude is None or longitude is None:
             return Response(
-                {
-                    "message": "Latitude and longitude are required."
-                },
+                {"message": "Latitude and longitude are required."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         try:
-
-            location = LocationService.reverse_geocode(
-                float(latitude),
-                float(longitude),
-            )
+            location = LocationService.reverse_geocode(float(latitude), float(longitude))
 
             if not location:
                 return Response(
-                    {
-                        "message": "Unable to determine your location."
-                    },
+                    {"message": "Unable to determine your location."},
                     status=status.HTTP_404_NOT_FOUND,
                 )
 
@@ -616,15 +521,10 @@ class ReverseLocationAPIView(APIView):
             ).first()
 
             return Response({
-
                 "postcode": location["postcode"],
-
                 "city": location["city"],
-
                 "area": location["area"],
-
                 "deliverable": bool(serviceable),
-
                 "message": (
                     "Delivery Available"
                     if serviceable
@@ -632,27 +532,25 @@ class ReverseLocationAPIView(APIView):
                 ),
             })
 
-        except Exception as e:
-            import traceback
-
-            traceback.print_exc()
-
+        except (TypeError, ValueError):
             return Response(
-                {
-                    "message": str(e),
-                },
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                
-            
+                {"message": "Invalid latitude/longitude."},
+                status=status.HTTP_400_BAD_REQUEST,
             )
-            
-            
-            # ==========================================================
+        except Exception:
+            # Never leak raw exception text / stack traces to the client.
+            logger.exception("Reverse geocode failed")
+            return Response(
+                {"message": "Something went wrong. Please try again."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+
+# ==========================================================
 # SUB CATEGORY STATS API
 # ==========================================================
 
 class SubCategoryStatsAPIView(APIView):
-
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -663,33 +561,23 @@ class SubCategoryStatsAPIView(APIView):
             "inactive": SubCategory.objects.filter(active=False).count(),
             "products": Product.objects.count(),
         })
-    # ==========================================================
-# DELIVERY CHECK API
-# ==========================================================
+
 
 # ==========================================================
 # DELIVERY CHECK API
 # ==========================================================
-
 
 class DeliveryCheckAPIView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        serializer = DeliveryCheckSerializer(
-            data=request.data
-        )
-
-        serializer.is_valid(
-            raise_exception=True
-        )
+        serializer = DeliveryCheckSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         pincode = serializer.validated_data["pincode"]
 
         try:
-            location = get_serviceable_location(
-                pincode
-            )
+            location = get_serviceable_location(pincode)
 
         except CartValidationError as exc:
             return Response(
@@ -720,10 +608,7 @@ class DeliveryCheckAPIView(APIView):
                 "area": location.area_name,
                 "city": location.city,
                 "zone": (
-                    {
-                        "id": location.zone.id,
-                        "name": location.zone.name,
-                    }
+                    {"id": location.zone.id, "name": location.zone.name}
                     if location.zone
                     else None
                 ),
@@ -733,16 +618,9 @@ class DeliveryCheckAPIView(APIView):
         )
 
 
-
-
-
-
-
-
 # ==========================================================
 # DELIVERY QUOTE API
 # ==========================================================
-
 
 class DeliveryQuoteAPIView(APIView):
     """
@@ -757,23 +635,17 @@ class DeliveryQuoteAPIView(APIView):
     serviceability decisions are resolved server-side.
     """
 
-    def post(self, request):
-        request_serializer = DeliveryQuoteRequestSerializer(
-            data=request.data
-        )
+    permission_classes = [AllowAny]
 
-        request_serializer.is_valid(
-            raise_exception=True
-        )
+    def post(self, request):
+        request_serializer = DeliveryQuoteRequestSerializer(data=request.data)
+        request_serializer.is_valid(raise_exception=True)
 
         pincode = request_serializer.validated_data["pincode"]
         items = request_serializer.validated_data["items"]
 
         try:
-            result = calculate_delivery(
-                pincode=pincode,
-                cart_items=items,
-            )
+            result = calculate_delivery(pincode=pincode, cart_items=items)
 
         except NotServiceableError as exc:
             return Response(
@@ -792,20 +664,14 @@ class DeliveryQuoteAPIView(APIView):
 
         except CartValidationError as exc:
             return Response(
-                {
-                    "message": str(exc),
-                    "errors": exc.errors,
-                },
+                {"message": str(exc), "errors": exc.errors},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         response_payload = {
             "deliverable": True,
             "zone": (
-                {
-                    "id": result["zone"].id,
-                    "name": result["zone"].name,
-                }
+                {"id": result["zone"].id, "name": result["zone"].name}
                 if result.get("zone")
                 else None
             ),
@@ -817,19 +683,17 @@ class DeliveryQuoteAPIView(APIView):
             "message": "Delivery Available",
         }
 
-        response_serializer = DeliveryQuoteResponseSerializer(
-            response_payload
-        )
+        response_serializer = DeliveryQuoteResponseSerializer(response_payload)
 
-        return Response(
-            response_serializer.data,
-            status=status.HTTP_200_OK,
-        )
-    # ==========================================================
+        return Response(response_serializer.data, status=status.HTTP_200_OK)
+
+
+# ==========================================================
 # REQUEST A QUOTE API
 # ==========================================================
 
 class QuoteRequestAPIView(APIView):
+    permission_classes = [AllowAny]
 
     parser_classes = [
         parsers.MultiPartParser,
@@ -837,14 +701,8 @@ class QuoteRequestAPIView(APIView):
     ]
 
     def post(self, request):
-
-        serializer = QuoteRequestSerializer(
-            data=request.data
-        )
-
-        serializer.is_valid(
-            raise_exception=True
-        )
+        serializer = QuoteRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         quote = serializer.save()
 
@@ -856,3 +714,162 @@ class QuoteRequestAPIView(APIView):
             },
             status=201,
         )
+
+
+# ==========================================================
+# DELIVERY ZONE
+# ==========================================================
+
+class DeliveryZoneViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    pagination_class = StandardResultsPagination
+
+    queryset = DeliveryZone.objects.annotate(
+        _pincode_count=Count("pincodes", distinct=True),
+        _rule_count=Count("rules", distinct=True),
+    )
+    serializer_class = DeliveryZoneSerializer
+
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ["active"]
+    search_fields = ["name", "code"]
+    ordering_fields = ["name", "priority", "created_at", "updated_at"]
+    ordering = ["-priority", "name"]
+
+    def perform_destroy(self, instance):
+        rule_count = instance.rules.count()
+        if rule_count:
+            # Must be DRF's ValidationError (aliased as DRFValidationError above),
+            # not django.core.exceptions.ValidationError — only the DRF one is
+            # auto-converted into a 400 by the exception handler.
+            raise DRFValidationError({
+                "detail": (
+                    f"Cannot delete a zone that {rule_count} rule(s) still target. "
+                    f"Reassign or delete those rules first."
+                )
+            })
+        instance.delete()
+
+    @action(detail=True, methods=["post"], url_path="toggle-active")
+    def toggle_active(self, request, pk=None):
+        zone = self.get_object()
+        zone.active = not zone.active
+        zone.save(update_fields=["active"])
+        return Response(self.get_serializer(zone).data)
+
+
+# ==========================================================
+# SERVICEABLE PINCODE
+# ==========================================================
+
+class ServiceablePincodeViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    pagination_class = StandardResultsPagination
+
+    queryset = ServiceablePincode.objects.select_related("zone")
+    serializer_class = ServiceablePincodeSerializer
+
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ["is_active", "zone", "city", "state"]
+    search_fields = ["pincode", "area_name", "city"]
+    ordering_fields = ["pincode", "city"]
+    ordering = ["pincode"]
+
+    @action(detail=True, methods=["post"], url_path="toggle-active")
+    def toggle_active(self, request, pk=None):
+        pincode = self.get_object()
+        pincode.is_active = not pincode.is_active
+        pincode.save(update_fields=["is_active"])
+        return Response(self.get_serializer(pincode).data)
+
+
+# ==========================================================
+# DELIVERY RULE
+# ==========================================================
+
+class DeliveryRuleViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    pagination_class = StandardResultsPagination
+
+    queryset = (
+        DeliveryRule.objects
+        .select_related("zone", "category", "subcategory", "product", "variant")
+        .prefetch_related("conditions", "actions")
+        .annotate(
+            _condition_count=Count("conditions", distinct=True),
+            _action_count=Count("actions", distinct=True),
+        )
+    )
+
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_class = DeliveryRuleFilter
+    search_fields = ["name", "code"]
+    ordering_fields = ["priority", "name", "created_at", "updated_at"]
+    ordering = ["-priority", "id"]
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return DeliveryRuleListSerializer
+        return DeliveryRuleSerializer
+
+    @action(detail=True, methods=["post"], url_path="toggle-active")
+    def toggle_active(self, request, pk=None):
+        rule = self.get_object()
+        rule.active = not rule.active
+        rule.save(update_fields=["active"])
+        # deliveryApi.ts types rulesApi.toggleActive() as
+        # Promise<DeliveryRuleListItem> — list serializer here is
+        # intentional, matching the existing frontend contract exactly.
+        return Response(DeliveryRuleListSerializer(rule).data)
+
+
+# ==========================================================
+# DELIVERY OVERVIEW
+# ==========================================================
+
+class DeliveryOverviewAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        zone_active = DeliveryZone.objects.filter(active=True).count()
+        zone_inactive = DeliveryZone.objects.filter(active=False).count()
+        pincode_serviceable = ServiceablePincode.objects.filter(is_active=True).count()
+        pincode_total = ServiceablePincode.objects.count()
+
+                # Status counts pushed to SQL via status_query() so they stay
+        # consistent with DeliveryRuleFilter and calculate_delivery().
+        now = timezone.now()
+
+        status_counts = DeliveryRule.objects.aggregate(
+    active_count=Count("id", filter=status_query("active", now)),
+    scheduled_count=Count("id", filter=status_query("scheduled", now)),
+    expired_count=Count("id", filter=status_query("expired", now)),
+    inactive_count=Count("id", filter=status_query("inactive", now)),
+    total_count=Count("id"),
+)
+
+        free_delivery_count = (
+            DeliveryRule.objects
+            .filter(actions__action_type=DeliveryRuleAction.ACTION_FREE_DELIVERY)
+            .distinct()
+            .count()
+        )
+
+        recent_changes = list(
+            DeliveryRule.objects.order_by("-updated_at")[:5]
+            .values("id", "name", "active", "updated_at")
+        )
+
+        return Response({
+            "zones": {"active": zone_active, "inactive": zone_inactive},
+            "pincodes": {"serviceable": pincode_serviceable, "total": pincode_total},
+                        "rules": {
+    "active": status_counts["active_count"],
+    "scheduled": status_counts["scheduled_count"],
+    "expired": status_counts["expired_count"],
+    "inactive": status_counts["inactive_count"],
+    "free_delivery": free_delivery_count,
+    "total": status_counts["total_count"],
+},
+            "recent_changes": recent_changes,
+        })

@@ -34,6 +34,11 @@ Scoping (important for scale):
   Flute-priced product will correctly resolve to zero results — this is
   intentional "already filtered scope" semantics, not a bug, and the
   facets endpoint should be built with that in mind.
+
+This module also defines DeliveryRuleFilter (see below), which filters
+DeliveryRule by its two derived, non-DB-column concepts (status, scope)
+using status_query()/scope_query() from delivery/rule_scope.py — Q objects
+that push that logic down to SQL rather than looping over rows in Python.
 """
 from __future__ import annotations
 
@@ -43,7 +48,8 @@ from typing import Dict, List
 import django_filters
 from django.db.models import Exists, OuterRef, QuerySet
 
-from .models import Product, ProductOption, ProductVariant
+from .models import Product, ProductOption, ProductVariant, DeliveryRule
+from .delivery.rule_scope import status_query, scope_query
 
 # Only params with this prefix are treated as dynamic catalog-option filters.
 OPTION_PARAM_PREFIX = "option_"
@@ -227,3 +233,50 @@ class ProductFilter(django_filters.FilterSet):
             needs_distinct = True
 
         return queryset.distinct() if needs_distinct else queryset
+
+
+class DeliveryRuleFilter(django_filters.FilterSet):
+    """
+    Filters DeliveryRule by its two derived (non-DB-column) concepts:
+    status and scope. Both methods delegate to status_query()/scope_query()
+    in delivery/rule_scope.py, which return Q objects — so filtering happens
+    entirely in SQL and never loads the full DeliveryRule table into Python.
+    (See that module's docstring: the Python-loop versions,
+    compute_rule_status()/resolve_rule_scope(), are for per-instance
+    serializer use only — NOT for filtering querysets.)
+    """
+    status = django_filters.ChoiceFilter(
+        choices=[
+            ("active", "Active"),
+            ("scheduled", "Scheduled"),
+            ("expired", "Expired"),
+            ("inactive", "Inactive"),
+        ],
+        method="filter_status",
+    )
+    scope = django_filters.ChoiceFilter(
+        choices=[
+            ("global", "Global"),
+            ("zone", "Zone"),
+            ("category", "Category"),
+            ("subcategory", "Subcategory"),
+            ("product", "Product"),
+            ("variant", "Variant"),
+        ],
+        method="filter_scope",
+    )
+
+    class Meta:
+        model = DeliveryRule
+        fields = ["active", "zone", "category", "combine_mode"]
+
+    def filter_status(self, queryset: QuerySet, name: str, value: str) -> QuerySet:
+        """SQL-side status filter — see status_query() docstring for the
+        exact window logic (mirrors calculate_delivery() in services.py)."""
+        return queryset.filter(status_query(value))
+
+    def filter_scope(self, queryset: QuerySet, name: str, value: str) -> QuerySet:
+        """SQL-side scope filter — see scope_query() docstring for the
+        most-specific-wins precedence (variant > product > subcategory >
+        category > zone > global)."""
+        return queryset.filter(scope_query(value))

@@ -17,6 +17,10 @@ from .views import (
      QuoteRequestAPIView,
      ReverseLocationAPIView,
      AdminCategoryViewSet,
+         DeliveryZoneViewSet,
+    ServiceablePincodeViewSet,
+    DeliveryRuleViewSet,
+    DeliveryOverviewAPIView,
 )
 
 router = DefaultRouter()
@@ -89,7 +93,13 @@ router.register(
     ProductSpecificationViewSet,
 )
 
+# ==========================================================
+# DELIVERY (ADMIN)
+# ==========================================================
 
+router.register("admin/delivery/zones", DeliveryZoneViewSet, basename="admin-delivery-zones")
+router.register("admin/delivery/pincodes", ServiceablePincodeViewSet, basename="admin-delivery-pincodes")
+router.register("admin/delivery/rules", DeliveryRuleViewSet, basename="admin-delivery-rules")
 # ==========================================================
 # DASHBOARD API
 # ==========================================================
@@ -125,6 +135,11 @@ path(
     "location/reverse/",
     ReverseLocationAPIView.as_view(),
     name="reverse-location",
+),
+path(
+    "admin/delivery/overview/",
+    DeliveryOverviewAPIView.as_view(),
+    name="admin-delivery-overview",
 ),
 ]
 
