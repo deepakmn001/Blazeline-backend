@@ -269,6 +269,7 @@ class ProductImageSerializer(serializers.ModelSerializer):
     )
 
     image_url = serializers.SerializerMethodField()
+    image_url_large = serializers.SerializerMethodField()
 
     class Meta:
         model = ProductImage
@@ -277,6 +278,7 @@ class ProductImageSerializer(serializers.ModelSerializer):
             "variant",
             "image",
             "image_url",
+            "image_url_large",
             "featured",
             "sort_order",
         ]
@@ -290,6 +292,21 @@ class ProductImageSerializer(serializers.ModelSerializer):
                 obj.image.name,
                 width=600,
                 quality="auto",
+                fetch_format="auto",
+            )
+            return url
+        except Exception:
+            return obj.image.url
+
+    def get_image_url_large(self, obj):
+        if not obj.image:
+            return None
+
+        try:
+            url, _ = cloudinary_url(
+                obj.image.name,
+                width=1920,
+                quality="auto:best",
                 fetch_format="auto",
             )
             return url
