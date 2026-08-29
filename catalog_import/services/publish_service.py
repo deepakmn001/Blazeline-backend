@@ -507,8 +507,8 @@ def _resolve_static_axes(product, parsed, option_cache, value_cache):
     print("=" * 80)
     option_values = []
     fanout_axis = (
-        getattr(parsed, "variant_axis_name", None) or ""
-    ).strip().lower()
+    getattr(parsed, "variant_axis_name", None) or "Finish"
+).strip().lower()
 
     if attributes:
         pairs = list(attributes.items())
@@ -778,6 +778,7 @@ def _create_variants(product, parsed):
         )
 
         combination = static_option_values + [fanout_value]
+        combination = list({ov.id: ov for ov in combination}.values())
         combo_key = frozenset(ov.id for ov in combination)
 
         if combo_key in existing_combinations:
