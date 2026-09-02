@@ -40,10 +40,10 @@ urlpatterns = [
     ),
 
  #Catalog Import APIs
-path(
-    "api/",
-    include("catalog_import.urls"),
-),
+#path(
+ #   "api/",
+  #  include("catalog_import.urls"),
+#),
     # OpenAPI Schema
     path(
         "api/schema/",
