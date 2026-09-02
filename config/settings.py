@@ -58,10 +58,13 @@ INSTALLED_APPS = [
 
     # Local
     "catalog",
-   #"catalog_import",
+   "catalog_import",
+    "accounts",
+    "cart",
     "cloudinary",
     "cloudinary_storage",
-    
+    "orders",
+
 ]
 
 
@@ -199,7 +202,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ------------------------------------------------------------------
 # CORS
 # ------------------------------------------------------------------
-
+from corsheaders.defaults import default_headers
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
@@ -208,6 +211,12 @@ else:
         for origin in os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
         if origin.strip()
     ]
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "x-guest-id",
+    "idempotency-key",
+    "x-client-timeout-ms",
+]
+
 
 
 # ------------------------------------------------------------------
@@ -241,7 +250,7 @@ if not DEBUG:
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "accounts.services.AppJWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
@@ -278,3 +287,22 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "BlazeLine Building Materials Platform API",
     "VERSION": "1.0.0",
 }
+
+# ------------------------------------------------------------------
+# EMAIL OTP + PHONE OTP (accounts app)
+# ------------------------------------------------------------------
+if DEBUG and not os.getenv("EMAIL_HOST_USER"):
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.hostinger.com")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "465"))
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "True") == "True"
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "False") == "True"
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "BlazeLine <no-reply@blazeline.in>")
+
+MSG91_AUTH_KEY = os.getenv("MSG91_AUTH_KEY")
+MSG91_OTP_TEMPLATE_ID = os.getenv("MSG91_OTP_TEMPLATE_ID")

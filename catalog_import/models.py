@@ -288,7 +288,21 @@ class ParsedProduct(models.Model):
         default=list,
         blank=True,
     )
+        # ------------------------------------------------------------
+    # TECHNICAL SPECIFICATIONS
+    #
+    # Dedicated payload for customer-facing technical specifications.
+    # IMPORTANT:
+    # - `attributes` is reserved for selector / variant-driving data.
+    # - `specifications` stores non-selectable factual product details.
+    # - Existing rows remain safe because this field defaults to {}.
+    # ------------------------------------------------------------
     attributes = models.JSONField(
+        default=dict,
+        blank=True,
+    )
+
+    specifications = models.JSONField(
         default=dict,
         blank=True,
     )
@@ -297,7 +311,6 @@ class ParsedProduct(models.Model):
         max_length=100,
         blank=True,
     )
-
     variant_prices = models.JSONField(
         default=dict,
         blank=True,

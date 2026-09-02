@@ -8,8 +8,9 @@ from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
 )
-from django.urls import include, path
+
 from catalog.auth_views import AdminLoginView, AdminTokenRefreshView
+from orders.views import RazorpayWebhookAPIView
 
 urlpatterns = [
      #path("silk/", include("silk.urls")),
@@ -27,29 +28,39 @@ urlpatterns = [
     ),
     
     # Admin Auth (JWT)
-    path(
-        "api/auth/login/",
+        path(
+        "api/auth/admin/login/",
         AdminLoginView.as_view(),
         name="admin-login",
     ),
-    path(
-        "api/auth/refresh/",
+        path(
+        "api/auth/admin/refresh/",
         AdminTokenRefreshView.as_view(),
         name="admin-refresh",
     ),
 
  #Catalog Import APIs
-#path(
- #   "api/",
-  #  include("catalog_import.urls"),
-#),
+path(
+    "api/",
+    include("catalog_import.urls"),
+),
     # OpenAPI Schema
     path(
         "api/schema/",
         SpectacularAPIView.as_view(),
         name="schema",
     ),
-
+    path("api/auth/", include("accounts.api")),
+path("api/cart/", include("cart.api")),
+path(
+    "api/orders/",
+    include("orders.urls"),
+),
+path(
+    "api/payments/webhook/",
+    RazorpayWebhookAPIView.as_view(),
+    name="razorpay-webhook",
+),
     # Swagger UI
     path(
         "api/docs/",

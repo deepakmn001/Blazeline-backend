@@ -103,6 +103,7 @@ class _ValidatedProduct:
     series: str
 
     attributes: Dict[str, Any]
+    specifications: Dict[str, Any]
     variant_axis_name: str
     variant_prices: Dict[str, Decimal]
     variants: List[Dict[str, Any]]
@@ -413,8 +414,21 @@ def _validate_product(
     collection = _resolve_product_field(raw_product, "collection", root_collection)
     series = _resolve_product_field(raw_product, "series", root_series)
 
-    attributes = _validate_attributes(raw_product.get("attributes"), index)
-    variant_axis_name = _validate_optional_str(raw_product, "variant_axis_name", index)
+    attributes = _validate_attributes(
+        raw_product.get("attributes"),
+        index,
+    )
+
+    specifications = _validate_attributes(
+        raw_product.get("specifications"),
+        index,
+    )
+
+    variant_axis_name = _validate_optional_str(
+        raw_product,
+        "variant_axis_name",
+        index,
+    )
     variant_result_attributes = _validate_attributes(
     raw_product.get("variant_result_attributes"),
     index,
@@ -437,6 +451,7 @@ def _validate_product(
         collection=collection,
         series=series,
         attributes=attributes,
+        specifications=specifications,
         variant_axis_name=variant_axis_name,
         variant_prices=variant_prices,
         variants=variants,
@@ -716,6 +731,7 @@ def _bulk_create_parsed_products(
             collection=product.collection,
             series=product.series,
             attributes=product.attributes,
+            specifications=product.specifications,
             variant_axis_name=product.variant_axis_name,
             variant_prices={
                 key: str(price) for key, price in product.variant_prices.items()

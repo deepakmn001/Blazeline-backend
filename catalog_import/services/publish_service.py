@@ -369,27 +369,95 @@ def _attach_specifications(product, parsed):
     # Generic parser attributes -> ProductSpecification
     # --------------------------------------------------
 
-    attributes = getattr(parsed, "attributes", {}) or {}
+        # --------------------------------------------------
+    # NEW ARCHITECTURE:
+    # Dedicated technical specifications.
+    #
+    # `attributes` is NOT used here for new imports because
+    # attributes are reserved for ProductOption / selectors.
+    # --------------------------------------------------
 
-    fanout_axis = (
-        getattr(parsed, "variant_axis_name", "") or ""
-    ).strip().lower()
+    technical_specs = getattr(parsed, "specifications", None)
 
-    for key, value in attributes.items():
+    if technical_specs:
+        if not isinstance(technical_specs, dict):
+            raise PublishError(
+                f"Technical specifications for SKU '{parsed.sku}' "
+                "must be a JSON object."
+            )
 
-        # Variant option ko specification me duplicate mat karo
-        if _normalize_axis(key) == _normalize_axis(fanout_axis):
-            continue
+        for key, value in technical_specs.items():
 
-        if isinstance(value, list):
-            value = ", ".join(map(str, value))
+            key = str(key).strip()
 
-        value = str(value).strip()
+            if not key:
+                continue
 
-        if not value:
-            continue
+            if value in (None, "", [], {}):
+                continue
 
-        specs.append((key, value))
+            if isinstance(value, list):
+                value = ", ".join(
+                    str(item).strip()
+                    for item in value
+                    if str(item).strip()
+                )
+
+            elif isinstance(value, dict):
+                value = "; ".join(
+                    f"{str(k).strip()}: {str(v).strip()}"
+                    for k, v in value.items()
+                    if str(k).strip() and str(v).strip()
+                )
+
+            value = str(value).strip()
+
+            if not value:
+                continue
+
+            specs.append((key, value))
+
+    # --------------------------------------------------
+    # LEGACY FALLBACK
+    #
+    # Only old ParsedProduct rows that don't have the
+    # dedicated `specifications` payload use attributes.
+    # --------------------------------------------------
+
+    else:
+        attributes = getattr(parsed, "attributes", {}) or {}
+
+        fanout_axis = (
+            getattr(parsed, "variant_axis_name", "") or ""
+        ).strip().lower()
+
+        for key, value in attributes.items():
+
+            # Never duplicate the actual variant/fan-out axis.
+            if _normalize_axis(key) == _normalize_axis(fanout_axis):
+                continue
+
+            if isinstance(value, list):
+                value = ", ".join(
+                    str(item).strip()
+                    for item in value
+                    if str(item).strip()
+                )
+
+            elif isinstance(value, dict):
+                value = "; ".join(
+                    f"{str(k).strip()}: {str(v).strip()}"
+                    for k, v in value.items()
+                    if str(k).strip() and str(v).strip()
+                )
+
+            value = str(value).strip()
+
+            if not value:
+                continue
+
+            specs.append((str(key).strip(), value))
+
 
     if not specs:
         return

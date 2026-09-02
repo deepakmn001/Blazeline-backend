@@ -1,0 +1,87 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div style="max-width: 900px;">
+
+    <h1>Import Serviceable Pincodes</h1>
+
+    <div style="
+        background:#f8f9fa;
+        border:1px solid #ddd;
+        border-radius:10px;
+        padding:20px;
+        margin:20px 0;
+    ">
+        <h2 style="margin-top:0;">CSV format</h2>
+
+        <pre style="
+            background:#fff;
+            border:1px solid #ddd;
+            border-radius:8px;
+            padding:15px;
+            overflow:auto;
+        ">pincode,area_name,city,state,is_active
+700001,Burrabazar,Kolkata,West Bengal,True
+700002,BBD Bagh,Kolkata,West Bengal,True
+700003,Shyambazar,Kolkata,West Bengal,True</pre>
+
+        <p>
+            Existing pincodes will be updated.
+            New pincodes will be created.
+            Duplicate rows inside the CSV will be skipped.
+            Invalid rows will be skipped and reported.
+        </p>
+    </div>
+
+    <form
+        method="post"
+        enctype="multipart/form-data"
+        style="
+            background:#fff;
+            border:1px solid #ddd;
+            border-radius:10px;
+            padding:25px;
+        "
+    >
+        {% csrf_token %}
+
+        <div style="margin-bottom:20px;">
+            <label
+                for="csv_file"
+                style="
+                    display:block;
+                    font-weight:600;
+                    margin-bottom:8px;
+                "
+            >
+                CSV File
+            </label>
+
+            <input
+                type="file"
+                name="csv_file"
+                id="csv_file"
+                accept=".csv"
+                required
+            >
+        </div>
+
+        <div style="display:flex; gap:10px;">
+            <button
+                type="submit"
+                class="default"
+            >
+                Import CSV
+            </button>
+
+            <a
+                href="../"
+                class="button"
+            >
+                Cancel
+            </a>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
