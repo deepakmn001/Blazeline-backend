@@ -21,11 +21,11 @@ router.register(
 )
 
 urlpatterns = [
-    path(
-        "catalog-import/upload/",
-        CatalogUploadAPIView.as_view(),
-        name="catalog-upload",
-    ),
+   # path(
+    #    "catalog-import/upload/",
+     #   CatalogUploadAPIView.as_view(),
+      #  name="catalog-upload",
+    #),
     path(
     "catalog-import/import-json/",
     JsonCatalogImportAPIView.as_view(),
