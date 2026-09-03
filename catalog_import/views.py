@@ -24,7 +24,7 @@ from .serializers import (
     JsonCatalogImportSerializer,
 )
 
-from .services.catalog_import_service import import_catalog
+#from .services.catalog_import_service import import_catalog
 from .services.json_import_service import import_json
 from .services.publish_service import (
     publish_parsed_product,
