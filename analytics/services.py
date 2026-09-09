@@ -521,9 +521,9 @@ def get_or_create_session(
             request,
         )
         defaults["user_agent"] = user_agent
-        defaults["device"] = device
+        defaults["device_type"] = device
         defaults["browser"] = browser
-        defaults["os"] = os_name
+        defaults["operating_system"] = os_name
 
         if not defaults["source"]:
             defaults["source"] = _derive_request_source(
@@ -564,17 +564,17 @@ def get_or_create_session(
                 user_agent,
             )
 
-            if device and not getattr(session, "device", ""):
-                session.device = device
-                update_fields.append("device")
+            if device and not getattr(session, "device_type", ""):
+                session.device_type = device
+                update_fields.append("device_type")
 
             if browser and not getattr(session, "browser", ""):
                 session.browser = browser
                 update_fields.append("browser")
 
-            if os_name and not getattr(session, "os", ""):
-                session.os = os_name
-                update_fields.append("os")
+            if os_name and not getattr(session, "operating_system", ""):
+                session.operating_system = os_name
+                update_fields.append("operating_system")
 
             if not getattr(session, "ip_address", None):
                 client_ip = _get_client_ip(request)
