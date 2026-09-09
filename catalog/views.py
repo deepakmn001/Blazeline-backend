@@ -243,7 +243,20 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     filterset_class = ProductFilter
 
-    search_fields = ["name", "description", "short_description"]
+    search_fields = [
+    "name",
+    "brand",
+    "description",
+    "short_description",
+    "category__name",
+    "subcategory__name",
+    "variants__sku",
+    "variants__barcode",
+    "options__name",
+    "options__values__value",
+    "specifications__key",
+    "specifications__value",
+]
     ordering_fields = ["name", "created_at", "updated_at"]
     ordering = ["-created_at"]
 

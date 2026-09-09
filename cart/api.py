@@ -12,7 +12,9 @@ from catalog.serializers import ProductVariantSerializer
 from . import services
 from .models import Cart, CartItem
 
+from decimal import Decimal
 
+from analytics.services import get_or_create_session, track_event
 # ==========================================================
 # CONSTANTS
 # ==========================================================
@@ -188,6 +190,93 @@ def _lock_cart(cart):
         .select_for_update()
         .get(pk=cart.pk)
     )
+def _cart_analytics_snapshot(cart):
+    """
+    Build a canonical cart snapshot for analytics.
+
+    Monetary values are stored as strings to avoid floating-point
+    precision problems inside JSON metadata.
+    """
+    items = list(
+        cart.items
+        .select_related("variant", "variant__product")
+        .all()
+    )
+
+    subtotal = sum(
+        (
+            item.variant.selling_price * item.quantity
+            for item in items
+        ),
+        Decimal("0"),
+    )
+
+    return {
+        "cart_id": cart.id,
+        "item_count": len(items),
+        "total_quantity": sum(
+            item.quantity for item in items
+        ),
+        "cart_value": str(subtotal.quantize(Decimal("0.01"))),
+    }
+
+
+def _track_cart_event(
+    *,
+    event_name,
+    request,
+    cart,
+    guest_id=None,
+    variant=None,
+    metadata=None,
+):
+    """
+    Non-critical analytics wrapper.
+
+    Cart functionality must never fail because analytics fails.
+    """
+    payload = dict(metadata or {})
+    payload.update(_cart_analytics_snapshot(cart))
+
+    product = None
+    if variant is not None:
+        product = variant.product
+
+    session = None
+
+    try:
+        raw_session_id = request.headers.get(
+            "X-Analytics-Session-Id"
+        )
+
+        session = get_or_create_session(
+            session_id=raw_session_id,
+            customer=(
+                request.user
+                if _is_customer(request)
+                else None
+            ),
+            guest_id=guest_id,
+            request=request,
+        )
+    except Exception:
+        session = None
+
+    track_event(
+        event_name=event_name,
+        request=request,
+        session=session,
+        customer=(
+            request.user
+            if _is_customer(request)
+            else None
+        ),
+        guest_id=guest_id,
+        product=product,
+        variant=variant,
+        page_path=request.path,
+        metadata=payload,
+    )
 
 
 # ==========================================================
@@ -201,13 +290,23 @@ class CartView(APIView):
     def get(self, request):
         cart, guest_id = resolve_cart(request)
 
-        return Response(
-            _serialize(
-                cart,
-                guest_id,
-                request,
-            )
+        data = _serialize(
+            cart,
+            guest_id,
+            request,
         )
+
+        _track_cart_event(
+            event_name="cart_viewed",
+            request=request,
+            cart=cart,
+            guest_id=guest_id,
+            metadata={
+                "trigger": "cart_page",
+            },
+        )
+
+        return Response(data)
 
 
 class CartItemView(APIView):
@@ -288,6 +387,9 @@ class CartItemView(APIView):
                 .first()
             )
 
+            was_existing = item is not None
+            previous_quantity = item.quantity if item else 0
+
             if item:
                 new_quantity = (
                     item.quantity + quantity
@@ -313,7 +415,7 @@ class CartItemView(APIView):
                     ]
                 )
             else:
-                CartItem.objects.create(
+                item = CartItem.objects.create(
                     cart=locked_cart,
                     variant=variant,
                     quantity=quantity,
@@ -327,6 +429,34 @@ class CartItemView(APIView):
                 )
                 .get(pk=locked_cart.pk)
             )
+
+        _track_cart_event(
+            event_name="cart_item_added",
+            request=request,
+            cart=locked_cart,
+            guest_id=guest_id,
+            variant=variant,
+            metadata={
+                "trigger": "cart_api",
+                "operation": "increment" if was_existing else "create",
+                "added_quantity": quantity,
+                "previous_quantity": previous_quantity,
+                "new_quantity": item.quantity,
+            },
+        )
+
+        _track_cart_event(
+            event_name="cart_updated",
+            request=request,
+            cart=locked_cart,
+            guest_id=guest_id,
+            variant=variant,
+            metadata={
+                "trigger": "cart_item_added",
+                "changed_variant_id": variant.id,
+                "changed_quantity": quantity,
+            },
+        )
 
         return Response(
             _serialize(
@@ -399,6 +529,7 @@ class CartItemDetailView(APIView):
                 )
 
             # The cart item itself belongs to the locked cart.
+            previous_quantity = item.quantity
             item.quantity = quantity
 
             item.save(
@@ -415,6 +546,34 @@ class CartItemDetailView(APIView):
                 )
                 .get(pk=locked_cart.pk)
             )
+
+        _track_cart_event(
+            event_name="cart_item_updated",
+            request=request,
+            cart=locked_cart,
+            guest_id=guest_id,
+            variant=item.variant,
+            metadata={
+                "trigger": "cart_api",
+                "previous_quantity": previous_quantity,
+                "new_quantity": item.quantity,
+                "quantity_delta": (
+                    item.quantity - previous_quantity
+                ),
+            },
+        )
+
+        _track_cart_event(
+            event_name="cart_updated",
+            request=request,
+            cart=locked_cart,
+            guest_id=guest_id,
+            variant=item.variant,
+            metadata={
+                "trigger": "cart_item_updated",
+                "changed_variant_id": item.variant_id,
+            },
+        )
 
         return Response(
             _serialize(
@@ -445,6 +604,9 @@ class CartItemDetailView(APIView):
                     status=status.HTTP_404_NOT_FOUND,
                 )
 
+            removed_quantity = item.quantity
+            removed_variant = item.variant
+
             item.delete()
 
             locked_cart = (
@@ -454,6 +616,31 @@ class CartItemDetailView(APIView):
                 )
                 .get(pk=locked_cart.pk)
             )
+
+        _track_cart_event(
+            event_name="cart_item_removed",
+            request=request,
+            cart=locked_cart,
+            guest_id=guest_id,
+            variant=removed_variant,
+            metadata={
+                "trigger": "cart_api",
+                "removed_quantity": removed_quantity,
+                "removed_variant_id": removed_variant.id,
+            },
+        )
+
+        _track_cart_event(
+            event_name="cart_updated",
+            request=request,
+            cart=locked_cart,
+            guest_id=guest_id,
+            variant=removed_variant,
+            metadata={
+                "trigger": "cart_item_removed",
+                "changed_variant_id": removed_variant.id,
+            },
+        )
 
         return Response(
             _serialize(

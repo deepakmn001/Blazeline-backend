@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from accounts.models import Customer
+from analytics.services import get_or_create_session, track_event
 
 from .models import Order, Payment, PaymentEvent
 from .payment_service import (
@@ -69,7 +70,74 @@ class CustomerAuthenticatedView(APIView):
 def _is_customer(request) -> bool:
     return isinstance(request.user, Customer)
 
+def _track_checkout_event(
+    *,
+    event_name: str,
+    request,
+    order=None,
+    metadata: dict | None = None,
+):
+    """
+    Best-effort checkout analytics.
 
+    Analytics failures must never affect checkout/order/payment behavior.
+    """
+    try:
+        session_id = request.headers.get(
+            "X-Analytics-Session-Id"
+        )
+
+        session = get_or_create_session(
+            session_id=session_id,
+            customer=(
+                request.user
+                if _is_customer(request)
+                else None
+            ),
+            request=request,
+        )
+
+        payload = dict(metadata or {})
+
+        if order is not None:
+            payload.update(
+                {
+                    "order_number": order.order_number,
+                    "order_id": order.id,
+                    "payment_method": order.payment_method,
+                    "currency": order.currency,
+                    "grand_total": str(order.grand_total),
+                    "payment_status": order.payment_status,
+                    "order_status": order.status,
+                }
+            )
+
+        track_event(
+            event_name=event_name,
+            request=request,
+            session=session,
+            customer=(
+                request.user
+                if _is_customer(request)
+                else None
+            ),
+            order=order,
+            page_path=request.path,
+            metadata=payload,
+        )
+
+    except Exception:
+        logger.exception(
+            "Checkout analytics tracking failed",
+            extra={
+                "event_name": event_name,
+                "customer_id": getattr(
+                    request.user,
+                    "pk",
+                    None,
+                ),
+            },
+        )
 # ============================================================================
 # DELIVERY + TAX
 # ============================================================================
@@ -357,7 +425,17 @@ class OrderCreateAPIView(CustomerAuthenticatedView):
                 },
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
-
+        _track_checkout_event(
+            event_name="checkout_order_created",
+            request=request,
+            order=order,
+            metadata={
+                "trigger": "order_create_api",
+                "idempotency_key_present": bool(
+                    idempotency_key
+                ),
+            },
+        )
         return Response(
             {
                 "success": True,

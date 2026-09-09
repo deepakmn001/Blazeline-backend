@@ -165,23 +165,57 @@ def _send_email_otp(email, code):
 
 def _send_phone_otp(phone, code):
     """
-    Sends via MSG91. Requires MSG91_AUTH_KEY + MSG91_OTP_TEMPLATE_ID env
-    vars. In DEBUG without those set, prints to console instead — so
-    local dev doesn't need a real MSG91 account.
+    Sends the OTP via WhatsApp (MSG91's WhatsApp Business API) — NOT SMS.
+    SMS/DLT was intentionally skipped for now (cost). The "phone" channel
+    still identifies the customer by phone number; only the delivery
+    method is WhatsApp.
+
+    Requires MSG91_AUTH_KEY, MSG91_WHATSAPP_INTEGRATED_NUMBER and
+    MSG91_WHATSAPP_TEMPLATE_NAME. Namespace is intentionally null — MSG91's
+    own generated code sample for this account/template shows null too.
+    In DEBUG without an auth key, prints to console instead — so local
+    dev doesn't need a real WhatsApp setup.
     """
     auth_key = getattr(settings, "MSG91_AUTH_KEY", None)
 
     if settings.DEBUG and not auth_key:
-        print(f"[DEV OTP] Phone {phone}: {code}")
+        print(f"[DEV OTP] WhatsApp {phone}: {code}")
         return
 
-    response = requests.get(
-        "https://control.msg91.com/api/v5/otp",
-        params={
-            "template_id": settings.MSG91_OTP_TEMPLATE_ID,
-            "mobile": f"91{phone}",
+    response = requests.post(
+        "https://api.msg91.com/api/v5/whatsapp/whatsapp-outbound-message/bulk/",
+        headers={
+            "Content-Type": "application/json",
             "authkey": auth_key,
-            "otp": code,
+        },
+        json={
+            "integrated_number": settings.MSG91_WHATSAPP_INTEGRATED_NUMBER,
+            "content_type": "template",
+            "payload": {
+                "messaging_product": "whatsapp",
+                "type": "template",
+                "template": {
+                    "name": settings.MSG91_WHATSAPP_TEMPLATE_NAME,
+                    "language": {
+                        "code": settings.MSG91_WHATSAPP_TEMPLATE_LANGUAGE,
+                        "policy": "deterministic",
+                    },
+                    "namespace": None,
+                    "to_and_components": [
+                        {
+                            "to": [f"91{phone}"],
+                            "components": {
+                                "body_1": {"type": "text", "value": code},
+                                "button_1": {
+                                    "subtype": "url",
+                                    "type": "text",
+                                    "value": code,
+                                },
+                            },
+                        }
+                    ],
+                },
+            },
         },
         timeout=10,
     )

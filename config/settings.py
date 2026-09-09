@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "cloudinary",
     "cloudinary_storage",
     "orders",
+    "analytics",
 
 ]
 
@@ -215,6 +216,7 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
     "x-guest-id",
     "idempotency-key",
     "x-client-timeout-ms",
+    "x-analytics-session-id",
 ]
 
 
@@ -306,3 +308,6 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "BlazeLine <no-reply@blazel
 
 MSG91_AUTH_KEY = os.getenv("MSG91_AUTH_KEY")
 MSG91_OTP_TEMPLATE_ID = os.getenv("MSG91_OTP_TEMPLATE_ID")
+MSG91_WHATSAPP_INTEGRATED_NUMBER = os.getenv("MSG91_WHATSAPP_INTEGRATED_NUMBER")
+MSG91_WHATSAPP_TEMPLATE_NAME = os.getenv("MSG91_WHATSAPP_TEMPLATE_NAME", "otp_verification")
+MSG91_WHATSAPP_TEMPLATE_LANGUAGE = os.getenv("MSG91_WHATSAPP_TEMPLATE_LANGUAGE", "en")

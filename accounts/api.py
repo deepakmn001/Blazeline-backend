@@ -7,6 +7,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
+from analytics.services import identify_session, track_event
 
 from . import services
 from .models import OTP, Address, Customer
@@ -100,6 +101,23 @@ def _merge_guest_cart_if_present(request, customer):
     if guest_id:
         from cart.services import merge_guest_cart_into_customer
         merge_guest_cart_into_customer(guest_id, customer)
+
+
+def _get_analytics_session_id(request):
+    """
+    Read the browser analytics session identity from the request.
+
+    Invalid/missing IDs are intentionally ignored.
+    """
+    raw_session_id = (
+        request.headers.get("X-Analytics-Session-Id")
+        or request.data.get("analytics_session_id")
+    )
+
+    if not raw_session_id:
+        return None
+
+    return str(raw_session_id).strip() or None
 
 
 # ==========================================================
@@ -216,6 +234,29 @@ class CompleteRegistrationView(APIView):
         tokens = services.issue_tokens_for_customer(customer)
         _merge_guest_cart_if_present(request, customer)
 
+        # Analytics identity stitching is best-effort and must never
+        # interfere with successful registration or cart merging.
+        analytics_session_id = _get_analytics_session_id(request)
+        guest_id = request.data.get("guest_id")
+
+        session = identify_session(
+            session_id=analytics_session_id,
+            customer=customer,
+            guest_id=guest_id,
+        )
+
+        track_event(
+            event_name="customer_registered",
+            request=request,
+            session=session,
+            customer=customer,
+            guest_id=guest_id,
+            metadata={
+                "registration_channel": channel,
+                "created": existing is None,
+            },
+        )
+
         return Response(
             {
                 "created": existing is None,
@@ -255,6 +296,28 @@ class LoginView(APIView):
 
         tokens = services.issue_tokens_for_customer(customer)
         _merge_guest_cart_if_present(request, customer)
+
+        # Analytics identity stitching is best-effort and must never
+        # interfere with successful login or cart merging.
+        analytics_session_id = _get_analytics_session_id(request)
+        guest_id = request.data.get("guest_id")
+
+        session = identify_session(
+            session_id=analytics_session_id,
+            customer=customer,
+            guest_id=guest_id,
+        )
+
+        track_event(
+            event_name="login_success",
+            request=request,
+            session=session,
+            customer=customer,
+            guest_id=guest_id,
+            metadata={
+                "login_channel": channel,
+            },
+        )
 
         return Response({
             "customer": CustomerSerializer(customer).data,

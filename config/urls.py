@@ -69,6 +69,10 @@ path(
         ),
         name="swagger-ui",
     ),
+    path(
+    "api/analytics/",
+    include("analytics.urls"),
+),
 ]
 
 
