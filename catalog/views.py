@@ -225,9 +225,44 @@ class ProductViewSet(viewsets.ModelViewSet):
         return ProductSerializer
 
     def get_permissions(self):
-        if self.action in ["list", "retrieve", "facets"]:
+        if self.action in [
+            "list",
+            "retrieve",
+            "facets",
+            "sitemap",
+        ]:
             return [AllowAny()]
+
         return [IsAuthenticated()]
+
+    @action(
+        detail=False,
+        methods=["get"],
+        url_path="sitemap",
+    )
+    def sitemap(self, request):
+        """
+        Lightweight public product data specifically for the XML sitemap.
+
+        Returns only:
+        - slug
+        - updated_at
+
+        No images, variants, options, prices, stock calculations,
+        specifications, or other heavy product serialization.
+        """
+
+        products = (
+            Product.objects
+            .filter(status="published")
+            .order_by("id")
+            .values("slug", "updated_at")
+        )
+
+        return Response(
+            list(products),
+            status=status.HTTP_200_OK,
+        )
 
     parser_classes = [
         parsers.MultiPartParser,
@@ -290,7 +325,6 @@ class ProductViewSet(viewsets.ModelViewSet):
         )
 
         return Response(payload, status=status.HTTP_200_OK)
-
     @action(detail=False, methods=["post"], url_path="bulk-delete")
     def bulk_delete(self, request):
         serializer = BulkDeleteSerializer(data=request.data)
