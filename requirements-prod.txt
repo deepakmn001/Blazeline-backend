@@ -17,3 +17,4 @@ pillow==12.3.0
 razorpay==2.0.1
 ujson==5.13.0
 djangorestframework-simplejwt==5.5.1
+reportlab==5.0.1
