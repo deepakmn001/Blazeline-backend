@@ -17,7 +17,7 @@ from .models import (
     PaymentEvent,
 )
 
-
+from invoices.services import process_invoice_for_order
 logger = logging.getLogger(__name__)
 
 
@@ -703,6 +703,11 @@ def confirm_checkout_payment(
                 and payment.provider_payment_id != razorpay_payment_id
             ):
                 raise PaymentValidationError("Payment record conflict.")
+
+            _schedule_invoice_workflow_after_commit(
+                order_id=order.pk,
+            )
+
             return payment
 
         if (
@@ -1259,6 +1264,10 @@ def _settle_payment_success(
                 "Payment record conflict."
             )
 
+        _schedule_invoice_workflow_after_commit(
+            order_id=order.pk,
+        )
+
         return payment
 
     # --------------------------------------------------------------
@@ -1411,7 +1420,73 @@ def _settle_payment_success(
             },
         )
 
+    # --------------------------------------------------------------
+    # INVOICE AUTOMATION
+    # --------------------------------------------------------------
+    # This runs only after the successful payment transaction commits.
+    # PDF generation, Cloudinary upload and email delivery can therefore
+    # never roll back the successful payment.
+    # --------------------------------------------------------------
+
+    _schedule_invoice_workflow_after_commit(
+        order_id=order.pk,
+    )
+
     return payment
+# ============================================================================
+# INVOICE POST-COMMIT WORKFLOW
+# ============================================================================
+
+
+def _run_invoice_workflow_after_commit(
+    *,
+    order_id: int,
+) -> None:
+    """
+    Run invoice generation/delivery after the successful payment transaction
+    has committed.
+
+    Invoice/PDF/email failures must never roll back a successful payment.
+    """
+    try:
+        invoice = process_invoice_for_order(
+            order_id=order_id,
+        )
+
+        logger.info(
+            "Post-payment invoice workflow completed.",
+            extra={
+                "order_id": order_id,
+                "invoice_id": str(invoice.pk),
+                "invoice_number": invoice.invoice_number,
+                "invoice_status": invoice.status,
+                "email_status": invoice.email_status,
+            },
+        )
+
+    except Exception:
+        logger.exception(
+            "Post-payment invoice workflow failed.",
+            extra={
+                "order_id": order_id,
+            },
+        )
+
+
+def _schedule_invoice_workflow_after_commit(
+    *,
+    order_id: int,
+) -> None:
+    """
+    Schedule invoice generation only after the successful DB transaction
+    commits.
+    """
+    transaction.on_commit(
+        lambda order_id=order_id: _run_invoice_workflow_after_commit(
+            order_id=order_id,
+        ),
+        robust=True,
+    )
 # ============================================================================
 # CAPTURE WEBHOOK
 # ============================================================================
