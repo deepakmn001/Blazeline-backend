@@ -26,7 +26,11 @@ urlpatterns = [
         "api/",
         include("catalog.urls"),
     ),
-    
+    # Promotion APIs
+path(
+    "api/",
+    include("promotions.urls"),
+),
     # Admin Auth (JWT)
         path(
         "api/auth/admin/login/",

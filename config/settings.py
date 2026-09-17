@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "cloudinary_storage",
     "orders",
     "invoices",
+    "promotions",
     "analytics",
 
 ]

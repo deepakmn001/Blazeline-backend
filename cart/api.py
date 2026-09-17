@@ -1,3 +1,5 @@
+import hashlib
+import json
 import uuid
 
 from django.db import transaction
@@ -8,9 +10,14 @@ from rest_framework.views import APIView
 
 from catalog.models import ProductVariant
 from catalog.serializers import ProductVariantSerializer
+from promotions.services import calculate_cart_promotions
 
 from . import services
-from .models import Cart, CartItem
+from .models import (
+    Cart,
+    CartItem,
+    CartItemIdempotencyKey,
+)
 
 from decimal import Decimal
 
@@ -39,6 +46,13 @@ class CartItemSerializer(serializers.ModelSerializer):
     )
 
     line_total = serializers.SerializerMethodField()
+    base_line_total = serializers.SerializerMethodField()
+    discount_amount = serializers.SerializerMethodField()
+    discounted_line_total = serializers.SerializerMethodField()
+    final_unit_price = serializers.SerializerMethodField()
+    discount_percent = serializers.SerializerMethodField()
+    discount_label = serializers.SerializerMethodField()
+    promotion_name = serializers.SerializerMethodField()
     product_name = serializers.SerializerMethodField()
     product_slug = serializers.SerializerMethodField()
 
@@ -50,12 +64,60 @@ class CartItemSerializer(serializers.ModelSerializer):
             "variant_id",
             "quantity",
             "line_total",
+            "base_line_total",
+            "discount_amount",
+            "discounted_line_total",
+            "final_unit_price",
+            "discount_percent",
+            "discount_label",
+            "promotion_name",
             "product_name",
             "product_slug",
         ]
 
+    def _pricing_for(self, obj):
+        pricing = self.context.get("promotion_pricing", {})
+        return pricing.get(obj.variant_id)
+
     def get_line_total(self, obj):
+        # Backward-compatible field: base catalog selling price × quantity.
         return obj.variant.selling_price * obj.quantity
+
+    def get_base_line_total(self, obj):
+        result = self._pricing_for(obj)
+        if result is not None:
+            return result.base_line_total
+        return obj.variant.selling_price * obj.quantity
+
+    def get_discount_amount(self, obj):
+        result = self._pricing_for(obj)
+        return result.discount_amount if result is not None else Decimal("0.00")
+
+    def get_discounted_line_total(self, obj):
+        result = self._pricing_for(obj)
+        if result is not None:
+            return result.final_line_total
+        return obj.variant.selling_price * obj.quantity
+
+    def get_final_unit_price(self, obj):
+        result = self._pricing_for(obj)
+        if result is not None:
+            return result.final_unit_price
+        return obj.variant.selling_price
+
+    def get_discount_percent(self, obj):
+        result = self._pricing_for(obj)
+        return result.discount_percent if result is not None else Decimal("0.00")
+
+    def get_discount_label(self, obj):
+        result = self._pricing_for(obj)
+        return result.discount_label if result is not None else ""
+
+    def get_promotion_name(self, obj):
+        result = self._pricing_for(obj)
+        if result is None or not result.promotion_names:
+            return ""
+        return result.promotion_names[0]
 
     def get_product_name(self, obj):
         return obj.variant.product.name
@@ -68,6 +130,9 @@ class CartSerializer(serializers.ModelSerializer):
     items = CartItemSerializer(many=True, read_only=True)
     guest_id = serializers.UUIDField(read_only=True)
     subtotal = serializers.SerializerMethodField()
+    discount_amount = serializers.SerializerMethodField()
+    discounted_subtotal = serializers.SerializerMethodField()
+    total_savings = serializers.SerializerMethodField()
     total_items = serializers.SerializerMethodField()
 
     class Meta:
@@ -77,6 +142,9 @@ class CartSerializer(serializers.ModelSerializer):
             "guest_id",
             "items",
             "subtotal",
+            "discount_amount",
+            "discounted_subtotal",
+            "total_savings",
             "total_items",
             "updated_at",
         ]
@@ -89,6 +157,21 @@ class CartSerializer(serializers.ModelSerializer):
             ),
             0,
         )
+
+    def _promotion_result(self, obj):
+        return self.context.get("promotion_result")
+
+    def get_discount_amount(self, obj):
+        result = self._promotion_result(obj)
+        return result.discount_amount if result is not None else Decimal("0.00")
+
+    def get_discounted_subtotal(self, obj):
+        result = self._promotion_result(obj)
+        return result.discounted_subtotal if result is not None else self.get_subtotal(obj)
+
+    def get_total_savings(self, obj):
+        # Naming is intentional for customer-facing cart semantics.
+        return self.get_discount_amount(obj)
 
     def get_total_items(self, obj):
         return sum(
@@ -133,8 +216,69 @@ def _parse_quantity(value, default=1):
     return quantity
 
 
+def _clean_idempotency_key(request):
+    """
+    Returns a usable idempotency key or None.
+
+    Missing header is allowed for backward compatibility.
+    """
+    raw = request.headers.get("Idempotency-Key")
+
+    if not isinstance(raw, str):
+        return None
+
+    key = raw.strip()
+
+    if not key or len(key) > 128:
+        return None
+
+    return key
+
+
+def _build_idempotency_fingerprint(*, variant_id, quantity):
+    """
+    Build a stable fingerprint for the ADD request.
+    """
+    payload = {
+        "operation": "add_cart_item",
+        "variant_id": int(variant_id),
+        "quantity": int(quantity),
+    }
+
+    canonical_payload = json.dumps(
+        payload,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+
+    return hashlib.sha256(
+        canonical_payload.encode("utf-8")
+    ).hexdigest()
+
+
 def _serialize(cart, guest_id, request):
-    data = CartSerializer(cart).data
+    # Calculate promotional pricing once per cart serialization.
+    # Checkout remains authoritative and recalculates independently.
+    cart_items = list(
+        cart.items
+        .select_related("variant", "variant__product", "variant__product__category", "variant__product__subcategory")
+        .all()
+    )
+
+    promotion_result = calculate_cart_promotions(cart_items)
+    promotion_pricing = {
+        line.variant_id: line
+        for line in promotion_result.lines
+    }
+
+    data = CartSerializer(
+        cart,
+        context={
+            "request": request,
+            "promotion_result": promotion_result,
+            "promotion_pricing": promotion_pricing,
+        },
+    ).data
 
     if guest_id and not _is_customer(request):
         data["guest_id"] = str(guest_id)
@@ -235,16 +379,14 @@ def _track_cart_event(
 
     Cart functionality must never fail because analytics fails.
     """
-    payload = dict(metadata or {})
-    payload.update(_cart_analytics_snapshot(cart))
-
-    product = None
-    if variant is not None:
-        product = variant.product
-
-    session = None
-
     try:
+        payload = dict(metadata or {})
+        payload.update(_cart_analytics_snapshot(cart))
+
+        product = None
+        if variant is not None:
+            product = variant.product
+
         raw_session_id = request.headers.get(
             "X-Analytics-Session-Id"
         )
@@ -259,24 +401,25 @@ def _track_cart_event(
             guest_id=guest_id,
             request=request,
         )
-    except Exception:
-        session = None
 
-    track_event(
-        event_name=event_name,
-        request=request,
-        session=session,
-        customer=(
-            request.user
-            if _is_customer(request)
-            else None
-        ),
-        guest_id=guest_id,
-        product=product,
-        variant=variant,
-        page_path=request.path,
-        metadata=payload,
-    )
+        track_event(
+            event_name=event_name,
+            request=request,
+            session=session,
+            customer=(
+                request.user
+                if _is_customer(request)
+                else None
+            ),
+            guest_id=guest_id,
+            product=product,
+            variant=variant,
+            page_path=request.path,
+            metadata=payload,
+        )
+
+    except Exception:
+        return
 
 
 # ==========================================================
@@ -369,12 +512,64 @@ class CartItemView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
+        idempotency_key = _clean_idempotency_key(request)
+
+        idempotency_fingerprint = None
+
+        if idempotency_key:
+            idempotency_fingerprint = _build_idempotency_fingerprint(
+                variant_id=variant.id,
+                quantity=quantity,
+            )
+
         # --------------------------
         # Atomic mutation
         # --------------------------
 
         with transaction.atomic():
             locked_cart = _lock_cart(cart)
+
+            if idempotency_key:
+                existing_key = (
+                    CartItemIdempotencyKey.objects
+                    .filter(
+                        cart=locked_cart,
+                        key=idempotency_key,
+                    )
+                    .first()
+                )
+
+                if existing_key is not None:
+                    if (
+                        existing_key.request_fingerprint
+                        != idempotency_fingerprint
+                    ):
+                        return Response(
+                            {
+                                "detail": (
+                                    "This Idempotency-Key was already used "
+                                    "for a different cart request."
+                                )
+                            },
+                            status=status.HTTP_409_CONFLICT,
+                        )
+
+                    current_cart = (
+                        Cart.objects
+                        .prefetch_related(
+                            "items__variant__product",
+                        )
+                        .get(pk=locked_cart.pk)
+                    )
+
+                    return Response(
+                        _serialize(
+                            current_cart,
+                            guest_id,
+                            request,
+                        ),
+                        status=status.HTTP_200_OK,
+                    )
 
             # Lock the existing cart item if present.
             item = (
@@ -429,6 +624,13 @@ class CartItemView(APIView):
                 )
                 .get(pk=locked_cart.pk)
             )
+
+            if idempotency_key:
+                CartItemIdempotencyKey.objects.create(
+                    cart=locked_cart,
+                    key=idempotency_key,
+                    request_fingerprint=idempotency_fingerprint,
+                )
 
         _track_cart_event(
             event_name="cart_item_added",

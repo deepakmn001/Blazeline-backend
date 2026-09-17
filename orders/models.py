@@ -124,6 +124,13 @@ class Order(models.Model):
         default=Decimal("0.00"),
         validators=[MinValueValidator(Decimal("0.00"))],
     )
+    promotion_snapshot = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text=(
+            "Immutable checkout-time snapshot of promotions applied to this order."
+        ),
+    )
 
     delivery_charge = models.DecimalField(
         max_digits=12,
@@ -369,7 +376,7 @@ class OrderItem(models.Model):
         default=Decimal("0.00"),
         validators=[MinValueValidator(Decimal("0.00"))],
     )
-
+    
     line_total = models.DecimalField(
         max_digits=12,
         decimal_places=2,

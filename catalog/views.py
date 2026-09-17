@@ -38,7 +38,10 @@ from .delivery.services import (
 )
 from .delivery.rule_scope import compute_rule_status, status_query
 from .facet_service import build_product_facets
-
+from promotions.services import (
+    PromotionEngine,
+    PromotionCalculationError,
+)
 from .models import (
     Category,
     HomepageCategory,
@@ -223,7 +226,63 @@ class ProductViewSet(viewsets.ModelViewSet):
         if self.action == "list":
             return ProductListSerializer
         return ProductSerializer
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
 
+        page = self.paginate_queryset(queryset)
+
+        if page is not None:
+            products = list(page)
+        else:
+            products = list(queryset)
+
+        variants = []
+
+        for product in products:
+            cached_variants = list(product.variants.all())
+
+            if not cached_variants:
+                continue
+
+            default_variant = next(
+                (
+                    variant
+                    for variant in cached_variants
+                    if variant.is_default
+                ),
+                cached_variants[0],
+            )
+
+            variants.append(default_variant)
+
+        promotion_pricing_by_variant = {}
+
+        if variants:
+            try:
+                promotion_pricing_by_variant = (
+                    PromotionEngine.calculate_for_variants(
+                        variants,
+                        quantity=1,
+                    )
+                )
+            except PromotionCalculationError:
+                promotion_pricing_by_variant = {}
+
+        context = self.get_serializer_context()
+        context["promotion_pricing_by_variant"] = (
+            promotion_pricing_by_variant
+        )
+
+        serializer = self.get_serializer(
+            products,
+            many=True,
+            context=context,
+        )
+
+        if page is not None:
+            return self.get_paginated_response(serializer.data)
+
+        return Response(serializer.data)
     def get_permissions(self):
         if self.action in [
             "list",
@@ -436,6 +495,7 @@ class ProductVariantViewSet(viewsets.ModelViewSet):
     def get_serializer_context(self):
         context = super().get_serializer_context()
         context["request"] = self.request
+        context["promotion_pricing_by_variant"] = {}
         return context
 
 

@@ -14,6 +14,11 @@ from django.utils import timezone
 from accounts.models import Customer
 from cart.models import Cart, CartItem
 from catalog.models import ProductVariant
+from promotions.services import (
+    PromotionCalculationError,
+    PromotionEngine,
+    PromotionLineInput,
+)
 
 from .models import (
     InventoryReservation,
@@ -704,23 +709,20 @@ def create_order_from_customer_cart(
             subtotal + item_subtotal
         )
 
-        tax_amount_total = money(
-            tax_amount_total
-            + item_tax
-        )
+        
 
         line_calculations.append(
-            {
-                "cart_item": cart_item,
-                "variant": variant,
-                "quantity": quantity,
-                "unit_price": unit_price,
-                "tax_rate": tax_rate,
-                "tax_amount": item_tax,
-                "line_total": line_total,
-                "item_subtotal": item_subtotal,
-            }
-        )
+    {
+        "cart_item": cart_item,
+        "variant": variant,
+        "quantity": quantity,
+        "unit_price": unit_price,
+        "tax_rate": tax_rate,
+        "tax_amount": Decimal("0.00"),
+        "line_total": Decimal("0.00"),
+        "item_subtotal": item_subtotal,
+    }
+)
 
     # ------------------------------------------------------------------
     # DELIVERY — SERVER AUTHORITATIVE
@@ -730,12 +732,151 @@ def create_order_from_customer_cart(
         delivery_quote.charge
     )
 
-    # Discount is deliberately zero here because no authoritative discount
-    # engine has been provided yet. Once introduced, it belongs here on the
-    # backend and MUST NOT come from the frontend.
-    discount_amount = Decimal(
-        "0.00"
+    # ------------------------------------------------------------------
+    # PROMOTIONS — SERVER AUTHORITATIVE
+    # ------------------------------------------------------------------
+    #
+    # IMPORTANT:
+    # - Never trust discount values sent by the frontend.
+    # - PromotionEngine runs only after cart and variant rows are locked.
+    # - It uses the same locked ProductVariant prices used above.
+    # - The result is persisted into the Order / OrderItem snapshots.
+    #
+    # Tax is calculated AFTER the applicable promotion discount.
+# Delivery and COD charges are added only after product-level
+# discount + GST calculations are complete.
+    # ------------------------------------------------------------------
+
+    try:
+        promotion_result = PromotionEngine.calculate(
+            (
+                PromotionLineInput(
+                    variant=calculation["variant"],
+                    quantity=calculation["quantity"],
+                )
+                for calculation in line_calculations
+            )
+        )
+    except PromotionCalculationError as exc:
+        raise InvalidOrderError(
+            f"Unable to calculate promotion: {exc}"
+        ) from exc
+    promotion_snapshot = {
+        "applied_promotion_ids": list(
+            promotion_result.applied_promotion_ids
+        ),
+        "applied_promotion_names": list(
+            promotion_result.applied_promotion_names
+        ),
+        "total_discount": str(
+            money(promotion_result.discount_amount)
+        ),
+        "lines": [
+            {
+                "variant_id": line.variant_id,
+                "quantity": line.quantity,
+                "discount_amount": str(
+                    money(line.discount_amount)
+                ),
+                "promotion_ids": list(line.promotion_ids),
+                "promotion_names": list(line.promotion_names),
+            }
+            for line in promotion_result.lines
+            if line.discount_amount > Decimal("0.00")
+        ],
+    }
+
+    discount_by_variant_id = {
+        line_result.variant_id: money(
+            line_result.discount_amount
+        )
+        for line_result in promotion_result.lines
+    }
+
+    discount_amount = money(
+        promotion_result.discount_amount
     )
+
+    # Defensive invariants.
+    if discount_amount < Decimal("0.00"):
+        raise InvalidOrderError(
+            "Calculated discount cannot be negative."
+        )
+
+    if discount_amount > subtotal:
+        raise InvalidOrderError(
+            "Calculated discount exceeds order subtotal."
+        )
+
+    tax_amount_total = Decimal("0.00")
+
+    for calculation in line_calculations:
+        variant_id = calculation["variant"].pk
+
+    
+
+        line_discount = discount_by_variant_id.get(
+            variant_id,
+            Decimal("0.00"),
+        )
+
+        line_discount = min(
+            money(line_discount),
+            money(calculation["item_subtotal"]),
+        )
+
+        discounted_subtotal = money(
+            calculation["item_subtotal"] - line_discount
+        )
+
+        # GST is calculated AFTER promotion discount.
+        tax_rate = money(
+            tax_resolver(
+                calculation["variant"],
+                discounted_subtotal,
+            )
+        )
+
+        if tax_rate < 0:
+            raise InvalidOrderError(
+                "Server tax configuration is invalid."
+            )
+
+        tax_amount = money(
+            discounted_subtotal
+            * tax_rate
+            / Decimal("100")
+        )
+
+        line_total_after_discount = money(
+            discounted_subtotal + tax_amount
+        )
+
+        calculation["discount_amount"] = line_discount
+        calculation["tax_rate"] = tax_rate
+        calculation["tax_amount"] = tax_amount
+        calculation["line_total_after_discount"] = (
+            line_total_after_discount
+        )
+
+        tax_amount_total = money(
+            tax_amount_total + tax_amount
+        )
+
+    calculated_discount_total = money(
+        sum(
+            (
+                calculation["discount_amount"]
+                for calculation in line_calculations
+            ),
+            Decimal("0.00"),
+        )
+    )
+
+    if calculated_discount_total != discount_amount:
+        raise InvalidOrderError(
+            "Promotion line discounts do not match the order discount."
+        )
 
     # ------------------------------------------------------------------
     # PAYMENT-METHOD BUSINESS RULES
@@ -787,9 +928,10 @@ def create_order_from_customer_cart(
         payment_method=payment_method,
         currency=currency,
         subtotal=money(subtotal),
-        discount_amount=money(
+                discount_amount=money(
             discount_amount
         ),
+        promotion_snapshot=promotion_snapshot,
         delivery_charge=money(
             delivery_charge
         ),
@@ -870,11 +1012,11 @@ def create_order_from_customer_cart(
             tax_amount=calculation[
                 "tax_amount"
             ],
-            discount_amount=Decimal(
-                "0.00"
-            ),
+            discount_amount=calculation[
+                "discount_amount"
+            ],
             line_total=calculation[
-                "line_total"
+                "line_total_after_discount"
             ],
             currency=currency,
             weight=money(

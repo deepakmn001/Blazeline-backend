@@ -8,7 +8,7 @@ from cloudinary.utils import cloudinary_url
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
 from rest_framework import serializers
-
+from promotions.services import PromotionEngine, PromotionCalculationError
 from .models import (
     Category,
     HomepageCategory,
@@ -368,6 +368,7 @@ class ProductVariantSerializer(serializers.ModelSerializer):
     gst_included = serializers.SerializerMethodField()
     gst_rate = serializers.SerializerMethodField()
     estimated_dispatch_days = serializers.SerializerMethodField()
+    promotion_pricing = serializers.SerializerMethodField()
 
     class Meta:
         model = ProductVariant
@@ -386,6 +387,7 @@ class ProductVariantSerializer(serializers.ModelSerializer):
             "estimated_dispatch_days",
             "images",
             "option_values",
+            "promotion_pricing",
         ]
 
     def validate(self, attrs):
@@ -458,6 +460,45 @@ class ProductVariantSerializer(serializers.ModelSerializer):
     def get_estimated_dispatch_days(self, obj):
         return getattr(obj, "lead_time_days", None)
 
+    def get_promotion_pricing(self, obj):
+        cache = self.context.setdefault("_promotion_pricing_cache", {})
+
+        if obj.id in cache:
+            return cache[obj.id]
+
+        try:
+            result = PromotionEngine.calculate_for_variants(
+                [obj],
+                quantity=1,
+            )
+        except PromotionCalculationError:
+            result = {}
+
+        line = result.get(obj.id)
+
+        if line is None:
+            data = {
+                "is_discounted": False,
+                "base_price": obj.selling_price,
+                "final_price": obj.selling_price,
+                "discount_amount": Decimal("0.00"),
+                "discount_percent": Decimal("0.00"),
+                "label": "",
+                "promotion_names": [],
+            }
+        else:
+            data = {
+                "is_discounted": line.has_discount,
+                "base_price": line.base_unit_price,
+                "final_price": line.final_unit_price,
+                "discount_amount": line.discount_amount,
+                "discount_percent": line.discount_percent,
+                "label": line.discount_label,
+                "promotion_names": list(line.promotion_names),
+            }
+
+        cache[obj.id] = data
+        return data
 
 # ==========================================================
 # PRODUCT SPECIFICATION
@@ -481,20 +522,24 @@ class ProductListSerializer(serializers.ModelSerializer):
 
     image = serializers.SerializerMethodField()
     price = serializers.SerializerMethodField()
+    promotion_pricing = serializers.SerializerMethodField()
     in_stock = serializers.SerializerMethodField()
     collection = serializers.SerializerMethodField()
     series = serializers.SerializerMethodField()
+    brand = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
         fields = [
             "id",
             "name",
+            "brand",
             "slug",
             "category",
             "subcategory",
             "image",
             "price",
+            "promotion_pricing",
             "in_stock",
             "featured",
             "status",
@@ -529,9 +574,52 @@ class ProductListSerializer(serializers.ModelSerializer):
         variant = self._get_default_variant(obj)
         if not variant:
             return None
-
+    
         return variant.selling_price
+    def get_brand(self, obj):
+        return getattr(obj, "brand", None)
+    
+    def get_promotion_pricing(self, obj):
+        variant = self._get_default_variant(obj)
 
+        if not variant:
+            return {
+                "is_discounted": False,
+                "base_price": None,
+                "final_price": None,
+                "discount_amount": Decimal("0.00"),
+                "discount_percent": Decimal("0.00"),
+                "label": "",
+                "promotion_names": [],
+            }
+
+        pricing_map = self.context.get(
+            "promotion_pricing_by_variant",
+            {},
+        )
+
+        line = pricing_map.get(variant.id)
+
+        if line is None:
+            return {
+                "is_discounted": False,
+                "base_price": variant.selling_price,
+                "final_price": variant.selling_price,
+                "discount_amount": Decimal("0.00"),
+                "discount_percent": Decimal("0.00"),
+                "label": "",
+                "promotion_names": [],
+            }
+
+        return {
+            "is_discounted": line.has_discount,
+            "base_price": line.base_unit_price,
+            "final_price": line.final_unit_price,
+            "discount_amount": line.discount_amount,
+            "discount_percent": line.discount_percent,
+            "label": line.discount_label,
+            "promotion_names": list(line.promotion_names),
+        }
     def get_in_stock(self, obj):
         variant = self._get_default_variant(obj)
         if not variant:
