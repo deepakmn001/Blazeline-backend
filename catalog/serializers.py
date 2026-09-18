@@ -1,6 +1,8 @@
 # ==========================================================
 # catalog/serializers.py
 # ==========================================================
+import json
+import re
 
 from decimal import Decimal, InvalidOperation
 
@@ -8,6 +10,8 @@ from cloudinary.utils import cloudinary_url
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
 from rest_framework import serializers
+
+from accounts.models import Customer
 from promotions.services import PromotionEngine, PromotionCalculationError
 from .models import (
     Category,
@@ -22,6 +26,9 @@ from .models import (
     ProductSpecification,
     QuoteRequest,
     QuoteAttachment,
+      InteriorConsultation,
+       InteriorConsultationActivity,
+    QuoteRequestActivity,
     DeliveryZone,
     ServiceablePincode,
     DeliveryRule,
@@ -1189,6 +1196,22 @@ class DeliveryCheckSerializer(serializers.Serializer):
 # REQUEST A QUOTE
 # ==========================================================
 
+MAX_QUOTE_FILE_SIZE = 10 * 1024 * 1024
+MAX_QUOTE_ATTACHMENTS = 10
+
+ALLOWED_QUOTE_EXTENSIONS = {
+    ".pdf",
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".webp",
+    ".doc",
+    ".docx",
+    ".xls",
+    ".xlsx",
+}
+
+
 class QuoteAttachmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuoteAttachment
@@ -1204,28 +1227,85 @@ class QuoteAttachmentSerializer(serializers.ModelSerializer):
 
 
 class QuoteRequestSerializer(serializers.ModelSerializer):
+    """
+    Public/customer-facing quote request serializer.
+
+    Supports:
+    - Normal quote form submissions
+    - Multipart attachments
+    - Product-page originated quote requests
+    - Product / variant / SKU references
+    """
 
     attachments = serializers.ListField(
-        child=serializers.FileField(),
+        child=serializers.FileField(
+            allow_empty_file=False
+        ),
         write_only=True,
         required=False,
+        max_length=MAX_QUOTE_ATTACHMENTS,
+    )
+
+    # Product-page compatibility fields.
+    # These are translated into the model's source_* fields.
+    product_slug = serializers.SlugField(
+        write_only=True,
+        required=False,
+        allow_blank=False,
+    )
+
+    variant_id = serializers.PrimaryKeyRelatedField(
+        source="source_variant",
+        queryset=ProductVariant.objects.select_related("product"),
+        write_only=True,
+        required=False,
+        allow_null=True,
+    )
+
+    sku = serializers.CharField(
+        write_only=True,
+        required=False,
+        allow_blank=False,
+        max_length=120,
+    )
+
+    quantity = serializers.IntegerField(
+        write_only=True,
+        required=False,
+        min_value=1,
+        max_value=100000,
     )
 
     class Meta:
         model = QuoteRequest
+
         fields = (
             "id",
             "quote_id",
+
             "full_name",
             "phone",
             "email",
             "company",
+
             "project_location",
             "delivery_pincode",
             "project_type",
             "materials",
             "requirements",
+
             "status",
+
+            "source",
+            "source_product",
+            "source_variant",
+            "requested_quantity",
+
+            "product_slug",
+            "variant_id",
+            "sku",
+            "quantity",
+
             "attachments",
             "created_at",
         )
@@ -1234,14 +1314,203 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
             "id",
             "quote_id",
             "status",
+            "source_product",
+            "source_variant",
+            "requested_quantity",
             "created_at",
         )
+
+    def validate_full_name(self, value):
+        value = value.strip()
+
+        if not value:
+            raise serializers.ValidationError(
+                "Full name is required."
+            )
+
+        if len(value) > 150:
+            raise serializers.ValidationError(
+                "Full name is too long."
+            )
+
+        return value
+
+    def validate_phone(self, value):
+        value = value.strip()
+
+        if not re.fullmatch(r"[0-9+\-\s()]{7,20}", value):
+            raise serializers.ValidationError(
+                "Enter a valid phone number."
+            )
+
+        return value
+
+    def validate_delivery_pincode(self, value):
+        value = value.strip()
+
+        if not re.fullmatch(r"\d{6}", value):
+            raise serializers.ValidationError(
+                "Pincode must contain exactly 6 digits."
+            )
+
+        return value
+
+    def validate_project_location(self, value):
+        value = value.strip()
+
+        if not value:
+            raise serializers.ValidationError(
+                "Project location is required."
+            )
+
+        return value
+
+    def validate_materials(self, value):
+        """
+        Accept both:
+        - normal JSON/list payload
+        - multipart JSON string
+        """
+
+        if isinstance(value, str):
+            try:
+                value = json.loads(value)
+            except (TypeError, ValueError):
+                raise serializers.ValidationError(
+                    "Materials must be a valid JSON array."
+                )
+
+        if not isinstance(value, list):
+            raise serializers.ValidationError(
+                "Materials must be a list."
+            )
+
+        if len(value) > 100:
+            raise serializers.ValidationError(
+                "A maximum of 100 material items is allowed."
+            )
+
+        return value
+
+    def validate_attachments(self, files):
+        for file in files:
+            if file.size > MAX_QUOTE_FILE_SIZE:
+                raise serializers.ValidationError(
+                    f"{file.name} exceeds the maximum file size of 10 MB."
+                )
+
+            extension = ""
+            if file.name and "." in file.name:
+                extension = "." + file.name.rsplit(".", 1)[1].lower()
+
+            if extension not in ALLOWED_QUOTE_EXTENSIONS:
+                raise serializers.ValidationError(
+                    f"Unsupported attachment type: {file.name}"
+                )
+
+        return files
+
+    def validate(self, attrs):
+        product_slug = attrs.pop("product_slug", None)
+        source_variant = attrs.get("source_variant")
+        sku = attrs.pop("sku", None)
+        quantity = attrs.pop("quantity", None)
+
+        source_product = None
+
+        # ------------------------------------------------------
+        # Resolve product from product_slug
+        # ------------------------------------------------------
+        if product_slug:
+            try:
+                source_product = Product.objects.get(
+                    slug=product_slug
+                )
+            except Product.DoesNotExist:
+                raise serializers.ValidationError({
+                    "product_slug": "Product not found."
+                })
+
+        # ------------------------------------------------------
+        # Resolve product from variant
+        # ------------------------------------------------------
+        if source_variant:
+            variant_product = source_variant.product
+
+            if source_product and variant_product.id != source_product.id:
+                raise serializers.ValidationError({
+                    "variant_id": (
+                        "The selected variant does not belong "
+                        "to the selected product."
+                    )
+                })
+
+            source_product = variant_product
+
+        # ------------------------------------------------------
+        # Resolve variant from SKU
+        # ------------------------------------------------------
+        if sku:
+            try:
+                sku_variant = ProductVariant.objects.select_related(
+                    "product"
+                ).get(sku=sku)
+            except ProductVariant.DoesNotExist:
+                raise serializers.ValidationError({
+                    "sku": "Product variant with this SKU was not found."
+                })
+
+            if source_variant and sku_variant.id != source_variant.id:
+                raise serializers.ValidationError({
+                    "sku": (
+                        "SKU does not match the selected "
+                        "product variant."
+                    )
+                })
+
+            source_variant = sku_variant
+            source_product = sku_variant.product
+
+        # ------------------------------------------------------
+        # Product / variant relationship validation
+        # ------------------------------------------------------
+        if source_variant and source_product:
+            if source_variant.product_id != source_product.id:
+                raise serializers.ValidationError({
+                    "variant_id": (
+                        "Variant does not belong to the selected product."
+                    )
+                })
+
+        # ------------------------------------------------------
+        # Save resolved product
+        # ------------------------------------------------------
+        if source_product:
+            attrs["source_product"] = source_product
+
+        if source_variant:
+            attrs["source_variant"] = source_variant
+
+        if quantity is not None:
+            attrs["requested_quantity"] = quantity
+
+        # Product-origin requests get an explicit source.
+        if (
+            source_product
+            or source_variant
+            or quantity is not None
+        ) and not attrs.get("source"):
+            attrs["source"] = "product_page"
+
+        return attrs
 
     @transaction.atomic
     def create(self, validated_data):
         files = validated_data.pop("attachments", [])
 
-        quote = QuoteRequest.objects.create(**validated_data)
+        quote = QuoteRequest.objects.create(
+            **validated_data
+        )
 
         for file in files:
             QuoteAttachment.objects.create(
@@ -1249,11 +1518,178 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
                 file=file,
             )
 
+        QuoteRequestActivity.objects.create(
+            quote=quote,
+            event_type=QuoteRequestActivity.EVENT_CREATED,
+            metadata={
+                "source": quote.source,
+                "source_product_id": quote.source_product_id,
+                "source_variant_id": quote.source_variant_id,
+                "requested_quantity": quote.requested_quantity,
+            },
+        )
+
         return quote
 
 
 
+# ==========================================================
+# INTERIOR CONSULTATION
+# ==========================================================
 
+MAX_INTERIOR_IMAGE_SIZE = 10 * 1024 * 1024
+
+
+class InteriorConsultationSerializer(serializers.ModelSerializer):
+    """
+    Customer-facing Interior Consultation serializer.
+
+    Supports:
+    - Authenticated customer linking
+    - Guest submissions
+    - Inspiration image upload
+    - Server-side validation
+    - Production-safe status handling
+    """
+
+    class Meta:
+        model = InteriorConsultation
+
+        fields = (
+            "id",
+            "consultation_id",
+
+            "property_type",
+            "service_required",
+            "property_size",
+            "project_stage",
+            "estimated_budget",
+            "timeline",
+            "design_preference",
+
+            "inspiration_photo",
+
+            "full_name",
+            "phone",
+            "email",
+            "property_location",
+            "pincode",
+
+            "preferred_consultation_date",
+
+            "additional_message",
+
+            "status",
+
+            "created_at",
+            "updated_at",
+        )
+
+        read_only_fields = (
+            "id",
+            "consultation_id",
+            "status",
+            "created_at",
+            "updated_at",
+        )
+
+    def validate_full_name(self, value):
+        value = value.strip()
+
+        if not value:
+            raise serializers.ValidationError(
+                "Full name is required."
+            )
+
+        return value
+
+    def validate_phone(self, value):
+        value = value.strip()
+
+        if not re.fullmatch(r"[0-9+\-\s()]{7,20}", value):
+            raise serializers.ValidationError(
+                "Enter a valid phone number."
+            )
+
+        return value
+
+    def validate_property_type(self, value):
+        value = value.strip()
+
+        if not value:
+            raise serializers.ValidationError(
+                "Property type is required."
+            )
+
+        return value
+
+    def validate_service_required(self, value):
+        value = value.strip()
+
+        if not value:
+            raise serializers.ValidationError(
+                "Required service is required."
+            )
+
+        return value
+
+    def validate_property_location(self, value):
+        value = value.strip()
+
+        if not value:
+            raise serializers.ValidationError(
+                "Property location is required."
+            )
+
+        return value
+
+    def validate_pincode(self, value):
+        value = value.strip()
+
+        if not re.fullmatch(r"\d{6}", value):
+            raise serializers.ValidationError(
+                "Pincode must contain exactly 6 digits."
+            )
+
+        return value
+
+    def validate_inspiration_photo(self, value):
+        if value is None:
+            return value
+
+        if value.size > MAX_INTERIOR_IMAGE_SIZE:
+            raise serializers.ValidationError(
+                "Inspiration image must be 10 MB or smaller."
+            )
+
+        return value
+
+    @transaction.atomic
+    def create(self, validated_data):
+        request = self.context.get("request")
+
+        customer = None
+
+        if request is not None:
+            user = getattr(request, "user", None)
+
+            if isinstance(user, Customer):
+                customer = user
+
+        consultation = InteriorConsultation.objects.create(
+            customer=customer,
+            **validated_data,
+        )
+
+        InteriorConsultationActivity.objects.create(
+            consultation=consultation,
+            event_type=InteriorConsultationActivity.EVENT_CREATED,
+            metadata={
+                "source": "website",
+            },
+        )
+
+        return consultation
 
 
 

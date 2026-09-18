@@ -511,7 +511,152 @@ class ServiceablePincode(models.Model):
 
     def __str__(self):
         return f"{self.pincode} - {self.area_name}"
+# ==========================================================
+# INTERIOR CONSULTATION  [NEW]
+# ==========================================================
 
+class InteriorConsultation(models.Model):
+
+    STATUS_NEW = "new"
+    STATUS_CONTACT_PENDING = "contact_pending"
+    STATUS_CONTACTED = "contacted"
+    STATUS_SCHEDULED = "scheduled"
+    STATUS_COMPLETED = "completed"
+    STATUS_CONVERTED = "converted"
+    STATUS_CLOSED = "closed"
+
+    STATUS_CHOICES = [
+        (STATUS_NEW, "New"),
+        (STATUS_CONTACT_PENDING, "Contact Pending"),
+        (STATUS_CONTACTED, "Contacted"),
+        (STATUS_SCHEDULED, "Scheduled"),
+        (STATUS_COMPLETED, "Completed"),
+        (STATUS_CONVERTED, "Converted"),
+        (STATUS_CLOSED, "Closed"),
+    ]
+
+    consultation_id = models.UUIDField(
+        default=uuid.uuid4, editable=False, unique=True, db_index=True,
+    )
+
+    customer = models.ForeignKey(
+        "accounts.Customer",
+        on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="interior_consultations",
+    )
+
+    property_type = models.CharField(max_length=100)
+    service_required = models.CharField(max_length=150)
+    property_size = models.CharField(max_length=100)
+    project_stage = models.CharField(max_length=100)
+    estimated_budget = models.CharField(max_length=100)
+    timeline = models.CharField(max_length=100)
+    design_preference = models.CharField(max_length=100)
+
+    inspiration_photo = models.ImageField(
+        upload_to="interior_consultations/", null=True, blank=True,
+    )
+
+    full_name = models.CharField(max_length=150)
+    phone = models.CharField(max_length=20)
+    email = models.EmailField(blank=True)
+
+    property_location = models.CharField(max_length=255)
+    pincode = models.CharField(max_length=6)
+
+    preferred_consultation_date = models.DateField(null=True, blank=True)
+    scheduled_for = models.DateTimeField(null=True, blank=True)
+
+    additional_message = models.TextField(blank=True)
+
+    status = models.CharField(
+        max_length=30, choices=STATUS_CHOICES, default=STATUS_NEW, db_index=True,
+    )
+
+    assigned_to = models.ForeignKey(
+        "auth.User", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="assigned_interior_consultations",
+    )
+
+    next_follow_up_at = models.DateTimeField(null=True, blank=True, db_index=True)
+    contacted_at = models.DateTimeField(null=True, blank=True)
+    completed_at = models.DateTimeField(null=True, blank=True)
+    converted_at = models.DateTimeField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Interior Consultation"
+        verbose_name_plural = "Interior Consultations"
+        indexes = [
+            models.Index(fields=["status", "-created_at"]),
+            models.Index(fields=["assigned_to", "status"]),
+            models.Index(fields=["next_follow_up_at"]),
+            models.Index(fields=["pincode"]),
+        ]
+
+    def __str__(self):
+        return f"{self.full_name} ({self.consultation_id})"
+
+
+# ==========================================================
+# INTERIOR CONSULTATION ACTIVITY  [NEW]
+# ==========================================================
+
+class InteriorConsultationActivity(models.Model):
+
+    EVENT_CREATED = "created"
+    EVENT_STATUS_CHANGED = "status_changed"
+    EVENT_ASSIGNED = "assigned"
+    EVENT_RESCHEDULED = "rescheduled"
+    EVENT_INTERNAL_NOTE = "internal_note"
+    EVENT_FOLLOW_UP_SET = "follow_up_set"
+    EVENT_CONTACTED = "contacted"
+    EVENT_COMPLETED = "completed"
+    EVENT_CONVERTED = "converted"
+
+    EVENT_CHOICES = [
+        (EVENT_CREATED, "Created"),
+        (EVENT_STATUS_CHANGED, "Status Changed"),
+        (EVENT_ASSIGNED, "Assigned"),
+        (EVENT_RESCHEDULED, "Rescheduled"),
+        (EVENT_INTERNAL_NOTE, "Internal Note"),
+        (EVENT_FOLLOW_UP_SET, "Follow-up Set"),
+        (EVENT_CONTACTED, "Contacted"),
+        (EVENT_COMPLETED, "Completed"),
+        (EVENT_CONVERTED, "Converted"),
+    ]
+
+    consultation = models.ForeignKey(
+        InteriorConsultation, on_delete=models.CASCADE, related_name="activities",
+    )
+    actor = models.ForeignKey(
+        "auth.User", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="interior_consultation_activities",
+    )
+    event_type = models.CharField(max_length=40, choices=EVENT_CHOICES)
+    from_status = models.CharField(max_length=30, blank=True)
+    to_status = models.CharField(max_length=30, blank=True)
+    note = models.TextField(blank=True)
+    metadata = models.JSONField(default=dict, blank=True)
+    occurred_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        ordering = ["-occurred_at"]
+        verbose_name = "Interior Consultation Activity"
+        verbose_name_plural = "Interior Consultation Activities"
+
+    def __str__(self):
+        return f"{self.consultation} → {self.event_type}"
+    def save(self, *args, **kwargs):
+        if self.pk:
+            raise ValidationError("Activity records are immutable.")
+        return super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        raise ValidationError("Activity records cannot be deleted.")
 
 # ==========================================================
 # REQUEST A QUOTE
@@ -558,8 +703,30 @@ class QuoteRequest(models.Model):
         max_length=20,
         choices=STATUS_CHOICES,
         default="pending",
+         db_index=True,
     )
+    # ---- CRM fields [NEW] ----
+    assigned_to = models.ForeignKey(
+        "auth.User", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="assigned_quote_requests",
+    )
+    next_follow_up_at = models.DateTimeField(null=True, blank=True, db_index=True)
+    contacted_at = models.DateTimeField(null=True, blank=True)
+    quoted_at = models.DateTimeField(null=True, blank=True)
+    approved_at = models.DateTimeField(null=True, blank=True)
+    rejected_at = models.DateTimeField(null=True, blank=True)
 
+    # ---- Product-origin fields [NEW] ----
+    source = models.CharField(max_length=50, default="website")
+    source_product = models.ForeignKey(
+        "Product", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="quote_requests",
+    )
+    source_variant = models.ForeignKey(
+        "ProductVariant", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="quote_requests",
+    )
+    requested_quantity = models.PositiveIntegerField(null=True, blank=True)
     created_at = models.DateTimeField(
         auto_now_add=True,
     )
@@ -570,6 +737,10 @@ class QuoteRequest(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        indexes = [
+            models.Index(fields=["assigned_to", "status"]),
+            models.Index(fields=["next_follow_up_at"]),
+        ]
         verbose_name = "Quote Request"
         verbose_name_plural = "Quote Requests"
 
@@ -605,7 +776,60 @@ class QuoteAttachment(models.Model):
     def __str__(self):
         return f"{self.quote.full_name} - Attachment"
 
+# ==========================================================
+# QUOTE REQUEST ACTIVITY  [NEW]
+# ==========================================================
 
+class QuoteRequestActivity(models.Model):
+
+    EVENT_CREATED = "created"
+    EVENT_STATUS_CHANGED = "status_changed"
+    EVENT_ASSIGNED = "assigned"
+    EVENT_INTERNAL_NOTE = "internal_note"
+    EVENT_FOLLOW_UP_SET = "follow_up_set"
+    EVENT_CONTACTED = "contacted"
+    EVENT_QUOTE_SENT = "quote_sent"
+    EVENT_APPROVED = "approved"
+    EVENT_REJECTED = "rejected"
+
+    EVENT_CHOICES = [
+        (EVENT_CREATED, "Created"),
+        (EVENT_STATUS_CHANGED, "Status Changed"),
+        (EVENT_ASSIGNED, "Assigned"),
+        (EVENT_INTERNAL_NOTE, "Internal Note"),
+        (EVENT_FOLLOW_UP_SET, "Follow-up Set"),
+        (EVENT_CONTACTED, "Contacted"),
+        (EVENT_QUOTE_SENT, "Quote Sent"),
+        (EVENT_APPROVED, "Approved"),
+        (EVENT_REJECTED, "Rejected"),
+    ]
+
+    quote = models.ForeignKey(QuoteRequest, on_delete=models.CASCADE, related_name="activities")
+    actor = models.ForeignKey(
+        "auth.User", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="quote_request_activities",
+    )
+    event_type = models.CharField(max_length=40, choices=EVENT_CHOICES)
+    from_status = models.CharField(max_length=20, blank=True)
+    to_status = models.CharField(max_length=20, blank=True)
+    note = models.TextField(blank=True)
+    metadata = models.JSONField(default=dict, blank=True)
+    occurred_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        ordering = ["-occurred_at"]
+        verbose_name = "Quote Request Activity"
+        verbose_name_plural = "Quote Request Activities"
+
+    def __str__(self):
+        return f"{self.quote} → {self.event_type}"
+    def save(self, *args, **kwargs):
+        if self.pk:
+            raise ValidationError("Activity records are immutable.")
+        return super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        raise ValidationError("Activity records cannot be deleted.")
 # ==========================================================
 # DELIVERY ENGINE — ZONES
 # ==========================================================
