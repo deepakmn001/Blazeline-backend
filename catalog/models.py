@@ -831,6 +831,216 @@ class QuoteRequestActivity(models.Model):
     def delete(self, *args, **kwargs):
         raise ValidationError("Activity records cannot be deleted.")
 # ==========================================================
+# WHATSAPP CONVERSATION
+# ==========================================================
+
+class WhatsAppConversation(models.Model):
+
+    STATUS_OPEN = "open"
+    STATUS_CLOSED = "closed"
+
+    STATUS_CHOICES = [
+        (STATUS_OPEN, "Open"),
+        (STATUS_CLOSED, "Closed"),
+    ]
+
+    integrated_number = models.CharField(
+        max_length=20,
+        db_index=True,
+        help_text="MSG91 integrated WhatsApp business number.",
+    )
+
+    customer_number = models.CharField(
+        max_length=20,
+        help_text="Customer WhatsApp number.",
+    )
+
+    customer_name = models.CharField(
+        max_length=150,
+        blank=True,
+        default="",
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=STATUS_OPEN,
+        db_index=True,
+    )
+
+    unread_count = models.PositiveIntegerField(default=0)
+
+    last_message_preview = models.CharField(
+        max_length=500,
+        blank=True,
+        default="",
+    )
+
+    last_message_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        db_index=True,
+    )
+
+    last_inbound_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        db_index=True,
+    )
+
+    last_outbound_at = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
+    session_expires_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="WhatsApp customer-service session expiry time.",
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-last_message_at", "-created_at"]
+        verbose_name = "WhatsApp Conversation"
+        verbose_name_plural = "WhatsApp Conversations"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["integrated_number", "customer_number"],
+                name="uniq_whatsapp_conversation_number",
+            ),
+        ]
+        indexes = [
+            models.Index(
+                fields=["status", "-last_message_at"],
+                name="wa_conv_status_last_msg",
+            ),
+            models.Index(
+                fields=["integrated_number", "customer_number"],
+                name="wa_conv_numbers",
+            ),
+        ]
+
+    def __str__(self):
+        return f"{self.customer_name or self.customer_number} ({self.customer_number})"
+
+
+# ==========================================================
+# WHATSAPP MESSAGE
+# ==========================================================
+
+class WhatsAppMessage(models.Model):
+
+    DIRECTION_INBOUND = "inbound"
+    DIRECTION_OUTBOUND = "outbound"
+
+    DIRECTION_CHOICES = [
+        (DIRECTION_INBOUND, "Inbound"),
+        (DIRECTION_OUTBOUND, "Outbound"),
+    ]
+
+    STATUS_RECEIVED = "received"
+    STATUS_SENT = "sent"
+    STATUS_DELIVERED = "delivered"
+    STATUS_READ = "read"
+    STATUS_FAILED = "failed"
+
+    STATUS_CHOICES = [
+        (STATUS_RECEIVED, "Received"),
+        (STATUS_SENT, "Sent"),
+        (STATUS_DELIVERED, "Delivered"),
+        (STATUS_READ, "Read"),
+        (STATUS_FAILED, "Failed"),
+    ]
+
+    conversation = models.ForeignKey(
+        WhatsAppConversation,
+        on_delete=models.CASCADE,
+        related_name="messages",
+    )
+
+    direction = models.CharField(
+        max_length=20,
+        choices=DIRECTION_CHOICES,
+        db_index=True,
+    )
+
+    message_type = models.CharField(
+        max_length=30,
+        default="text",
+        help_text="text, image, document, audio, video, etc.",
+    )
+
+    text = models.TextField(
+        blank=True,
+        default="",
+    )
+
+    provider_message_id = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        unique=True,
+        help_text="WhatsApp/MSG91 message ID (WAMID/UUID where available).",
+    )
+
+    provider_request_id = models.CharField(
+        max_length=255,
+        blank=True,
+        default="",
+        db_index=True,
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=STATUS_RECEIVED,
+        db_index=True,
+    )
+
+    sent_by = models.ForeignKey(
+        "auth.User",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="whatsapp_messages_sent",
+    )
+
+    raw_payload = models.JSONField(
+        default=dict,
+        blank=True,
+    )
+
+    occurred_at = models.DateTimeField(
+        db_index=True,
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    class Meta:
+        ordering = ["occurred_at", "id"]
+        verbose_name = "WhatsApp Message"
+        verbose_name_plural = "WhatsApp Messages"
+        indexes = [
+            models.Index(
+                fields=["conversation", "occurred_at"],
+                name="wa_msg_conv_occurred",
+            ),
+            models.Index(
+                fields=["direction", "occurred_at"],
+                name="wa_msg_direction_time",
+            ),
+        ]
+
+    def __str__(self):
+        preview = self.text[:60] if self.text else self.message_type
+        return f"{self.direction} → {preview}"
+# ==========================================================
 # DELIVERY ENGINE — ZONES
 # ==========================================================
 

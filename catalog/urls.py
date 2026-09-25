@@ -30,6 +30,7 @@ from .crm_message_views import (
     AdminInteriorConsultationMessageAPIView,
     AdminQuoteRequestMessageAPIView,
 )
+from .whatsapp_webhook import msg91_whatsapp_inbound_webhook
 from .views import (
     CategoryViewSet,
      HomepageCategoryViewSet,
@@ -134,6 +135,11 @@ router.register("admin/delivery/rules", DeliveryRuleViewSet, basename="admin-del
 # ==========================================================
 
 urlpatterns = [
+    path(
+    "whatsapp/webhook/msg91/",
+    msg91_whatsapp_inbound_webhook,
+    name="msg91-whatsapp-inbound-webhook",
+),
     path(
         "dashboard/",
         DashboardAPIView.as_view(),
