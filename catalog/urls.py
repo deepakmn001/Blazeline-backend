@@ -30,6 +30,12 @@ from .crm_message_views import (
     AdminInteriorConsultationMessageAPIView,
     AdminQuoteRequestMessageAPIView,
 )
+from .whatsapp_views import (
+    AdminWhatsAppConversationListAPIView,
+    AdminWhatsAppConversationDetailAPIView,
+    AdminWhatsAppConversationReadAPIView,
+    AdminWhatsAppConversationReplyAPIView,
+)
 from .whatsapp_webhook import msg91_whatsapp_inbound_webhook
 from .views import (
     CategoryViewSet,
@@ -135,6 +141,33 @@ router.register("admin/delivery/rules", DeliveryRuleViewSet, basename="admin-del
 # ==========================================================
 
 urlpatterns = [
+    # ==========================================================
+# WHATSAPP — ADMIN INBOX
+# ==========================================================
+
+path(
+    "admin/whatsapp/conversations/",
+    AdminWhatsAppConversationListAPIView.as_view(),
+    name="admin-whatsapp-conversations",
+),
+
+path(
+    "admin/whatsapp/conversations/<int:pk>/",
+    AdminWhatsAppConversationDetailAPIView.as_view(),
+    name="admin-whatsapp-conversation-detail",
+),
+
+path(
+    "admin/whatsapp/conversations/<int:pk>/read/",
+    AdminWhatsAppConversationReadAPIView.as_view(),
+    name="admin-whatsapp-conversation-read",
+),
+
+path(
+    "admin/whatsapp/conversations/<int:pk>/reply/",
+    AdminWhatsAppConversationReplyAPIView.as_view(),
+    name="admin-whatsapp-conversation-reply",
+),
     path(
     "whatsapp/webhook/msg91/",
     msg91_whatsapp_inbound_webhook,
