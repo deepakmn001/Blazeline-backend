@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import logging
 from datetime import timedelta
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 
 import cloudinary
 import cloudinary.uploader
@@ -27,6 +29,13 @@ INVOICE_FORMAT = "pdf"
 # Short-lived access URL.
 # This is deliberately not stored permanently in the database.
 DEFAULT_DOWNLOAD_TTL = timedelta(hours=24)
+
+# Server-side one-off fetch settings used when an invoice PDF must be
+# attached to an email. The fetch is bounded so a malformed remote response
+# cannot cause unbounded memory consumption.
+DEFAULT_EMAIL_FETCH_TTL = timedelta(minutes=10)
+MAX_INVOICE_PDF_BYTES = 10 * 1024 * 1024
+INVOICE_FETCH_TIMEOUT_SECONDS = 30
 
 
 # ============================================================================
@@ -238,3 +247,93 @@ def generate_invoice_download_url(
         )
 
     return str(url)
+
+# ============================================================================
+# SERVER-SIDE PDF RETRIEVAL
+# ============================================================================
+
+
+def download_invoice_pdf_bytes(
+    *,
+    invoice: Invoice,
+    expires_in: timedelta = DEFAULT_EMAIL_FETCH_TTL,
+) -> bytes:
+    """
+    Fetch the exact canonical invoice PDF currently stored in Cloudinary.
+
+    This function never re-renders the invoice and never changes the stored
+    asset. It creates a short-lived signed URL on demand, downloads the raw
+    bytes server-side, validates the PDF signature, and returns those exact
+    bytes for downstream attachment handling (for example email).
+    """
+
+    url = generate_invoice_download_url(
+        invoice=invoice,
+        expires_in=expires_in,
+        attachment=False,
+    )
+
+    request = Request(
+        url,
+        headers={
+            "User-Agent": "BlazeLine-Invoice-Service/1.0",
+            "Accept": "application/pdf,*/*;q=0.1",
+        },
+        method="GET",
+    )
+
+    try:
+        with urlopen(
+            request,
+            timeout=INVOICE_FETCH_TIMEOUT_SECONDS,
+        ) as response:
+            content_length = response.headers.get("Content-Length")
+
+            if content_length:
+                try:
+                    if int(content_length) > MAX_INVOICE_PDF_BYTES:
+                        raise ValidationError(
+                            "Stored invoice PDF exceeds the allowed size."
+                        )
+                except ValueError:
+                    # Ignore an invalid/missing Content-Length and rely on the
+                    # bounded read below.
+                    pass
+
+            pdf_bytes = response.read(
+                MAX_INVOICE_PDF_BYTES + 1
+            )
+
+    except ValidationError:
+        raise
+    except (HTTPError, URLError, TimeoutError, OSError) as exc:
+        logger.exception(
+            "Failed to fetch stored invoice PDF from Cloudinary.",
+            extra={
+                "invoice_id": str(invoice.pk),
+                "invoice_number": invoice.invoice_number,
+            },
+        )
+        raise ValidationError(
+            "Stored invoice PDF could not be retrieved."
+        ) from exc
+    except Exception as exc:
+        logger.exception(
+            "Unexpected error while fetching stored invoice PDF.",
+            extra={
+                "invoice_id": str(invoice.pk),
+                "invoice_number": invoice.invoice_number,
+            },
+        )
+        raise ValidationError(
+            "Stored invoice PDF could not be retrieved."
+        ) from exc
+
+    if len(pdf_bytes) > MAX_INVOICE_PDF_BYTES:
+        raise ValidationError(
+            "Stored invoice PDF exceeds the allowed size."
+        )
+
+    _validate_pdf_bytes(pdf_bytes)
+
+    return pdf_bytes

@@ -1,18 +1,19 @@
 from __future__ import annotations
 
 """
-Production-grade read-only API for the custom BlazeLine Admin Invoice UI.
+Production-grade invoice API for the custom BlazeLine Admin UI.
 
 Endpoints expected by the custom Next.js admin:
 
     GET /api/admin/invoices/
     GET /api/admin/invoices/overview/
-    GET /api/admin/invoices/<uuid:pk>/
+    GET  /api/admin/invoices/<uuid:pk>/
+    POST /api/admin/invoices/<uuid:pk>/send-email/
 
 Design goals
 ------------
 - Admin-only access; invoice data is never public.
-- Read-only: this module does not mutate invoice or invoice-item snapshots.
+- Read-only invoice data plus an explicit admin-only email send action.
 - Queryset optimized with select_related/prefetch_related.
 - Stable, explicit ordering whitelist; no arbitrary ORM ordering from clients.
 - Server-side pagination with a bounded page size.
@@ -36,6 +37,7 @@ from django.db.models import Count, Prefetch, Q, QuerySet
 from django.utils import timezone
 from rest_framework import permissions, status
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -113,6 +115,7 @@ ORDERING_FIELDS = {
 
 DEFAULT_ORDERING = "-issued_at"
 MAX_SEARCH_LENGTH = 200
+MAX_CUSTOM_ATTACHMENT_SIZE = 10 * 1024 * 1024
 
 
 # ============================================================================
@@ -521,4 +524,171 @@ class InvoiceAdminDetailAPIView(APIView):
 
         return Response(
             _serialize_invoice(invoice, include_items=True)
+        )
+
+
+# ============================================================================
+# MANUAL EMAIL DELIVERY
+# ============================================================================
+
+
+def _resolve_invoice(pk: UUID) -> Invoice | None:
+    """Resolve one invoice using the same optimized admin queryset."""
+
+    try:
+        return _base_invoice_queryset().filter(pk=pk).first()
+    except (TypeError, ValueError):
+        return None
+
+
+def _validate_custom_pdf(uploaded_file) -> tuple[bytes | None, Response | None]:
+    """Validate an admin-uploaded PDF used only as an email attachment."""
+
+    if uploaded_file is None:
+        return None, Response(
+            {
+                "detail": "A custom PDF file is required.",
+                "code": "custom_pdf_required",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    size = getattr(uploaded_file, "size", None)
+    if size is not None and size > MAX_CUSTOM_ATTACHMENT_SIZE:
+        return None, Response(
+            {
+                "detail": "Custom invoice PDF must be 10 MB or smaller.",
+                "code": "custom_pdf_too_large",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    filename = str(getattr(uploaded_file, "name", "") or "").strip().lower()
+    content_type = str(getattr(uploaded_file, "content_type", "") or "").strip().lower()
+
+    if not filename.endswith(".pdf") and content_type != "application/pdf":
+        return None, Response(
+            {
+                "detail": "Only PDF files can be used as custom invoice attachments.",
+                "code": "custom_pdf_invalid_type",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    try:
+        pdf_bytes = uploaded_file.read()
+    except Exception:
+        return None, Response(
+            {
+                "detail": "The custom PDF could not be read.",
+                "code": "custom_pdf_read_failed",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    if not isinstance(pdf_bytes, bytes) or not pdf_bytes:
+        return None, Response(
+            {
+                "detail": "The custom PDF is empty.",
+                "code": "custom_pdf_empty",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    if len(pdf_bytes) > MAX_CUSTOM_ATTACHMENT_SIZE:
+        return None, Response(
+            {
+                "detail": "Custom invoice PDF must be 10 MB or smaller.",
+                "code": "custom_pdf_too_large",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    if not pdf_bytes.startswith(b"%PDF"):
+        return None, Response(
+            {
+                "detail": "The uploaded file is not a valid PDF.",
+                "code": "custom_pdf_invalid_content",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    return pdf_bytes, None
+
+
+class InvoiceAdminSendEmailAPIView(APIView):
+    """Explicit admin action for sending the invoice email."""
+
+    permission_classes = [IsAdminStaff]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
+    http_method_names = ["post", "options"]
+
+    def post(self, request, pk: UUID):
+        invoice = _resolve_invoice(pk)
+
+        if invoice is None:
+            return Response(
+                {"detail": "Invoice not found.", "code": "invoice_not_found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        if not str(invoice.customer_email or "").strip():
+            return Response(
+                {
+                    "detail": "This invoice does not have a customer email address.",
+                    "code": "customer_email_missing",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        mode = str(request.data.get("mode") or "default").strip().lower()
+        if mode not in {"default", "custom"}:
+            return Response(
+                {
+                    "detail": "Invalid send mode. Use 'default' or 'custom'.",
+                    "code": "invalid_send_mode",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        attachment_bytes = None
+        attachment_filename = None
+
+        if mode == "custom":
+            attachment_bytes, error = _validate_custom_pdf(request.FILES.get("file"))
+            if error:
+                return error
+            attachment_filename = f"{invoice.invoice_number}.pdf"
+
+        try:
+            from .email import send_invoice_email
+
+            sent_invoice = send_invoice_email(
+                invoice=invoice,
+                force=True,
+                attachment_bytes=attachment_bytes,
+                attachment_filename=attachment_filename,
+            )
+        except Exception:
+            failed_invoice = _resolve_invoice(pk) or invoice
+            return Response(
+                {
+                    "detail": "Invoice email could not be sent.",
+                    "code": "invoice_email_send_failed",
+                    "invoice": _serialize_invoice(failed_invoice, include_items=True),
+                },
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+
+        return Response(
+            {
+                "message": (
+                    "Invoice email sent using the default invoice PDF."
+                    if mode == "default"
+                    else "Invoice email sent with the custom PDF attachment."
+                ),
+                "mode": mode,
+                "invoice": _serialize_invoice(sent_invoice, include_items=True),
+            },
+            status=status.HTTP_200_OK,
         )

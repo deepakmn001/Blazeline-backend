@@ -39,12 +39,11 @@ def process_invoice_for_order(
     - Canonical invoice creation is idempotent.
     - WhatsApp is intentionally disabled for the current rollout.
     - PDF generation/upload happens only when the Cloudinary asset is absent.
-    - Email delivery is idempotent and never forced here.
-    - A successful payment is never rolled back because invoice delivery fails.
-    - Delivery failures are persisted on the invoice for later retry/diagnostics.
+    - Customer email delivery is intentionally not part of this automatic workflow.
+    - A successful payment is never rolled back because invoice generation fails.
+    - Email delivery is performed only by an explicit admin action.
     """
 
-    from .email import send_invoice_email
     from .pdf import render_invoice_pdf
     from .storage import upload_invoice_pdf
 
@@ -112,20 +111,11 @@ def process_invoice_for_order(
             )
 
         # ------------------------------------------------------------------
-        # Email delivery.
+        # Automatic customer email is intentionally DISABLED.
         #
-        # send_invoice_email() is idempotent and will not resend an already
-        # delivered invoice unless force=True is explicitly requested.
+        # Invoice generation and PDF storage continue normally. Customer
+        # delivery is now an explicit admin action via the custom Admin UI.
         # ------------------------------------------------------------------
-        if (
-            invoice.email_status
-            != Invoice.DeliveryStatus.SENT
-        ):
-            invoice = send_invoice_email(
-                invoice=invoice,
-            )
-        else:
-            invoice.refresh_from_db()
 
         # ------------------------------------------------------------------
         # Recalculate the canonical invoice lifecycle state.

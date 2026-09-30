@@ -9,8 +9,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.utils import timezone
 
 from .models import Invoice
-from .pdf import render_invoice_pdf
 from .services import refresh_invoice_delivery_status
+from .storage import download_invoice_pdf_bytes
 
 
 logger = logging.getLogger(__name__)
@@ -508,6 +508,8 @@ def send_invoice_email(
     *,
     invoice: Invoice,
     force: bool = False,
+    attachment_bytes: bytes | None = None,
+    attachment_filename: str | None = None,
 ) -> Invoice:
     """
     Send the canonical invoice PDF to the customer's email.
@@ -516,8 +518,11 @@ def send_invoice_email(
         If the invoice is already marked SENT, no second email is sent
         unless force=True.
 
-    The PDF is rendered from the immutable invoice snapshot rather than
-    reading mutable order/catalog state.
+    Default mode always sends the exact canonical PDF already stored for the
+    invoice. It is retrieved from authenticated Cloudinary storage via a short-
+    lived signed URL and is never re-rendered during a resend. An optional
+    admin-supplied PDF can be attached for a one-off manual send without
+    replacing the canonical stored invoice asset.
     """
 
     email = _require_customer_email(
@@ -533,17 +538,28 @@ def send_invoice_email(
 
     try:
         # --------------------------------------------------------------
-        # Render canonical PDF
+        # Resolve email attachment
         # --------------------------------------------------------------
 
-        pdf_bytes = render_invoice_pdf(
-            invoice=invoice
-        )
-
-        if not pdf_bytes:
-            raise ValidationError(
-                "Invoice PDF generation returned empty data."
+        if attachment_bytes is None:
+            # Default mode MUST send the immutable/canonical stored PDF.
+            # Never silently re-render an historical invoice at resend time.
+            pdf_bytes = download_invoice_pdf_bytes(
+                invoice=invoice,
             )
+
+        else:
+            if not isinstance(attachment_bytes, bytes) or not attachment_bytes:
+                raise ValidationError(
+                    "Invoice email attachment is empty or invalid."
+                )
+
+            if not attachment_bytes.startswith(b"%PDF"):
+                raise ValidationError(
+                    "Invoice email attachment is not a valid PDF."
+                )
+
+            pdf_bytes = attachment_bytes
 
         # --------------------------------------------------------------
         # Build email
@@ -596,8 +612,23 @@ def send_invoice_email(
         )
 
         filename = (
-            f"{invoice.invoice_number}.pdf"
+            attachment_filename.strip()
+            if attachment_filename and attachment_filename.strip()
+            else f"{invoice.invoice_number}.pdf"
         )
+
+        # Attachment names are presentation-only. Do not permit path
+        # separators or control characters to cross the mail backend boundary.
+        filename = (
+            filename
+            .replace("\\", "_")
+            .replace("/", "_")
+            .replace("\r", "_")
+            .replace("\n", "_")
+        )
+
+        if not filename.lower().endswith(".pdf"):
+            filename = f"{filename}.pdf"
 
         email_message.attach(
             filename,
