@@ -1599,6 +1599,69 @@ def _extract_payment_link_amount_paid(
         return int(value)
     except (TypeError, ValueError):
         return None
+def _find_payment_for_webhook(
+    *,
+    gateway_order_id: str,
+    payment_entity: dict,
+) -> Payment | None:
+    """
+    Resolve a BlazeLine Payment from a Razorpay webhook.
+
+    Normal checkout webhooks are matched by Razorpay order ID.
+    Payment Link webhooks/events can also carry our signed-in provider
+    notes with the BlazeLine Payment primary key.
+    """
+
+    payment_by_order = None
+
+    if gateway_order_id:
+        payment_by_order = (
+            Payment.objects
+            .select_for_update()
+            .filter(
+                provider="razorpay",
+                provider_order_id=gateway_order_id,
+            )
+            .first()
+        )
+
+    notes = payment_entity.get("notes")
+
+    blazeline_payment_id = None
+
+    if isinstance(notes, dict):
+        raw_payment_id = notes.get("blazeline_payment_id")
+
+        if raw_payment_id is not None:
+            try:
+                blazeline_payment_id = int(raw_payment_id)
+            except (TypeError, ValueError):
+                raise PaymentWebhookError(
+                    "Invalid BlazeLine payment reference in webhook."
+                )
+
+    payment_by_note = None
+
+    if blazeline_payment_id is not None:
+        payment_by_note = (
+            Payment.objects
+            .select_for_update()
+            .filter(
+                pk=blazeline_payment_id,
+                provider="razorpay",
+            )
+            .first()
+        )
+
+    if payment_by_order and payment_by_note:
+        if payment_by_order.pk != payment_by_note.pk:
+            raise PaymentWebhookError(
+                "Webhook payment references conflicting BlazeLine payments."
+            )
+
+        return payment_by_order
+
+    return payment_by_order or payment_by_note
 @transaction.atomic
 def process_payment_captured_webhook(
     *,
@@ -1651,14 +1714,9 @@ def process_payment_captured_webhook(
             "Webhook payment does not contain a currency."
         )
 
-    payment = (
-        Payment.objects
-        .select_for_update()
-        .filter(
-            provider="razorpay",
-            provider_order_id=gateway_order_id,
-        )
-        .first()
+    payment = _find_payment_for_webhook(
+        gateway_order_id=gateway_order_id,
+        payment_entity=payment_entity,
     )
 
     if not payment:
@@ -2092,14 +2150,9 @@ def process_order_paid_webhook(
             "Webhook payment does not contain a currency."
         )
 
-    payment = (
-        Payment.objects
-        .select_for_update()
-        .filter(
-            provider="razorpay",
-            provider_order_id=gateway_order_id,
-        )
-        .first()
+    payment = _find_payment_for_webhook(
+        gateway_order_id=gateway_order_id,
+        payment_entity=payment_entity,
     )
 
     if not payment:
