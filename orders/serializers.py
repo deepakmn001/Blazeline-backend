@@ -289,6 +289,7 @@ class OrderSerializer(
         fields = [
             "id",
             "order_number",
+            "source",
             "status",
             "payment_status",
             "payment_method",
@@ -346,6 +347,7 @@ class OrderListSerializer(
         fields = [
             "id",
             "order_number",
+            "source",
             "status",
             "payment_status",
             "payment_method",

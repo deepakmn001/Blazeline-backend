@@ -7,6 +7,12 @@ from .views import (
     RazorpayPaymentCreateAPIView,
     RazorpayPaymentVerifyAPIView,
 )
+from .admin_views import (
+    AdminDirectOrderCreateAPIView,
+    AdminDirectOrderDetailAPIView,
+    AdminDirectOrderListAPIView,
+    AdminDirectOrderPaymentLinkAPIView,
+)
 
 
 urlpatterns = [
@@ -19,6 +25,30 @@ urlpatterns = [
         "create/",
         OrderCreateAPIView.as_view(),
         name="order-create",
+    ),
+        # ======================================================
+    # ADMIN — DIRECT ORDERS
+    # ======================================================
+
+    path(
+        "direct-orders/",
+        AdminDirectOrderListAPIView.as_view(),
+        name="admin-direct-order-list",
+    ),
+    path(
+        "direct-orders/create/",
+        AdminDirectOrderCreateAPIView.as_view(),
+        name="admin-direct-order-create",
+    ),
+    path(
+        "direct-orders/<str:order_number>/",
+        AdminDirectOrderDetailAPIView.as_view(),
+        name="admin-direct-order-detail",
+    ),
+    path(
+        "direct-orders/<str:order_number>/payment-link/",
+        AdminDirectOrderPaymentLinkAPIView.as_view(),
+        name="admin-direct-order-payment-link",
     ),
     path(
         "<str:order_number>/",

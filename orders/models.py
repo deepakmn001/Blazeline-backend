@@ -51,6 +51,7 @@ class Order(models.Model):
         NETBANKING = "netbanking", "Net Banking"
         COD = "cod", "Cash on Delivery"
         CREDIT = "credit", "Credit Terms"
+        PAYMENT_LINK = "payment_link", "Payment Link"
 
     # ------------------------------------------------------
     # Identity
@@ -79,6 +80,17 @@ class Order(models.Model):
         db_index=True,
         help_text="Client-supplied idempotency token for safe retries.",
     )
+    class Source(models.TextChoices):
+     STOREFRONT = "storefront", "Storefront"
+     DIRECT = "direct", "Direct Order"
+
+    source = models.CharField(
+    max_length=20,
+    choices=Source.choices,
+    default=Source.STOREFRONT,
+    db_index=True,
+    help_text="How the order was created.",
+)
 
     # ------------------------------------------------------
     # State
@@ -598,7 +610,123 @@ class Payment(models.Model):
     def __str__(self):
         return f"{self.order.order_number} · {self.provider} · {self.status}"
 
+# ==========================================================
+# RAZORPAY PAYMENT LINK
+# ==========================================================
 
+
+class PaymentLink(models.Model):
+    """
+    Razorpay Payment Link mapped to one BlazeLine Payment.
+
+    A payment may have more than one link over its lifetime
+    (for example, after expiry/cancellation and regeneration).
+    """
+
+    class Status(models.TextChoices):
+        CREATED = "created", "Created"
+        ACTIVE = "active", "Active"
+        PAID = "paid", "Paid"
+        EXPIRED = "expired", "Expired"
+        CANCELLED = "cancelled", "Cancelled"
+        FAILED = "failed", "Failed"
+
+    payment = models.ForeignKey(
+        Payment,
+        on_delete=models.PROTECT,
+        related_name="payment_links",
+    )
+
+    provider = models.CharField(
+        max_length=50,
+        default="razorpay",
+        db_index=True,
+    )
+
+    provider_link_id = models.CharField(
+        max_length=255,
+        unique=True,
+        db_index=True,
+        help_text="Razorpay Payment Link ID.",
+    )
+
+    reference_id = models.CharField(
+        max_length=255,
+        blank=True,
+        db_index=True,
+        help_text="BlazeLine-side reference used while creating the link.",
+    )
+
+    short_url = models.URLField(
+        max_length=1000,
+    )
+
+    amount = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        validators=[MinValueValidator(Decimal("0.00"))],
+    )
+
+    currency = models.CharField(
+        max_length=3,
+        default="INR",
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=Status.choices,
+        default=Status.CREATED,
+        db_index=True,
+    )
+
+    expires_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        db_index=True,
+    )
+
+    paid_at = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
+    cancelled_at = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
+    raw_metadata = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text="Non-secret Razorpay response/event metadata.",
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        db_index=True,
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+    )
+
+    class Meta:
+        ordering = ["-created_at"]
+        indexes = [
+            models.Index(
+                fields=["payment", "-created_at"],
+                name="paylink_payment_created_idx",
+            ),
+            models.Index(
+                fields=["status", "-created_at"],
+                name="paylink_status_created_idx",
+            ),
+        ]
+        verbose_name = "Payment Link"
+        verbose_name_plural = "Payment Links"
+
+    def __str__(self):
+        return f"{self.payment.order.order_number} · {self.provider_link_id}"
 # ==========================================================
 # PAYMENT EVENT / WEBHOOK DEDUPLICATION
 # ==========================================================

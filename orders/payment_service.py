@@ -15,6 +15,7 @@ from .models import (
     Order,
     Payment,
     PaymentEvent,
+    PaymentLink,
 )
 
 from invoices.services import process_invoice_for_order
@@ -1386,39 +1387,78 @@ def _settle_payment_success(
     # Released/expired reservations are deliberately not resurrected.
     # --------------------------------------------------------------
 
-    active_reservations = list(
-        InventoryReservation.objects
-        .select_for_update()
-        .filter(
-            order=order,
-            status=InventoryReservation.Status.ACTIVE,
-        )
-    )
+    # --------------------------------------------------------------
+# Inventory settlement.
+#
+# Storefront orders use inventory reservations.
+# Direct Orders may contain offline/custom products and therefore
+# intentionally have no InventoryReservation rows.
+# --------------------------------------------------------------
+    if order.source == Order.Source.DIRECT:
+        # Direct/custom products are not tied to catalog inventory.
+        # Nothing to reserve, consume or reconcile here.
+        pass
 
-    if active_reservations:
-        consumed_at = timezone.now()
-        for reservation in active_reservations:
-            reservation.status = InventoryReservation.Status.CONSUMED
-            reservation.consumed_at = consumed_at
-            reservation.save(update_fields=["status", "consumed_at"])
     else:
-        metadata = payment.raw_metadata if isinstance(payment.raw_metadata, dict) else {}
-        payment.raw_metadata = {
-            **metadata,
-            "stock_reconciliation_required": True,
-            "stock_reconciliation_reason": (
-                "Payment captured after the inventory reservation was no longer ACTIVE."
-            ),
-        }
-        payment.save(update_fields=["raw_metadata", "updated_at"])
-        logger.critical(
-            "Late payment capture requires stock reconciliation",
-            extra={
-                "order_number": order.order_number,
-                "payment_id": payment.id,
-                "provider_payment_id": gateway_payment_id,
-            },
+        active_reservations = list(
+            InventoryReservation.objects
+            .select_for_update()
+            .filter(
+                order=order,
+                status=InventoryReservation.Status.ACTIVE,
+            )
         )
+
+        if active_reservations:
+            consumed_at = timezone.now()
+
+            for reservation in active_reservations:
+                reservation.status = (
+                    InventoryReservation.Status.CONSUMED
+                )
+                reservation.consumed_at = consumed_at
+
+                reservation.save(
+                    update_fields=[
+                        "status",
+                        "consumed_at",
+                    ]
+                )
+
+        else:
+            metadata = (
+                payment.raw_metadata
+                if isinstance(
+                    payment.raw_metadata,
+                    dict,
+                )
+                else {}
+            )
+
+            payment.raw_metadata = {
+                **metadata,
+                "stock_reconciliation_required": True,
+                "stock_reconciliation_reason": (
+                    "Payment captured after the inventory reservation "
+                    "was no longer ACTIVE."
+                ),
+            }
+
+            payment.save(
+                update_fields=[
+                    "raw_metadata",
+                    "updated_at",
+                ],
+            )
+
+            logger.critical(
+                "Late payment capture requires stock reconciliation",
+                extra={
+                    "order_number": order.order_number,
+                    "payment_id": payment.id,
+                    "provider_payment_id": gateway_payment_id,
+                },
+            )
 
     # --------------------------------------------------------------
     # INVOICE AUTOMATION
@@ -1426,8 +1466,6 @@ def _settle_payment_success(
     # This runs only after the successful payment transaction commits.
     # PDF generation, Cloudinary upload and email delivery can therefore
     # never roll back the successful payment.
-    # --------------------------------------------------------------
-
     _schedule_invoice_workflow_after_commit(
         order_id=order.pk,
     )
@@ -1491,7 +1529,76 @@ def _schedule_invoice_workflow_after_commit(
 # CAPTURE WEBHOOK
 # ============================================================================
 
+# ============================================================================
+# PAYMENT LINK WEBHOOK EXTRACTION
+# ============================================================================
 
+
+def _extract_payment_link_entity(
+    payload: dict,
+) -> dict:
+    event_payload = payload.get("payload")
+
+    if not isinstance(event_payload, dict):
+        return {}
+
+    payment_link_container = event_payload.get(
+        "payment_link"
+    )
+
+    if not isinstance(payment_link_container, dict):
+        return {}
+
+    entity = payment_link_container.get(
+        "entity"
+    )
+
+    if not isinstance(entity, dict):
+        return {}
+
+    return entity
+
+
+def _extract_payment_link_payment_entity(
+    payload: dict,
+) -> dict:
+    return _extract_payment_payload(payload)
+
+
+def _extract_payment_link_id(
+    payment_link_entity: dict,
+) -> str:
+    return str(
+        payment_link_entity.get("id") or ""
+    ).strip()
+
+
+def _extract_payment_link_amount(
+    payment_link_entity: dict,
+) -> int | None:
+    value = payment_link_entity.get("amount")
+
+    if value is None:
+        return None
+
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _extract_payment_link_amount_paid(
+    payment_link_entity: dict,
+) -> int | None:
+    value = payment_link_entity.get("amount_paid")
+
+    if value is None:
+        return None
+
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 @transaction.atomic
 def process_payment_captured_webhook(
     *,
@@ -1584,7 +1691,350 @@ def process_payment_captured_webhook(
     )
 
     return payment
+# ============================================================================
+# PAYMENT LINK PAID WEBHOOK
+# ============================================================================
 
+
+@transaction.atomic
+def process_payment_link_paid_webhook(
+    *,
+    event: PaymentEvent,
+) -> Payment:
+    """
+    Process an authenticated Razorpay payment_link.paid webhook.
+
+    The PaymentLink record identifies the BlazeLine Payment. The gateway
+    payment entity is then validated against the stored Payment amount/currency
+    before converging on the same settlement path used by normal Razorpay
+    checkout webhooks.
+    """
+
+    payment_link_entity = _extract_payment_link_entity(
+        event.payload
+    )
+
+    payment_entity = _extract_payment_link_payment_entity(
+        event.payload
+    )
+
+    provider_link_id = _extract_payment_link_id(
+        payment_link_entity
+    )
+
+    gateway_payment_id = _extract_gateway_payment_id(
+        payment_entity
+    )
+
+    gateway_amount = _extract_gateway_amount(
+        payment_entity
+    )
+
+    gateway_currency = _extract_gateway_currency(
+        payment_entity
+    )
+
+    link_amount = _extract_payment_link_amount(
+        payment_link_entity
+    )
+
+    link_amount_paid = _extract_payment_link_amount_paid(
+        payment_link_entity
+    )
+
+    if not provider_link_id:
+        raise PaymentWebhookError(
+            "Payment Link ID is missing."
+        )
+
+    if not gateway_payment_id:
+        raise PaymentWebhookError(
+            "Webhook payment does not contain a payment ID."
+        )
+
+    if gateway_amount is None:
+        raise PaymentWebhookError(
+            "Webhook payment does not contain an amount."
+        )
+
+    if not gateway_currency:
+        raise PaymentWebhookError(
+            "Webhook payment does not contain a currency."
+        )
+
+    if link_amount is None:
+        raise PaymentWebhookError(
+            "Payment Link amount is missing."
+        )
+
+    if link_amount_paid is None:
+        raise PaymentWebhookError(
+            "Payment Link paid amount is missing."
+        )
+
+    if link_amount_paid != link_amount:
+        raise PaymentWebhookError(
+            "Payment Link was not fully paid."
+        )
+
+    payment_link = (
+        PaymentLink.objects
+        .select_for_update()
+        .select_related(
+            "payment",
+            "payment__order",
+        )
+        .filter(
+            provider="razorpay",
+            provider_link_id=provider_link_id,
+        )
+        .first()
+    )
+
+    if not payment_link:
+        raise PaymentWebhookError(
+            "No matching BlazeLine Payment Link found."
+        )
+
+    expected_link_amount = _money_to_paise(
+        payment_link.amount
+    )
+
+    if link_amount != expected_link_amount:
+        raise PaymentWebhookError(
+            "Payment Link amount does not match BlazeLine."
+        )
+
+    if payment_link.currency.upper() != gateway_currency:
+        raise PaymentWebhookError(
+            "Payment Link currency does not match gateway payment."
+        )
+
+    if gateway_currency != payment_link.payment.currency.upper():
+        raise PaymentWebhookError(
+            "Gateway payment currency does not match BlazeLine payment."
+        )
+
+    if gateway_amount != _money_to_paise(
+        payment_link.payment.amount
+    ):
+        raise PaymentWebhookError(
+            "Gateway payment amount does not match BlazeLine payment."
+        )
+
+    payment = _settle_payment_success(
+        payment=payment_link.payment,
+        gateway_payment_id=gateway_payment_id,
+        gateway_amount=gateway_amount,
+        gateway_currency=gateway_currency,
+        source_event=event.event_type,
+    )
+
+    payment_link.status = PaymentLink.Status.PAID
+    payment_link.paid_at = timezone.now()
+
+    metadata = (
+        payment_link.raw_metadata
+        if isinstance(
+            payment_link.raw_metadata,
+            dict,
+        )
+        else {}
+    )
+
+    updated_metadata = dict(metadata)
+    updated_metadata["payment_link_status"] = (
+        payment_link_entity.get("status")
+    )
+    updated_metadata["amount_paid"] = (
+        link_amount_paid
+    )
+    updated_metadata["gateway_payment_id"] = (
+        gateway_payment_id
+    )
+
+    payment_link.raw_metadata = updated_metadata
+
+    payment_link.save(
+        update_fields=[
+            "status",
+            "paid_at",
+            "raw_metadata",
+            "updated_at",
+        ]
+    )
+
+    event.payment = payment
+    event.processing_status = (
+        PaymentEvent.ProcessingStatus.PROCESSED
+    )
+    event.processed_at = timezone.now()
+    event.error_message = ""
+
+    event.save(
+        update_fields=[
+            "payment",
+            "processing_status",
+            "processed_at",
+            "error_message",
+        ]
+    )
+
+    return payment
+# ============================================================================
+# PAYMENT LINK STATE WEBHOOKS
+# ============================================================================
+
+
+def _get_payment_link_for_webhook(
+    *,
+    event: PaymentEvent,
+) -> PaymentLink:
+    payment_link_entity = _extract_payment_link_entity(
+        event.payload
+    )
+
+    provider_link_id = _extract_payment_link_id(
+        payment_link_entity
+    )
+
+    if not provider_link_id:
+        raise PaymentWebhookError(
+            "Payment Link ID is missing."
+        )
+
+    payment_link = (
+        PaymentLink.objects
+        .select_for_update()
+        .filter(
+            provider="razorpay",
+            provider_link_id=provider_link_id,
+        )
+        .first()
+    )
+
+    if not payment_link:
+        raise PaymentWebhookError(
+            "No matching BlazeLine Payment Link found."
+        )
+
+    return payment_link
+
+
+@transaction.atomic
+def process_payment_link_expired_webhook(
+    *,
+    event: PaymentEvent,
+) -> PaymentLink:
+    """
+    Mark the BlazeLine Payment Link as expired.
+
+    A paid link is never downgraded to expired.
+    """
+
+    payment_link = _get_payment_link_for_webhook(
+        event=event
+    )
+
+    if payment_link.status != PaymentLink.Status.PAID:
+        payment_link.status = PaymentLink.Status.EXPIRED
+
+    payment_link.raw_metadata = {
+        **(
+            payment_link.raw_metadata
+            if isinstance(
+                payment_link.raw_metadata,
+                dict,
+            )
+            else {}
+        ),
+        "last_webhook_event": event.event_type,
+    }
+
+    payment_link.save(
+        update_fields=[
+            "status",
+            "raw_metadata",
+            "updated_at",
+        ]
+    )
+
+    event.payment = payment_link.payment
+    event.processing_status = (
+        PaymentEvent.ProcessingStatus.PROCESSED
+    )
+    event.processed_at = timezone.now()
+    event.error_message = ""
+
+    event.save(
+        update_fields=[
+            "payment",
+            "processing_status",
+            "processed_at",
+            "error_message",
+        ]
+    )
+
+    return payment_link
+
+
+@transaction.atomic
+def process_payment_link_cancelled_webhook(
+    *,
+    event: PaymentEvent,
+) -> PaymentLink:
+    """
+    Mark the BlazeLine Payment Link as cancelled.
+
+    A paid link is never downgraded to cancelled.
+    """
+
+    payment_link = _get_payment_link_for_webhook(
+        event=event
+    )
+
+    if payment_link.status != PaymentLink.Status.PAID:
+        payment_link.status = PaymentLink.Status.CANCELLED
+        payment_link.cancelled_at = timezone.now()
+
+    payment_link.raw_metadata = {
+        **(
+            payment_link.raw_metadata
+            if isinstance(
+                payment_link.raw_metadata,
+                dict,
+            )
+            else {}
+        ),
+        "last_webhook_event": event.event_type,
+    }
+
+    payment_link.save(
+        update_fields=[
+            "status",
+            "cancelled_at",
+            "raw_metadata",
+            "updated_at",
+        ]
+    )
+
+    event.payment = payment_link.payment
+    event.processing_status = (
+        PaymentEvent.ProcessingStatus.PROCESSED
+    )
+    event.processed_at = timezone.now()
+    event.error_message = ""
+
+    event.save(
+        update_fields=[
+            "payment",
+            "processing_status",
+            "processed_at",
+            "error_message",
+        ]
+    )
+
+    return payment_link
 # ============================================================================
 # ORDER.PAID WEBHOOK
 # ============================================================================
