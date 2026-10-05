@@ -12,20 +12,34 @@ services:
       - .env
 
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
 
     command: >
       sh -c "
       python manage.py migrate &&
       python manage.py collectstatic --noinput &&
-      gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3
+      gunicorn config.wsgi:application
+      --bind 0.0.0.0:8000
+      --workers 3
+      --timeout 60
+      --graceful-timeout 30
+      --keep-alive 5
+      --max-requests 1000
+      --max-requests-jitter 100
+      --access-logfile -
+      --error-logfile -
       "
 
     healthcheck:
-      test: ["CMD", "python", "manage.py", "check"]
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready/', timeout=3).read()\""
+        ]
       interval: 30s
-      timeout: 10s
+      timeout: 5s
       retries: 3
+      start_period: 30s
 
     networks:
       - blazeline-network
