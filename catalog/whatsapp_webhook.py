@@ -9,7 +9,9 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import WhatsAppConversation, WhatsAppMessage
+import logging
 
+logger = logging.getLogger(__name__)
 
 def _digits_only(value):
     return "".join(ch for ch in str(value or "") if ch.isdigit())
@@ -387,8 +389,14 @@ def msg91_whatsapp_inbound_webhook(request):
             )
 
     except Exception:
-        # Return 500 so MSG91 can retry temporary failures.
-        raise
+        logger.exception(
+        "MSG91 webhook failed | customer=%s | message_id=%s | request_id=%s | type=%s",
+        customer_number,
+        provider_message_id,
+        provider_request_id,
+        message_type,
+    )
+    raise
 
     return JsonResponse(
         {
